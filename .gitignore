@@ -451,6 +451,7 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+.vsconfig
 
 # Crashlytics generated file
 crashlytics-build.properties
