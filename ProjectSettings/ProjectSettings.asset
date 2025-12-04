@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: afaf9d822e7a89148838c0489eb62aec
+  productGUID: 4d89b27b84290884c890614f389afc5d
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Avoid_Go
+  productName: Avoid_GOO
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -844,14 +844,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Avoid_Go
+  metroPackageName: Avoid_GOO
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Avoid_Go
+  metroApplicationDescription: Avoid_GOO
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -922,10 +922,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: ab4f261f-6249-474f-a4b7-8ef90221b50a
+  cloudProjectId: 6dc861fa-5e6e-4d90-af40-17976b56a953
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Avoid_Go
+  projectName: Avoid_GOO
   organizationId: silveser
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
