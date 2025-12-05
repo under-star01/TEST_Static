@@ -7,6 +7,15 @@
             "id": "797b5482-3707-4d50-928b-c8fa3513f140",
             "actions": [
                 {
+                    "name": "RightClick",
+                    "type": "Button",
+                    "id": "946de102-a617-4a10-ab5b-47cf70a0577c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Skill1",
                     "type": "Button",
                     "id": "1037bea6-a5fa-4049-9f45-1b253817a195",
@@ -19,15 +28,6 @@
                     "name": "SKill2",
                     "type": "Button",
                     "id": "9df991da-a5bd-46c8-95d2-5f5d0c4a9c86",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightClick",
-                    "type": "Button",
-                    "id": "946de102-a617-4a10-ab5b-47cf70a0577c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
