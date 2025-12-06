@@ -7,7 +7,7 @@ public class CharacterSelectCamera : MonoBehaviour
 {
     [SerializeField]Transform[] camPoints;
     [SerializeField] Transform centerPoint;
-    [SerializeField] Light spotlight;
+    [SerializeField] Light[] spotlights;
 
     public float rotationSpeed = 1f;
 
@@ -21,9 +21,10 @@ public class CharacterSelectCamera : MonoBehaviour
         mainCamera.transform.position = camPoints[0].position;
         mainCamera.transform.rotation = camPoints[0].rotation;
 
-        if (spotlight != null)
+        if (spotlights[0] != null && spotlights[1] != null)
         {
-            spotlight.intensity = 50f;
+            spotlights[0].intensity = 40f;
+            spotlights[1].intensity = 40f;
         }
     }
 
@@ -47,9 +48,10 @@ public class CharacterSelectCamera : MonoBehaviour
     public IEnumerator MovingCamera(int targetindex)
     {
         isRotating = true;
-        if (spotlight != null)
+        if (spotlights[0] != null && spotlights[1] != null)
         {
-            spotlight.intensity = 0f;
+            spotlights[0].intensity = 0f;
+            spotlights[1].intensity = 0f;
         }
 
         Vector3 startPosition = mainCamera.transform.position;
@@ -91,9 +93,10 @@ public class CharacterSelectCamera : MonoBehaviour
         mainCamera.transform.rotation = targetRotation;
 
         isRotating = false;
-        if (spotlight != null)
+        if (spotlights[0] != null && spotlights[1] != null)
         {
-            spotlight.intensity = 50f;
+            spotlights[0].intensity = 40f;
+            spotlights[1].intensity = 40f;
         }
     }
 }

@@ -194,7 +194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &799439469906120551
 Transform:
   m_ObjectHideFlags: 0
@@ -237,13 +237,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6176448662790947375}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.0017452955, z: 0, w: 0.9999985}
+  m_LocalRotation: {x: 0.7071057, y: 0.0012341102, z: -0.0012341102, w: 0.7071057}
   m_LocalPosition: {x: -10.7, y: 0.1, z: -5}
   m_LocalScale: {x: 30.5, y: 3.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 799439469906120551}
-  m_LocalEulerAnglesHint: {x: 0, y: 0.2, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0.2, z: 0}
 --- !u!33 &2646877168115691584
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -310,9 +310,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6222766981901413538}
   - component: {fileID: 4605117673113251002}
-  - component: {fileID: 8958026598024472970}
+  - component: {fileID: -6884126101340164841}
   m_Layer: 0
-  m_Name: ArgumentOutOfRangeException1
+  m_Name: ArgumentOutOfRangeException1_D
   m_TagString: Error
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,7 +357,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30.5, y: 4, z: 2.5}
   m_Center: {x: -10.7, y: 4.83, z: -0.89}
---- !u!114 &8958026598024472970
+--- !u!114 &-6884126101340164841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -366,8 +366,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6235457607384810144}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46f66e6a23083274e89a3d4a77789be8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d569a9858dca6842bcbc690582fcce3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_A
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_D
   trace: {fileID: 3627097196043281761}
-  fallSpeed: 5
+  fallSpeed: 10
