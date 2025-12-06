@@ -9,24 +9,43 @@ public class PlayerMove_A : MonoBehaviour
     [Header("맵 범위")]
     [SerializeField] private Collider mapCollider; // 맵 오브젝트 콜라이더
 
+    [Header("화면 회전 관련 설정")]
+    [SerializeField] private Transform cameraRoot;   // 카메라 부모 (pitch 회전용)
+    [SerializeField] private float lookSensitivity = 150f;
+    [SerializeField] private float minPitch = -60f;
+    [SerializeField] private float maxPitch = 80f;
+
     [Header("이동 관련 설정")]
-    [SerializeField] private bool hasTarget = false; // 목적지 존재 여부
-    [SerializeField] private float stopDistance = 0.1f; // 도착 판정 거리
     [SerializeField] private float moveSpeed = 5f; // 이동 속도
 
     private Rigidbody rb;
     private Animator animator;
     private Vector3 targetPos;
+
+    private Vector2 moveInput;
+    private Vector2 lookInput;
     private float minX, minZ, maxX,maxZ; // 맵 크기 변수
+   
+    // 회전 누적값
+    private float yaw;   // y축 회전 (좌우)
+    private float pitch; // x축 회전 (위/아래)
 
     private void Awake()
     {
         // 컴포넌트 연결
         TryGetComponent(out rb);
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
         animator = GetComponentInChildren<Animator>();
 
+        // 카메라 위아래 기준 오브젝트 설정
+        if (cameraRoot == null)
+        {
+            Debug.LogWarning("cameraRoot가 설정되지 않았습니다.");
+        }
+
         // 맵 범위 적용
-        if(mapCollider != null)
+        if (mapCollider != null)
         {
             Bounds mapBound = mapCollider.bounds;
             
@@ -41,37 +60,22 @@ public class PlayerMove_A : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // 마우스 고정 + 숨김
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // 시작 회전값으로 초기화
+        yaw = transform.eulerAngles.y;
+        if (cameraRoot != null)
+            pitch = cameraRoot.localEulerAngles.x;
+    }
+
     private void FixedUpdate()
     {
-        // 목적지가 없다면 이동x
-        if (!hasTarget)
-        {
-            rb.linearVelocity = Vector3.zero;
-            return;
-        }
-
-        // 타겟 거리에 따른 이동 제어
-        Vector3 currentPos = transform.position;
-        Vector3 toTarget = targetPos - currentPos;
-
-         // 도착 거리 도달 o
-        if(toTarget.magnitude < stopDistance)
-        {
-            hasTarget = false;
-            rb.linearVelocity = Vector3.zero;
-        }
-         // 도착 거리 도달 x
-        else
-        {
-            // 이동 및 회전 적용
-            rb.linearVelocity = toTarget.normalized * moveSpeed;
-
-            if (toTarget.sqrMagnitude > 0.0001f)
-            {
-                Quaternion rot = Quaternion.LookRotation(toTarget, Vector3.up);
-                rb.MoveRotation(rot);
-            }
-        }
+        // 이동 적용
+        HandleMove();
 
         // 이동 시, 맵 범위로 제한 적용
         ClampPositionInsideMap();
@@ -81,15 +85,61 @@ public class PlayerMove_A : MonoBehaviour
     {
         // 속도에 따른 애니메이션 적용
         float speed = rb.linearVelocity.magnitude;
-
         animator.SetFloat("Speed", speed);
+        animator.SetFloat("MoveX", moveInput.x); // 좌/우
+        animator.SetFloat("MoveY", moveInput.y); // 앞/뒤
+
+        // 화면 회전 적용
+        HandleLook();
     }
 
-    // 목적지 설정 메소드
-    public void SetDestination(Vector3 target)
+    public void SetMoveInput(Vector2 move)
     {
-        targetPos = target;
-        hasTarget = true;
+        moveInput = move;
+    }
+
+    public void SetLookInput(Vector2 look)
+    {
+        lookInput = look;
+    }
+
+    private void HandleMove()
+    {
+        // 현재 바라보는 방향 기준으로 앞/뒤, 좌/우 벡터
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+        Vector3 moveDir = (forward * moveInput.y + right * moveInput.x).normalized;
+
+        Vector3 velocity = moveDir * moveSpeed;
+        velocity.y = rb.linearVelocity.y; // 중력 유지
+
+        rb.linearVelocity = velocity;
+    }
+
+    // 화면 회전 메소드
+    private void HandleLook()
+    {
+        if (lookInput == Vector2.zero)
+            return;
+
+        // 마우스 델타 기반 회전 누적
+        float mouseX = lookInput.x * lookSensitivity * Time.deltaTime;
+        float mouseY = lookInput.y * lookSensitivity * Time.deltaTime;
+
+        yaw += mouseX;
+        pitch -= mouseY; // 위로 올릴 때 pitch 감소
+
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+
+        // 좌우 회전은 플레이어 전체
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+
+        // 상하 회전은 카메라 루트만
+        if (cameraRoot != null)
+            cameraRoot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        
+        // 다시 Vector.zero로 초기화
+        lookInput = Vector2.zero;
     }
 
     // 맵 크기로 이동 제한 메소드
@@ -106,4 +156,6 @@ public class PlayerMove_A : MonoBehaviour
 
         rb.position = pos;
     }
+
+
 }

@@ -31,32 +31,45 @@ public class PlayerInput_A : MonoBehaviour
     private void OnEnable()
     {
         // InputAction 연결 및 활성화
-        inputActions.Player.RightClick.performed += OnRightClick;
+        inputActions.Player.Move.performed += OnMove;
+        inputActions.Player.Move.canceled += OnMove;
+        inputActions.Player.Look.performed += OnLook;
         inputActions.Enable();
     }
 
     private void OnDisable()
     {
         // InputAction 해제 및 비활성화
-        inputActions.Player.RightClick.performed -= OnRightClick;
+        inputActions.Player.Move.performed -= OnMove;
+        inputActions.Player.Move.canceled -= OnMove;
+        inputActions.Player.Look.performed -= OnLook;
         inputActions.Disable();
     }
 
-    // 마우스 클릭 입력 메소드
-    private void OnRightClick(InputAction.CallbackContext context)
+    // WASD 방향키 이동 메소드
+    public void OnMove(InputAction.CallbackContext context)
     {
-        // 클릭 위치로 이동 함수 실행 
-        Vector3 screenPos = Mouse.current.position.ReadValue();
-        Ray ray = mainCamera.ScreenPointToRay(screenPos);
+        Vector2 raw = context.ReadValue<Vector2>();
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, detectLayer))
-        {
-            Vector3 hitPoint = hit.point;
+        float dead = 0.1f;
+        float dirX = 0f;
+        float dirY = 0f;
 
-            hitPoint.y = transform.position.y; // y값은 유지
-            playerMove.SetDestination(hit.point);
-        }
+        // 1, 0, -1로 input 정리
+        if (raw.x > dead) dirX = 1f;
+        if (raw.x < -dead) dirX = -1f;
+        if (raw.y > dead) dirY = 1f;
+        if (raw.y < -dead) dirY = -1f;
+
+        Vector2 move = new Vector2(dirX, dirY);
+        playerMove.SetMoveInput(move);
     }
 
+    // 화면 회전 메소드
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 look = context.ReadValue<Vector2>();
+        playerMove.SetLookInput(look);
+    }
 
 }
