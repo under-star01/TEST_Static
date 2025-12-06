@@ -8,12 +8,27 @@ public class CharacterSelectCamera : MonoBehaviour
     [SerializeField]Transform[] camPoints;
     [SerializeField] Transform centerPoint;
     [SerializeField] Light[] spotlights;
+    [SerializeField] CharacterData[] characterDataList; 
 
     public float rotationSpeed = 1f;
-
     private Camera mainCamera;
     private int currentIndex = 0;
     private bool isRotating = false;
+
+    // 현재 선택된 캐릭터 정보를 가져오는 프로퍼티
+    public CharacterData CurrentCharacter
+    {
+        get
+        {
+            if (characterDataList != null && currentIndex < characterDataList.Length)
+                return characterDataList[currentIndex];
+            return null;
+        }
+    }
+
+    public int CurrentIndex => currentIndex;
+    // UI 업데이트를 위한 이벤트
+    public event Action<CharacterData> OnCharacterChanged;
 
     void Start()
     {
@@ -26,6 +41,9 @@ public class CharacterSelectCamera : MonoBehaviour
             spotlights[0].intensity = 40f;
             spotlights[1].intensity = 40f;
         }
+
+        // 첫 캐릭터 정보 표시
+        OnCharacterChanged?.Invoke(CurrentCharacter);
     }
 
     public void SelectLeft()
@@ -98,5 +116,8 @@ public class CharacterSelectCamera : MonoBehaviour
             spotlights[0].intensity = 40f;
             spotlights[1].intensity = 40f;
         }
+
+        // 캐릭터 변경 이벤트 발생
+        OnCharacterChanged?.Invoke(CurrentCharacter);
     }
 }
