@@ -8,10 +8,10 @@ public class ObstacleCtrl_A : MonoBehaviour
     private void Start()
     {
         // 시작시, 바닥에 경로 표시
-        Vector3 trancePos = new Vector3(transform.position.x, 0.05f, transform.position.z);
+        Vector3 trancePos = new Vector3(transform.position.x, -2.4f, transform.position.z);
         
-        trace.transform.SetParent(null);
         trace.transform.position = trancePos;
+        trace.transform.SetParent(null);
         trace.gameObject.SetActive(true);
     }
 
