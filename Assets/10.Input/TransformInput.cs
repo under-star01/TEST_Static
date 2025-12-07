@@ -199,7 +199,7 @@ public partial class @TransformInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6cf0cb44-f4da-4e37-8afe-71b65113ae2f"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PC"",

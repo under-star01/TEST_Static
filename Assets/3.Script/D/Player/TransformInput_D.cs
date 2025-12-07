@@ -92,7 +92,7 @@ public class TransformInput_D : MonoBehaviour
         }
     }
 
-    // 스킬2 (Shift - 작아지기)
+    // 스킬2
     private void OnSkill2(InputAction.CallbackContext context)
     {
         if (skillController != null)
