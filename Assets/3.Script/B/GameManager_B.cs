@@ -1,5 +1,6 @@
-using UnityEngine;
 using Game.UI;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager_B : MonoBehaviour
 {
@@ -28,11 +29,11 @@ public class GameManager_B : MonoBehaviour
             // 매 프레임마다 deltaTime을 더해서 총 생존 시간 계산
             survivalTime += Time.deltaTime;
         }
-
-        // 테스트용: G키를 누르면 게임오버
-        if (Input.GetKeyDown(KeyCode.G))
+        // Keyboard.current: 현재 연결된 키보드 // gKey: G키
+        // wasPressedThisFrame: 이번 프레임에 눌렸는지
+        if (Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
         {
-            TriggerGameOver(); // 게임오버 함수 호출
+            TriggerGameOver();
         }
     }
 
