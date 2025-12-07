@@ -17,6 +17,7 @@ public class PlayerMove_A : MonoBehaviour
 
     [Header("이동 관련 설정")]
     [SerializeField] private float moveSpeed = 5f; // 이동 속도
+    [SerializeField] private bool isKnockBack = false; // 넉백 여부
 
     private Rigidbody rb;
     private Animator animator;
@@ -29,6 +30,7 @@ public class PlayerMove_A : MonoBehaviour
     // 회전 누적값
     private float yaw;   // y축 회전 (좌우)
     private float pitch; // x축 회전 (위/아래)
+    private List<GameObject> gameObjects;
 
     private void Awake()
     {
@@ -74,6 +76,9 @@ public class PlayerMove_A : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 넉백시 속도 초기화 제한
+        if (isKnockBack) return;
+
         // 이동 적용
         HandleMove();
 
@@ -83,6 +88,9 @@ public class PlayerMove_A : MonoBehaviour
 
     private void Update()
     {
+        // 넉백시 속도 초기화 제한
+        if (isKnockBack) return;
+
         // 속도에 따른 애니메이션 적용
         float speed = rb.linearVelocity.magnitude;
         animator.SetFloat("Speed", speed);
@@ -157,5 +165,23 @@ public class PlayerMove_A : MonoBehaviour
         rb.position = pos;
     }
 
+    public void ApplyKnockBack(Vector3 dir, float power, float duration)
+    {
+        StartCoroutine(ApplyKnockBack_co(dir, power, duration));
+    }
 
+
+    // 넉백 실행 코루틴
+    private IEnumerator ApplyKnockBack_co(Vector3 dir, float power, float duration)
+    {
+        // 해당 방향으로 일정 시간 넉백 + 피격 애니메이션
+        isKnockBack = true;
+        rb.AddForce(dir.normalized * power);
+        animator.SetTrigger("Damaged");
+        yield return new WaitForSeconds(duration);
+
+        // 상태 초기화
+        rb.linearVelocity = Vector3.zero;
+        isKnockBack = false;
+    }
 }
