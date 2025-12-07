@@ -11,7 +11,7 @@ public class PlayerMove_D : MonoBehaviour
 
     [Header("화면 회전 관련 설정")]
     [SerializeField] private Transform cameraRoot;   // 카메라 부모 (pitch 회전용)
-    [SerializeField] private float lookSensitivity = 150f;
+    [SerializeField] public float lookSensitivity = 15f;
     [SerializeField] private float minPitch = -60f;
     [SerializeField] private float maxPitch = 80f;
 
