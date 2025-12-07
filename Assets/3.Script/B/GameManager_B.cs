@@ -29,11 +29,11 @@ public class GameManager_B : MonoBehaviour
             survivalTime += Time.deltaTime;
         }
 
-        // 테스트용: G키를 누르면 게임오버
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            TriggerGameOver(); // 게임오버 함수 호출
-        }
+        //// 테스트용: G키를 누르면 게임오버
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    TriggerGameOver(); // 게임오버 함수 호출
+        //}
     }
 
     // 게임오버 처리 함수 

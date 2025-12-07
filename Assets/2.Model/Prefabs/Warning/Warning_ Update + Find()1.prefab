@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2624328933212944188}
   - component: {fileID: 5919392782141811403}
   - component: {fileID: 9109681255395903536}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: no2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,8 @@ GameObject:
   - component: {fileID: 6933923850455872740}
   - component: {fileID: 4985133680664810584}
   - component: {fileID: 2355227940005217136}
-  m_Layer: 0
+  - component: {fileID: -5173840336537632657}
+  m_Layer: 7
   m_Name: Warning_ Update + Find()1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +141,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_A
   trace: {fileID: 2800022769405618186}
   fallSpeed: 10
-  traceHeight: 2.4
 --- !u!65 &2355227940005217136
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -162,6 +162,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 4, z: 2.8}
   m_Center: {x: -10.5, y: 4.8, z: -1.5}
+--- !u!54 &-5173840336537632657
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999186643883072044}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &2800022769405618186
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3462986577279186141}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +232,7 @@ GameObject:
   - component: {fileID: 3652566813501456829}
   - component: {fileID: 4518974407615811683}
   - component: {fileID: 5598775880607631261}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +321,7 @@ GameObject:
   - component: {fileID: 6477357351025465589}
   - component: {fileID: 8630816468828042346}
   - component: {fileID: 5340123071402664165}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'Warning: Update + Find()'
   m_TagString: Untagged
   m_Icon: {fileID: 0}

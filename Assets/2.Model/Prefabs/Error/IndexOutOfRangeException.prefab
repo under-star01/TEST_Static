@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7860343054738499006}
   - component: {fileID: 4151527025077711893}
   - component: {fileID: 2632041185352739576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: IndexOutOfRangeException
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 7957075703105549102}
   - component: {fileID: 2700111768419860066}
   - component: {fileID: 9069972284970428715}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: nooo1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,8 @@ GameObject:
   - component: {fileID: 4446509945985316316}
   - component: {fileID: 8324772251587446719}
   - component: {fileID: 4330602378746648029}
-  m_Layer: 0
+  - component: {fileID: 8551990372336587330}
+  m_Layer: 7
   m_Name: IndexOutOfRangeException
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_A
   trace: {fileID: 7538501325029390108}
   fallSpeed: 10
-  traceHeight: 2.4
 --- !u!65 &4330602378746648029
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -245,12 +245,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 30, y: 4, z: 2.8}
   m_Center: {x: -10.5, y: 4.8, z: -1.5}
+--- !u!54 &8551990372336587330
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403605155634554902}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &4756377504992349096
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +289,7 @@ GameObject:
   - component: {fileID: 9079830775737266745}
   - component: {fileID: 1930878763085345787}
   - component: {fileID: 6066252560759075670}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3780499673678985848}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trace
   m_TagString: Untagged
   m_Icon: {fileID: 0}

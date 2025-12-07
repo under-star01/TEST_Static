@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4010106051063717393}
   - component: {fileID: 7115281697882473554}
   - component: {fileID: 9090901670716009381}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4942016280199722895}
   - component: {fileID: 4956189039890004110}
   - component: {fileID: 5954479105048749798}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: no2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,8 @@ GameObject:
   - component: {fileID: 2383566809415507434}
   - component: {fileID: 3464213248920570877}
   - component: {fileID: 1114548709136458}
-  m_Layer: 0
+  - component: {fileID: 2020383386731002276}
+  m_Layer: 7
   m_Name: Warning_ Physics in Update()1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_A
   trace: {fileID: 8914689205821395752}
   fallSpeed: 10
-  traceHeight: 2.4
 --- !u!65 &1114548709136458
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -251,6 +251,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 4, z: 2.8}
   m_Center: {x: -10.5, y: 4.8, z: -1.5}
+--- !u!54 &2020383386731002276
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6179222479160301902}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &6740660612117411755
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +289,7 @@ GameObject:
   - component: {fileID: 4513852100006518837}
   - component: {fileID: 5555728746308705084}
   - component: {fileID: 7346813879959306063}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'Warning: Physics in Update()'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1100563155613233851}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trace
   m_TagString: Untagged
   m_Icon: {fileID: 0}

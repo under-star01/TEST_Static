@@ -1,12 +1,24 @@
+using System.Collections;
 using UnityEngine;
 
 public class ObstacleCtrl_A : MonoBehaviour
 {
     [SerializeField] private GameObject trace;
-    [SerializeField] private float fallSpeed = 10f;
-    [SerializeField] private float traceHeight = 2.4f;
+    [SerializeField] private float fallSpeed = 10f;    // ì´ˆê¸° ë‚™í•˜ ì†ë„
+    private float traceHeight = -2.4f;
 
-    private bool initialized = false; // ¸Ç Ã³À½ »ı¼ºÇÒ ¶§ÀÎÁö ¿©ºÎ
+    private bool initialized = false; // ë§¨ ì²˜ìŒ ìƒì„±í•  ë•Œì¸ì§€ ì—¬ë¶€
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        if (rb == null)
+        {
+            Debug.LogError("ObstacleCtrl_Aì— Rigidbodyê°€ í•„ìš”í•©ë‹ˆë‹¤!");
+        }
+    }
 
     private void OnEnable()
     {
@@ -14,66 +26,87 @@ public class ObstacleCtrl_A : MonoBehaviour
 
         if (!initialized)
         {
-            // Ã³À½ Ç®¿¡ »ı¼ºµÉ ¶§´Â ºÎ¸ğ À¯Áö
-            trace.SetActive(false); 
+            // ì²˜ìŒ í’€ì— ìƒì„±ë  ë•ŒëŠ” ë¶€ëª¨ ìœ ì§€ + ìˆ¨ê¸°ê¸°
+            trace.SetActive(false);
             initialized = true;
             return;
         }
 
-        // yÃà È¸Àü ·£´ı ¼³Á¤
+        // yì¶• íšŒì „ ëœë¤ ì„¤ì •
         float randomY = Random.Range(0f, 360f);
-        transform.rotation = Quaternion.Euler(0f, randomY, 0f);
 
-        // ½ÃÀÛ½Ã, ¹Ù´Ú¿¡ ¹üÀ§ Ç¥½Ã ¼³Á¤
+        // ë‚™í•˜ ì‹œì‘ ì†ë„ ì„¤ì •
+        if (rb != null)
+        {
+            // ìœ„ì—ì„œ ì•„ë˜ë¡œ ì¼ì • ì†ë„ë¡œ ë–¨ì–´ì§€ê²Œ (ì¤‘ë ¥ + ì´ˆê¸° ì†ë„)
+            rb.linearVelocity = Vector3.down * fallSpeed;
+        }
+
+        // ì‹œì‘ì‹œ, ë°”ë‹¥ì— ë²”ìœ„ í‘œì‹œ ì„¤ì •
         trace.transform.SetParent(null);
-        trace.SetActive(true);
-        
-        Vector3 trancePos = new Vector3(transform.position.x, -traceHeight, transform.position.z);
+
+        Vector3 trancePos = new Vector3(transform.position.x, traceHeight, transform.position.z);
         trace.transform.position = trancePos;
+        transform.rotation = Quaternion.Euler(0f, randomY, 0f);
+        trace.transform.rotation = Quaternion.Euler(90f, randomY, 0f);
+
+        trace.SetActive(true);
     }
 
     private void OnDisable()
     {
-        if (trace == null) return;
+        if (trace != null)
+        {
+            trace.SetActive(false);
+        }
 
-        trace.SetActive(false);
-    }
-
-    private void Update()
-    {
-        transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+        // í’€ì— ëŒì•„ê°ˆ ë•Œ ì†ë„ ì´ˆê¸°í™”
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // ¹Ù´Ú°ú ºÎµúÇûÀ» °æ¿ì
-        if (other.gameObject.CompareTag("Floor"))
+        // Floor ë˜ëŠ” DeadLineê³¼ ë¶€ë”ªí˜”ì„ ê²½ìš°
+        if (other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("DeadLine"))
         {
-            // ºñÈ°¼ºÈ­ Ã³¸®
-            trace.transform.SetParent(transform);
+            // ë¹„í™œì„±í™” ì²˜ë¦¬
             gameObject.SetActive(false);
         }
-        // ÇÃ·¹ÀÌ¾î¿Í ºÎµúÇûÀ» °æ¿ì
+        // í”Œë ˆì´ì–´ì™€ ë¶€ë”ªí˜”ì„ ê²½ìš°
         else if (other.gameObject.CompareTag("Player"))
         {
-            // ¹Ğ¾î³¾ ¹æÇâ °è»ê
+            // ë°€ì–´ë‚¼ ë°©í–¥ ê³„ì‚° (í”Œë ˆì´ì–´ ê¸°ì¤€ ë„‰ë°± ë°©í–¥)
             Vector3 dir = other.transform.position - transform.position;
-            dir.y = 0f; // ¼öÆòÀ¸·Î¸¸ ÇÃ·¹ÀÌ¾î¸¦ ¹Ò
-            dir.Normalize();
-
-            // PlayerMove ½ºÅ©¸³Æ®ÀÇ ApplyKnockBack ÇÔ¼ö ½ÇÇà
             PlayerMove_A playerMove = other.GetComponent<PlayerMove_A>();
-            
-            if(playerMove != null)
+
+            if (playerMove != null)
             {
-                Debug.Log("¹æÇØ¹°°ú Ãæµ¹Çß¾î!");
-                // ¹İ´ë¹æÇâÀ¸·Î, 100f¸¸Å­ 1ÃÊµ¿¾È ³Ë¹é!
-                playerMove.ApplyKnockBack(dir, 300f, 0.8f);
+                // ë°˜ëŒ€ë°©í–¥ìœ¼ë¡œ, 5fë§Œí¼ 0.4ì´ˆ ë™ì•ˆ ë„‰ë°±!
+                dir.y = 0f;
+                playerMove.ApplyKnockBack(dir.normalized, 5f, 0.4f);
             }
 
-            // ºñÈ°¼ºÈ­ Ã³¸®
-            trace.transform.SetParent(transform);
+            // ë‚™í•˜ë¬¼ë„ ê°™ì´ êº¼ì§
             gameObject.SetActive(false);
         }
+    }
+
+    // ì§€ì—° ë¹„í™œì„±í™” ë©”ì†Œë“œ
+    public void DelayToDeActivate(float duration)
+    {
+        StartCoroutine(DelayToDeActivate_co(duration));
+    }
+
+    // ì§€ì—° ë¹„í™œì„±í™” ì½”ë£¨í‹´
+    private IEnumerator DelayToDeActivate_co(float duration)
+    {
+        // ì¼ì • ì‹œê°„ ëŒ€ê¸°
+        yield return new WaitForSeconds(duration);
+        
+        // ë¹„í™œì„±í™”
+        gameObject.SetActive(false);
     }
 }

@@ -93,33 +93,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""797b5482-3707-4d50-928b-c8fa3513f140"",
             ""actions"": [
                 {
-                    ""name"": ""RightClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""946de102-a617-4a10-ab5b-47cf70a0577c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Skill1"",
-                    ""type"": ""Button"",
-                    ""id"": ""1037bea6-a5fa-4049-9f45-1b253817a195"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SKill2"",
-                    ""type"": ""Button"",
-                    ""id"": ""9df991da-a5bd-46c8-95d2-5f5d0c4a9c86"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""b2eac8d7-05c8-4c4f-b89c-298b19e46aa5"",
@@ -136,39 +109,46 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Skill_Shift"",
+                    ""type"": ""Button"",
+                    ""id"": ""1037bea6-a5fa-4049-9f45-1b253817a195"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""9df991da-a5bd-46c8-95d2-5f5d0c4a9c86"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""5c46b5af-e5d7-4919-b97a-f070bc4b88ce"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PC"",
-                    ""action"": ""Skill1"",
+                    ""action"": ""Skill_Shift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""8ca00804-17f9-4362-9d50-b7a766d93c3e"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PC"",
-                    ""action"": ""SKill2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""78d31571-57c6-4e85-9c4d-36378194c2a3"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";PC"",
-                    ""action"": ""RightClick"",
+                    ""action"": ""Skill_Space"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -251,11 +231,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_RightClick = m_Player.FindAction("RightClick", throwIfNotFound: true);
-        m_Player_Skill1 = m_Player.FindAction("Skill1", throwIfNotFound: true);
-        m_Player_SKill2 = m_Player.FindAction("SKill2", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_Skill_Shift = m_Player.FindAction("Skill_Shift", throwIfNotFound: true);
+        m_Player_Skill_Space = m_Player.FindAction("Skill_Space", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -336,11 +315,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_RightClick;
-    private readonly InputAction m_Player_Skill1;
-    private readonly InputAction m_Player_SKill2;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_Skill_Shift;
+    private readonly InputAction m_Player_Skill_Space;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -353,18 +331,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Player/RightClick".
-        /// </summary>
-        public InputAction @RightClick => m_Wrapper.m_Player_RightClick;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Skill1".
-        /// </summary>
-        public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/SKill2".
-        /// </summary>
-        public InputAction @SKill2 => m_Wrapper.m_Player_SKill2;
-        /// <summary>
         /// Provides access to the underlying input action "Player/Look".
         /// </summary>
         public InputAction @Look => m_Wrapper.m_Player_Look;
@@ -372,6 +338,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Move".
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Player_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Skill_Shift".
+        /// </summary>
+        public InputAction @Skill_Shift => m_Wrapper.m_Player_Skill_Shift;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Skill_Space".
+        /// </summary>
+        public InputAction @Skill_Space => m_Wrapper.m_Player_Skill_Space;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -398,21 +372,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @RightClick.started += instance.OnRightClick;
-            @RightClick.performed += instance.OnRightClick;
-            @RightClick.canceled += instance.OnRightClick;
-            @Skill1.started += instance.OnSkill1;
-            @Skill1.performed += instance.OnSkill1;
-            @Skill1.canceled += instance.OnSkill1;
-            @SKill2.started += instance.OnSKill2;
-            @SKill2.performed += instance.OnSKill2;
-            @SKill2.canceled += instance.OnSKill2;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Skill_Shift.started += instance.OnSkill_Shift;
+            @Skill_Shift.performed += instance.OnSkill_Shift;
+            @Skill_Shift.canceled += instance.OnSkill_Shift;
+            @Skill_Space.started += instance.OnSkill_Space;
+            @Skill_Space.performed += instance.OnSkill_Space;
+            @Skill_Space.canceled += instance.OnSkill_Space;
         }
 
         /// <summary>
@@ -424,21 +395,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="PlayerActions" />
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @RightClick.started -= instance.OnRightClick;
-            @RightClick.performed -= instance.OnRightClick;
-            @RightClick.canceled -= instance.OnRightClick;
-            @Skill1.started -= instance.OnSkill1;
-            @Skill1.performed -= instance.OnSkill1;
-            @Skill1.canceled -= instance.OnSkill1;
-            @SKill2.started -= instance.OnSKill2;
-            @SKill2.performed -= instance.OnSKill2;
-            @SKill2.canceled -= instance.OnSKill2;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Skill_Shift.started -= instance.OnSkill_Shift;
+            @Skill_Shift.performed -= instance.OnSkill_Shift;
+            @Skill_Shift.canceled -= instance.OnSkill_Shift;
+            @Skill_Space.started -= instance.OnSkill_Space;
+            @Skill_Space.performed -= instance.OnSkill_Space;
+            @Skill_Space.canceled -= instance.OnSkill_Space;
         }
 
         /// <summary>
@@ -493,27 +461,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         /// <summary>
-        /// Method invoked when associated input action "RightClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRightClick(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Skill1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSkill1(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "SKill2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSKill2(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -527,5 +474,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Skill_Shift" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkill_Shift(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Skill_Space" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkill_Space(InputAction.CallbackContext context);
     }
 }

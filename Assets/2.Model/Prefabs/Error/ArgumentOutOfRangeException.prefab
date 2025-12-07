@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4482619548360096072}
   - component: {fileID: 3060947373849652525}
   - component: {fileID: 4095462743411987176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: nooo1.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 2273908211639016163}
   - component: {fileID: 6333056988612286406}
   - component: {fileID: 2248658941334636323}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3080421490527083321}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 2388942119874147036}
   - component: {fileID: 7712902735499388644}
   - component: {fileID: 4646089082900341862}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArgumentOutOfRangeException
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,8 @@ GameObject:
   - component: {fileID: 4962891034324525520}
   - component: {fileID: 9218120737003837372}
   - component: {fileID: 233785666497189102}
-  m_Layer: 0
+  - component: {fileID: -5061933167125890638}
+  m_Layer: 7
   m_Name: ArgumentOutOfRangeException
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +373,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_A
   trace: {fileID: 3164918924628263730}
   fallSpeed: 10
-  traceHeight: 2.4
 --- !u!65 &233785666497189102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -388,9 +388,36 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 30, y: 4, z: 2.8}
   m_Center: {x: -10.5, y: 4.8, z: -1.5}
+--- !u!54 &-5061933167125890638
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9168472777034775131}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

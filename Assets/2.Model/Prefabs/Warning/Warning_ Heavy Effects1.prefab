@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4849822708360001142}
   - component: {fileID: 7999488109776157713}
   - component: {fileID: 3681229123001815664}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 5701800985410163768}
   - component: {fileID: 1688109679931029854}
   - component: {fileID: 2281258786984871582}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: no2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,8 @@ GameObject:
   - component: {fileID: 3575375527935092846}
   - component: {fileID: 4165261516430832133}
   - component: {fileID: 1757458234533909705}
-  m_Layer: 0
+  - component: {fileID: -4239687015016522155}
+  m_Layer: 7
   m_Name: Warning_ Heavy Effects1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_A
   trace: {fileID: 8060655835172635048}
   fallSpeed: 10
-  traceHeight: 2.4
 --- !u!65 &1757458234533909705
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -251,6 +251,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 4, z: 2.8}
   m_Center: {x: -10.5, y: 4.8, z: -1.5}
+--- !u!54 &-4239687015016522155
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4909068644608387004}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &5448913169136388236
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +289,7 @@ GameObject:
   - component: {fileID: 4100240012658476837}
   - component: {fileID: 8075465039826464973}
   - component: {fileID: 706063420121103811}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'Warning: Heavy Effects'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 721902690723253002}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trace
   m_TagString: Untagged
   m_Icon: {fileID: 0}

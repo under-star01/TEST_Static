@@ -7,25 +7,20 @@ using UnityEngine.InputSystem;
 public class PlayerInput_A : MonoBehaviour
 {
     [Header("기본 설정")]
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask detectLayer;
-    
+
     private PlayerInputActions inputActions;
     private PlayerMove_A playerMove;
+    private PlayerSkillBase playerSkill;
 
     private void Awake()
     {
         // 컴포넌트 연결
         TryGetComponent(out playerMove);
+        TryGetComponent(out playerSkill);
 
         // InputAction 생성
         inputActions = new PlayerInputActions();
-
-        // 카메라 연결
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
     }
 
     private void OnEnable()
@@ -34,6 +29,8 @@ public class PlayerInput_A : MonoBehaviour
         inputActions.Player.Move.performed += OnMove;
         inputActions.Player.Move.canceled += OnMove;
         inputActions.Player.Look.performed += OnLook;
+        inputActions.Player.Skill_Shift.performed += OnShiftSkill;
+        inputActions.Player.Skill_Space.performed += OnSpaceSkill;
         inputActions.Enable();
     }
 
@@ -43,11 +40,13 @@ public class PlayerInput_A : MonoBehaviour
         inputActions.Player.Move.performed -= OnMove;
         inputActions.Player.Move.canceled -= OnMove;
         inputActions.Player.Look.performed -= OnLook;
+        inputActions.Player.Skill_Shift.performed -= OnShiftSkill;
+        inputActions.Player.Skill_Space.performed -= OnSpaceSkill;
         inputActions.Disable();
     }
 
     // WASD 방향키 이동 메소드
-    public void OnMove(InputAction.CallbackContext context)
+    private void OnMove(InputAction.CallbackContext context)
     {
         Vector2 raw = context.ReadValue<Vector2>();
 
@@ -66,10 +65,21 @@ public class PlayerInput_A : MonoBehaviour
     }
 
     // 화면 회전 메소드
-    public void OnLook(InputAction.CallbackContext context)
+    private void OnLook(InputAction.CallbackContext context)
     {
         Vector2 look = context.ReadValue<Vector2>();
         playerMove.SetLookInput(look);
     }
 
+    // Shift 스킬 사용 메소드
+    private void OnShiftSkill(InputAction.CallbackContext context)
+    {
+        playerSkill.UseSkill_Shift();
+    }
+
+    // Space 스킬 사용 메소드
+    private void OnSpaceSkill(InputAction.CallbackContext context)
+    {
+        playerSkill.UseSkill_Space();
+    }
 }

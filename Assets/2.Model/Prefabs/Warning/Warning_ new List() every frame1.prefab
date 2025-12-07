@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3959475601520798440}
   - component: {fileID: 8911345056679595432}
   - component: {fileID: 9192311058380090692}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'Warning: new List() every frame'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,8 @@ GameObject:
   - component: {fileID: 6244216069453181308}
   - component: {fileID: 4007754690061292447}
   - component: {fileID: 8144519580648287013}
-  m_Layer: 0
+  - component: {fileID: -2179286661717386129}
+  m_Layer: 7
   m_Name: Warning_ new List() every frame1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +140,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleCtrl_A
   trace: {fileID: 4827999194666046773}
   fallSpeed: 10
-  traceHeight: 2.4
 --- !u!65 &8144519580648287013
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -161,6 +161,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 4, z: 2.8}
   m_Center: {x: -10.5, y: 4.8, z: -1.5}
+--- !u!54 &-2179286661717386129
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4795392364874672453}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &4827999194666046773
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9197391373858679236}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +231,7 @@ GameObject:
   - component: {fileID: 2603645841278031824}
   - component: {fileID: 911647436694676325}
   - component: {fileID: 5517495189030353073}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +320,7 @@ GameObject:
   - component: {fileID: 3519233362934974757}
   - component: {fileID: 5213933069934114187}
   - component: {fileID: 2514639222163936788}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: no2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
