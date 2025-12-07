@@ -29,7 +29,9 @@ public class TransformSkill_D : MonoBehaviour
     public float shrinkScale = 0.5f;
     public float shrinkDuration = 5f;
     public float scaleTransitionTime = 0.5f;     // 크기 변화 시간
+    public float shrinkCooldownTime = 20f;       // 작아지기 쿨타임
     private bool isShrunken = false;
+    private float shrinkCooldownTimer = 0f;      // 쿨타임 타이머
 
     private Vector3 originalScale;
 
@@ -60,7 +62,7 @@ public class TransformSkill_D : MonoBehaviour
 
     private void Update()
     {
-        // 쿨타임 업데이트
+        // 텔레포트 쿨타임 업데이트
         for (int i = cooldownTimers.Count - 1; i >= 0; i--)
         {
             cooldownTimers[i] -= Time.deltaTime;
@@ -71,6 +73,17 @@ public class TransformSkill_D : MonoBehaviour
                 currentStacks++;
                 cooldownTimers.RemoveAt(i);
                 Debug.Log($"텔레포트 스택 충전! 현재 스택: {currentStacks}/{maxStacks}");
+            }
+        }
+
+        // 작아지기 쿨타임 업데이트
+        if (shrinkCooldownTimer > 0)
+        {
+            shrinkCooldownTimer -= Time.deltaTime;
+
+            if (shrinkCooldownTimer <= 0)
+            {
+                Debug.Log("작아지기 스킬 사용 가능!");
             }
         }
     }
@@ -122,6 +135,7 @@ public class TransformSkill_D : MonoBehaviour
         {
             Debug.Log("맵 밖으로는 텔레포트할 수 없습니다.");
             yield return StartCoroutine(FadeIn(fadeInTime));
+
             isTeleporting = false;
             yield break;
         }
@@ -140,7 +154,7 @@ public class TransformSkill_D : MonoBehaviour
         // 7. 페이드 인 (나타나기)
         yield return StartCoroutine(FadeIn(fadeInTime));
 
-        // 8. 텔레포트 완료
+        // 9. 텔레포트 완료
         isTeleporting = false;
         Debug.Log("텔레포트 시퀀스 완료");
     }
@@ -257,13 +271,37 @@ public class TransformSkill_D : MonoBehaviour
         return GetMinCooldown();
     }
 
+    // 작아지기 스킬 쿨타임 반환 (UI 표시용)
+    public float GetShrinkCooldown()
+    {
+        return shrinkCooldownTimer;
+    }
+
+    // 작아지기 스킬 사용 가능 여부 (UI 표시용)
+    public bool IsShrinkAvailable()
+    {
+        return !isShrunken && shrinkCooldownTimer <= 0;
+    }
+
     // ----------------------------- //
     //     스킬 2 : 작아지기         //
     // ----------------------------- //
 
     public void OnShrinkSkill()
     {
-        if (isShrunken) return;
+        // 이미 작아진 상태면 사용 불가
+        if (isShrunken)
+        {
+            Debug.Log("이미 작아지기 스킬 사용 중입니다!");
+            return;
+        }
+
+        // 쿨타임 중이면 사용 불가
+        if (shrinkCooldownTimer > 0)
+        {
+            Debug.Log($"작아지기 스킬 쿨타임 중! (남은 시간: {shrinkCooldownTimer:F1}초)");
+            return;
+        }
 
         Debug.Log("작아지기 스킬 씀");
         StartCoroutine(ShrinkRoutine());
@@ -290,6 +328,10 @@ public class TransformSkill_D : MonoBehaviour
         yield return StartCoroutine(ScaleTo(originalScale, scaleTransitionTime));
 
         isShrunken = false;
+
+        // 쿨타임 시작
+        shrinkCooldownTimer = shrinkCooldownTime;
+        Debug.Log($"작아지기 스킬 쿨타임 시작: {shrinkCooldownTime}초");
     }
 
     // 부드럽게 크기 변경하는 코루틴
