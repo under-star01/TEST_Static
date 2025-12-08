@@ -7,6 +7,10 @@ TagManager:
   - Error
   - Floor
   - DeadLine
+  - Warning
+  - Caching
+  - GC
+  - URP
   layers:
   - Default
   - TransparentFX

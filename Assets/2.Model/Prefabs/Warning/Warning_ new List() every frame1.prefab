@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: -2179286661717386129}
   m_Layer: 7
   m_Name: Warning_ new List() every frame1
-  m_TagString: Untagged
+  m_TagString: Warning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

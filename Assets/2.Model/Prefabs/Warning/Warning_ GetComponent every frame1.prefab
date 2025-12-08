@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3154623255801941637}
   m_Layer: 7
   m_Name: Warning_ GetComponent every frame1
-  m_TagString: Untagged
+  m_TagString: Warning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

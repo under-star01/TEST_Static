@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 3010256124212129250}
   m_Layer: 7
   m_Name: NullReferenceException
-  m_TagString: Untagged
+  m_TagString: Error
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

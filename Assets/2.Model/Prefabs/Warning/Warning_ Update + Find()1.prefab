@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: -5173840336537632657}
   m_Layer: 7
   m_Name: Warning_ Update + Find()1
-  m_TagString: Untagged
+  m_TagString: Warning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

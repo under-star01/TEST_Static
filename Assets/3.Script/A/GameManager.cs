@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using System;
@@ -9,6 +8,7 @@ using Game.UI;
 using TMPro;
 using I18N.Common;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -16,22 +16,23 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
 
     [Header("메모리 게이지 설정")]
-    public float memoryGauge = 0f; // 0 ~ 100
+    [SerializeField] private Slider memorySlider; // 메모리 사용량 Slider
     [SerializeField] private float baseIncreaseRate = 1f; // hpCnt 3칸일 때 기본 속도
-    private float currentIncreaseRate; // 현재 증가 속도
-
-    [Header("누적 발생한 오류의 수")]
-    [SerializeField] private int hpCnt = 3; // 누적 발생한 오류의 수
-    public int HpCnt
+    [SerializeField] private float currentIncreaseRate
     {
-        get => hpCnt;
-        set
+        get
         {
-            hpCnt = value;
-            // 변경된 Hp에 따른 증가 속도 적용
-            HandleHPChanged(hpCnt, 3);
+            return baseIncreaseRate * (maxHpCnt - hpCnt + 1);
         }
     }
+    [SerializeField] private float debugCurrentIncreaseRate;
+    [SerializeField] private float memorySpeed = 1f; // 메모리 차는 속도
+
+    public float memoryGauge = 0f; // 0 ~ 100
+
+    [Header("누적 발생한 오류의 수")]
+    [SerializeField] private int maxHpCnt = 3; // 누적 발생한 오류의 수
+    [SerializeField] private int hpCnt = 3; // 누적 발생한 오류의 수
 
     [Header("생존 시간 설정")]
     public float survivalTime = 0f; // 플레이어 생존시간 (secends 단위)
@@ -56,9 +57,6 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        // InputAction 생성
-        inputActions = new PlayerInputActions();
 
         // 메인 씬에서 바로 플레이어 생성
         SpawnPlayerFromSavedData();
@@ -93,33 +91,39 @@ public class GameManager : MonoBehaviour
 
         // 생존 시간 갱신
         survivalTime += Time.deltaTime;
+        int minutes = (int)(survivalTime / 60);
+        int seconds = (int)(survivalTime % 60);
+        int milli = (int)((survivalTime % 1) * 100);
         
-        // HP에 비례한 속도 증가
-        memoryGauge += currentIncreaseRate * Time.deltaTime;
+        survivalTimeUI.text = $"{minutes:00} : {seconds:00} : {milli:00}";
+
+        // HP에 비례한 메모리 증가 속도↑
+        memoryGauge += currentIncreaseRate * memorySpeed * Time.deltaTime;
         memoryGauge = Mathf.Clamp(memoryGauge, 0f, 100f);
+        memorySlider.value = memoryGauge;
+        debugCurrentIncreaseRate = currentIncreaseRate;
+
+        if (memoryGauge >= 100 && !isGameOver)
+        {
+            isGameOver = true;
+
+            Debug.LogWarning("[GameOver] : 게임 오버 이벤트 실행!!");
+            OnDie?.Invoke();  // 사망 이벤트 호출
+        }
 
         //UIManager.Instance.UpdateMemoryUI(memoryGauge);
     }
-
-    private void HandleHPChanged(int currentHP, int maxHP)
-    {
-        // HP에 따라 속도 조절
-        currentIncreaseRate = baseIncreaseRate * (maxHP - currentHP + 1);
-        // 예: HP=3 → 1배, HP=2 → 2배, HP=1 → 3배 …
-        Debug.Log($"메모리 증가속도 변경: {currentIncreaseRate}");
-    }
-
 
     // 피격 반응 메소드
     public void TakeDamage(int cnt)
     {
         if (hpCnt <= 0)
         {
-            OnDie?.Invoke();  // 사망 이벤트 호출
+            Debug.Log("Hp가 소모되어 메모리 사용량 증가폭이 늘어나지 않습니다.");
         }
         else
         {
-            HpCnt -= cnt;
+            hpCnt -= cnt;
             Debug.Log($"현재 체력 [{hpCnt}] : 플레이어의 HP가 감소합니다!");
         }
     }

@@ -20,6 +20,8 @@ public class PlayerMove_A : MonoBehaviour
 
     [Header("상태 관련 설정")]
     [SerializeField] public bool isMoveLocked; // 이동 제한 여부
+    [SerializeField] public bool isDamaged = false; // 피격 상태 여부
+    private Coroutine damageRoutine; // 피격 코루틴 저장
 
     private Rigidbody rb;
     public Animator animator;
@@ -77,7 +79,7 @@ public class PlayerMove_A : MonoBehaviour
     private void FixedUpdate()
     {
         // moveLock일 경우 이동 제한
-        if (isMoveLocked)
+        if (isMoveLocked || isDamaged)
         {
             ClampPositionInsideMap();
             return;
@@ -92,7 +94,7 @@ public class PlayerMove_A : MonoBehaviour
 
     private void Update()
     {
-        if (isMoveLocked) return;
+        if (isMoveLocked || isDamaged) return;
 
         // 속도에 따른 애니메이션 적용
         float speed = rb.linearVelocity.magnitude;
@@ -103,6 +105,81 @@ public class PlayerMove_A : MonoBehaviour
 
         // 화면 회전 적용
         HandleLook();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 피격 상태일 경우 무시
+        if (isDamaged) return;
+
+        if (collision.gameObject.CompareTag("Error"))
+        {
+            // 피격 데미지 적용
+            GameManager.Instance.TakeDamage(2);
+
+            // 반대방향으로, 5f만큼 0.4초 동안 넉백!
+            Vector3 dir = transform.position - collision.transform.position;
+            dir.y = 0f;
+
+            // 1초 스턴
+            ApplyKnockBack(dir.normalized, 5f, 0.4f);
+            ActiveDamagedState(1f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 피격 상태일 경우 무시
+        if (isDamaged) return;
+
+        if (other.gameObject.CompareTag("Warning"))
+        {
+            // 피격 데미지 적용
+            GameManager.Instance.TakeDamage(1);
+
+            // 반대방향으로, 5f만큼 0.4초 동안 넉백!
+            Vector3 dir = transform.position - other.transform.position;
+            dir.y = 0f;
+
+            // 0.5초 스턴
+            ApplyKnockBack(dir.normalized, 5f, 0.4f);
+            ActiveDamagedState(0.5f);
+        }
+        else if (other.gameObject.CompareTag("Caching"))
+        {
+            Debug.Log("[아이템] : Caching 사용!");
+            other.gameObject.SetActive(false);
+        }
+        else if (other.gameObject.CompareTag("URP"))
+        {
+            Debug.Log("[아이템] : URP 사용!");
+            other.gameObject.SetActive(false);
+        }
+        else if (other.gameObject.CompareTag("GC"))
+        {
+            Debug.Log("[아이템] : GC 사용!");
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    // 피격 상태 활성화 메소드
+    private void ActiveDamagedState(float duration)
+    {
+        if(damageRoutine != null)
+        {
+            StopCoroutine(damageRoutine);
+        }
+
+        damageRoutine = StartCoroutine(ActiveDamagedState_co(duration));
+    }
+
+    // 피격 상태 활성화 코루틴
+    private IEnumerator ActiveDamagedState_co(float duration)
+    {
+        isDamaged = true;
+        yield return new WaitForSeconds(duration);
+
+        isDamaged = false;
     }
 
     public void SetMoveInput(Vector2 move)
@@ -173,6 +250,8 @@ public class PlayerMove_A : MonoBehaviour
         rb.linearVelocity = dir.normalized * power;
 
         // 피격 애니메이션 트리거
+        animator.SetFloat("MoveX", 0f);
+        animator.SetFloat("MoveY", 0f);
         animator.SetTrigger("Damaged");
     }
 

@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 359314712239197045}
   m_Layer: 7
   m_Name: Warning_ Empty Update()1
-  m_TagString: Untagged
+  m_TagString: Warning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
