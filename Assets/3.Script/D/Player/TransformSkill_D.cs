@@ -116,29 +116,17 @@ public class TransformSkill_D : MonoBehaviour
     {
         isTeleporting = true;
 
-        // 1. 페이드 아웃 (사라지기) - 이동 가능
-        yield return StartCoroutine(FadeOut(fadeOutTime));
-
-        // 2. 페이드 아웃 끝난 후 현재 이동 방향 계산
+        // 현재 이동 방향 계산
         Vector3 moveDirection = GetCurrentMoveDirection();
         if (moveDirection == Vector3.zero)
         {
             moveDirection = transform.forward;
         }
 
-        // 3. 텔레포트 목표 위치 계산
+        // 텔레포트 목표 위치 계산
         Vector3 targetPos = transform.position + moveDirection * teleportDistance;
         targetPos.y = transform.position.y; // 높이 유지
 
-        // 맵 밖이면 취소하고 다시 나타나기
-        if (!IsInsideMap(targetPos))
-        {
-            Debug.Log("맵 밖으로는 텔레포트할 수 없습니다.");
-            yield return StartCoroutine(FadeIn(fadeInTime));
-
-            isTeleporting = false;
-            yield break;
-        }
 
         // 4. 완전히 사라진 상태로 잠시 대기
         yield return new WaitForSeconds(invisibleTime);
@@ -151,69 +139,12 @@ public class TransformSkill_D : MonoBehaviour
         cooldownTimers.Add(cooldownTime);
         Debug.Log($"텔레포트 완료! 남은 스택: {currentStacks}/{maxStacks}");
 
-        // 7. 페이드 인 (나타나기)
-        yield return StartCoroutine(FadeIn(fadeInTime));
 
         // 9. 텔레포트 완료
         isTeleporting = false;
         Debug.Log("텔레포트 시퀀스 완료");
     }
 
-    // 페이드 아웃 (투명해지기)
-    private IEnumerator FadeOut(float duration)
-    {
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = 1f - (elapsed / duration); // 1 -> 0
-
-            SetAlpha(alpha);
-            yield return null;
-        }
-
-        SetAlpha(0f); // 완전 투명
-    }
-
-    // 페이드 인 (불투명해지기)
-    private IEnumerator FadeIn(float duration)
-    {
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = elapsed / duration; // 0 -> 1
-
-            SetAlpha(alpha);
-            yield return null;
-        }
-
-        SetAlpha(1f); // 완전 불투명
-    }
-
-    // 모든 렌더러의 투명도 설정
-    private void SetAlpha(float alpha)
-    {
-        foreach (Renderer rend in renderers)
-        {
-            if (originalColors.ContainsKey(rend))
-            {
-                Color newColor = originalColors[rend];
-                newColor.a = alpha;
-
-                if (rend is SkinnedMeshRenderer || rend is MeshRenderer)
-                {
-                    rend.material.color = newColor;
-                }
-                else if (rend is SpriteRenderer)
-                {
-                    ((SpriteRenderer)rend).color = newColor;
-                }
-            }
-        }
-    }
 
     // 현재 이동 방향 계산
     private Vector3 GetCurrentMoveDirection()
@@ -233,16 +164,6 @@ public class TransformSkill_D : MonoBehaviour
         return Vector3.zero;
     }
 
-    // 맵 범위 체크
-    private bool IsInsideMap(Vector3 position)
-    {
-        if (mapCollider == null)
-            return true; // 맵 콜라이더가 없으면 제한 없음
-
-        Bounds bounds = mapCollider.bounds;
-        return position.x >= bounds.min.x && position.x <= bounds.max.x &&
-               position.z >= bounds.min.z && position.z <= bounds.max.z;
-    }
 
     // 쿨타임 반환
     private float GetMinCooldown()

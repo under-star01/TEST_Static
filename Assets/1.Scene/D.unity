@@ -10960,8 +10960,8 @@ MonoBehaviour:
   timeStopDuration: 3
   timeStopCooldown: 5
   slowMotionScale: 0.05
-  skill2Duration: 5
-  skill2Cooldown: 20
+  speedBoostMultiplier: 1.5
+  cloneCooldown: 0
 --- !u!4 &7942646062342947123
 Transform:
   m_ObjectHideFlags: 0
