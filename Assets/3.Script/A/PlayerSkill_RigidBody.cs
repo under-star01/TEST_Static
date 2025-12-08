@@ -38,13 +38,12 @@ public class PlayerSkill_RigidBody : PlayerSkillBase
         isShiftRunning = true;
 
         Debug.Log("Space 스킬 사용!");
-        BeginSkillCast(moveLockDuration: 0.5f); // 0.5초 동안 제자리
-        ActiveInvincible(0.5f);                 // 0.5초 동안 무적
+        BeginSkillCast(0.5f, 0.5f); // 0.5초 동안 다른 스킬 및 이동 제한
         PlaySkillAnimation("Skill_Space");
+        rb.linearVelocity = Vector3.zero;
 
         // 범위 표시 켜기
         ShowRangeIndicator();
-        yield return new WaitForSeconds(0.2f);
 
         // 실제 판정: 원형 범위로 Obstacle 탐색
         Collider[] hits = Physics.OverlapSphere(transform.position, spaceRadius, detectLayer);
@@ -59,13 +58,10 @@ public class PlayerSkill_RigidBody : PlayerSkillBase
             obstacleRB.AddForce(dir.normalized * 50f, ForceMode.Impulse);
             obstacleRB.gameObject.GetComponent<ObstacleCtrl_A>().DelayToDeActivate(2f); // 2초후 비활성화
         }
+        yield return new WaitForSeconds(0.2f);
 
         // 범위 표시 끄기
         HideRangeIndicator();
-
-        // 캐스팅 종료
-        EndSkillCast();
-
         isShiftRunning = false;
     }
 
