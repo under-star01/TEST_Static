@@ -13829,7 +13829,6 @@ MonoBehaviour:
   spawnErrorCnt: 10
   spawnWarningCnt: 10
   spawnHeight: 35
-  defaultSpawnHeight: 10
   spawnErrorMin: 1
   spawnErrorMax: 4
   spawnWarningMin: 0.3

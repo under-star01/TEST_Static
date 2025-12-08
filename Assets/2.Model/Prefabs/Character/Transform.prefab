@@ -779,6 +779,7 @@ GameObject:
   - component: {fileID: 2044540377313072860}
   - component: {fileID: 7712397716591823283}
   - component: {fileID: 1627707541512549850}
+  - component: {fileID: 6209553986596204094}
   m_Layer: 0
   m_Name: Transform
   m_TagString: Player
@@ -837,10 +838,7 @@ MonoBehaviour:
   maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
-  selectedcharacter: 0
-  avatar_Transform: {fileID: 9000000, guid: 24fc2c3e62c52bf4e9e63fd980b8e85d, type: 3}
-  avatar_Rigidbody: {fileID: 9000000, guid: 3ba5df55de38cf04d86504dab0da7464, type: 3}
-  avatar_Coroutine: {fileID: 9000000, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
+  isDamaged: 0
   animator: {fileID: 0}
 --- !u!54 &7712397716591823283
 Rigidbody:
@@ -892,6 +890,27 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.85, z: 0}
+--- !u!114 &6209553986596204094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906654600586343106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7a9b311a81e6540a295f1a92effef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_Transform
+  mapCollider: {fileID: 0}
+  teleportDistance: 6
+  TeleportcooldownTime: 6
+  canSpaceSkill: 1
+  teleportEffectPrefab: {fileID: 0}
+  shrinkScale: 0.2
+  shrinkDuration: 5
+  scaleTransitionTime: 0.5
+  shrinkCooldownTime: 10
 --- !u!1 &3010362770119353623
 GameObject:
   m_ObjectHideFlags: 0
