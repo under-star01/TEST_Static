@@ -7586,7 +7586,7 @@ MonoBehaviour:
   cameraRoot: {fileID: 103537573}
   lookSensitivity: 15
   minPitch: -25
-  maxPitch: 0
+  maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
   animator: {fileID: 0}
@@ -7833,7 +7833,7 @@ MonoBehaviour:
   cameraRoot: {fileID: 867727236}
   lookSensitivity: 15
   minPitch: -25
-  maxPitch: 0
+  maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
   animator: {fileID: 0}
@@ -7853,6 +7853,7 @@ MonoBehaviour:
   teleportDistance: 6
   TeleportcooldownTime: 6
   canSpaceSkill: 1
+  teleportEffectPrefab: {fileID: 0}
   shrinkScale: 0.5
   shrinkDuration: 5
   scaleTransitionTime: 0.5
@@ -8402,7 +8403,7 @@ MonoBehaviour:
   cameraRoot: {fileID: 1061061324}
   lookSensitivity: 15
   minPitch: -25
-  maxPitch: 0
+  maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
   animator: {fileID: 0}
