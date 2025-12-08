@@ -94,6 +94,15 @@ public class ObstacleCtrl_A : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Floor와 충돌시 범위 표시 비활성화
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            trace.SetActive(false);
+        }
+    }
+
     // 지연 비활성화 메소드
     public void DelayToDeActivate(float duration)
     {

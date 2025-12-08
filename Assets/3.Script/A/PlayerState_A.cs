@@ -11,16 +11,13 @@ public class PlayerState_A : MonoBehaviour
     public int MaxHP => maxHP;
     public bool IsDead => CurrentHP <= 0;
 
-    public event Action<int, int> OnHPChanged;
-    public event Action OnDie;
-
     [Header("상태 플래그")]
-    public bool IsInvincible { get; private set; }
-    public bool IsKnockback { get; private set; }
-    public bool IsCastingSkill { get; private set; }
+    public bool IsInvincible { get; private set; } // 무적 상태 여부
+    public bool IsKnockback { get; private set; } // 넉백 상태 여부
+    public bool IsCastingSkill { get; private set; } // 스킬 캐스팅 중인지 여부
 
-    private bool moveLocked;
-    private bool skillLocked;
+    private bool moveLocked; // 이동 가능 상태 여부
+    private bool skillLocked; // 스킬 사용 가능 상태 여부
 
     public bool CanMove => !IsDead && !IsKnockback && !moveLocked;
     public bool CanUseSkill => !IsDead && !IsCastingSkill && !skillLocked;
@@ -35,6 +32,8 @@ public class PlayerState_A : MonoBehaviour
     private Coroutine skillLockRoutine;
 
     // 이벤트 종류
+    public event Action<int, int> OnHPChanged;
+    public event Action OnDie;
     public event Action OnInvincibleStart; // 무적 시작 이벤트
     public event Action OnInvincibleEnd; // 무적 종료 이벤트
     public event Action OnKnockbackStart; // 넉백 시작 이벤트
@@ -67,11 +66,8 @@ public class PlayerState_A : MonoBehaviour
     }
 
     // 무적 적용
-    public void StartInvincible(float duration = -1f)
+    public void StartInvincible(float duration)
     {
-        if (duration <= 0f)
-            duration = defaultInvincibleTime;
-
         if (invincibleRoutine != null)
             StopCoroutine(invincibleRoutine);
 
@@ -82,7 +78,6 @@ public class PlayerState_A : MonoBehaviour
     {
         IsInvincible = true;
         OnInvincibleStart?.Invoke();
-
         yield return new WaitForSeconds(duration);
 
         IsInvincible = false;
@@ -104,7 +99,6 @@ public class PlayerState_A : MonoBehaviour
     {
         IsKnockback = true;
         OnKnockbackStart?.Invoke();
-
         yield return new WaitForSeconds(duration);
 
         IsKnockback = false;
@@ -113,7 +107,7 @@ public class PlayerState_A : MonoBehaviour
         knockbackRoutine = null;
     }
 
-    public void StopKnockback()
+    public void StopKnockback() // 보류입니다.
     {
         if (knockbackRoutine != null)
         {
@@ -138,6 +132,7 @@ public class PlayerState_A : MonoBehaviour
     {
         moveLocked = true;
         yield return new WaitForSeconds(duration);
+
         moveLocked = false;
         moveLockRoutine = null;
     }
@@ -165,6 +160,7 @@ public class PlayerState_A : MonoBehaviour
     {
         skillLocked = true;
         yield return new WaitForSeconds(duration);
+
         skillLocked = false;
         skillLockRoutine = null;
     }
@@ -180,7 +176,7 @@ public class PlayerState_A : MonoBehaviour
     }
 
     // 스킬 시전 상태
-    public void SetCastingSkill(bool isCasting)
+    public void SetCastingSkill(bool isCasting) // 보류
     {
         IsCastingSkill = isCasting;
     }
