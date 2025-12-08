@@ -18,9 +18,11 @@ public class PlayerMove_A : MonoBehaviour
     [Header("이동 관련 설정")]
     [SerializeField] private float moveSpeed = 5f; // 이동 속도
 
-    private PlayerState_A state;
+    [Header("상태 관련 설정")]
+    [SerializeField] public bool isMoveLocked; // 이동 제한 여부
+
     private Rigidbody rb;
-    private Animator animator;
+    public Animator animator;
     private Vector3 targetPos;
 
     private Vector2 moveInput;
@@ -36,19 +38,6 @@ public class PlayerMove_A : MonoBehaviour
         // 컴포넌트 연결
         TryGetComponent(out rb);
         animator = GetComponentInChildren<Animator>();
-
-        // PlayerState 연결
-        TryGetComponent(out state);
-
-        if (state == null)
-        {
-            Debug.LogError("PlayerState_A가 Player에 붙어있지 않습니당");
-        }
-        else
-        {
-            // PlayerState 이벤트 구독
-            state.OnKnockbackEnd += HandleKnockbackEnd; // 넉백 끝날때, 속도 복구
-        }
 
         // 카메라 위아래 기준 오브젝트 설정
         if (cameraRoot == null)
@@ -86,8 +75,8 @@ public class PlayerMove_A : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 넉백 상태일 경우, 이동 제한
-        if (state != null && !state.CanMove)
+        // moveLock일 경우 이동 제한
+        if (isMoveLocked)
         {
             ClampPositionInsideMap();
             return;
@@ -102,21 +91,14 @@ public class PlayerMove_A : MonoBehaviour
 
     private void Update()
     {
+        if (isMoveLocked) return;
+
         // 속도에 따른 애니메이션 적용
         float speed = rb.linearVelocity.magnitude;
+        
         animator.SetFloat("Speed", speed);
-
-        // 이동 불가 상태시, 방향값 0으로 초기화
-        if (state != null && !state.CanMove)
-        {
-            animator.SetFloat("MoveX", 0f);
-            animator.SetFloat("MoveY", 0f);
-        }
-        else
-        {
-            animator.SetFloat("MoveX", moveInput.x);
-            animator.SetFloat("MoveY", moveInput.y);
-        }
+        animator.SetFloat("MoveX", moveInput.x);
+        animator.SetFloat("MoveY", moveInput.y);
 
         // 화면 회전 적용
         HandleLook();
@@ -186,10 +168,6 @@ public class PlayerMove_A : MonoBehaviour
     // 넉백 실행 메소드
     public void ApplyKnockBack(Vector3 dir, float power, float duration)
     {
-        if (state == null) return;
-
-        // 넉백 시작 속도 설정
-        state.StartKnockback(duration);
         dir.y = 0f;
         rb.linearVelocity = dir.normalized * power;
 

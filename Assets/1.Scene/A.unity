@@ -7465,6 +7465,8 @@ MonoBehaviour:
   minPitch: -25
   maxPitch: 0
   moveSpeed: 5
+  isMoveLocked: 0
+  animator: {fileID: 0}
 --- !u!1 &8074667640183170296
 GameObject:
   m_ObjectHideFlags: 0
@@ -7983,10 +7985,9 @@ GameObject:
   - component: {fileID: 3833715675255851670}
   - component: {fileID: 8702267591874943568}
   - component: {fileID: 8702267591874943567}
-  - component: {fileID: 8702267591874943571}
-  - component: {fileID: 8702267591874943572}
   - component: {fileID: 8702267591874943570}
   - component: {fileID: 8702267591874943569}
+  - component: {fileID: 8702267591874943572}
   m_Layer: 0
   m_Name: RigidBody
   m_TagString: Player
@@ -8012,6 +8013,8 @@ MonoBehaviour:
   minPitch: -25
   maxPitch: 0
   moveSpeed: 5
+  isMoveLocked: 0
+  animator: {fileID: 0}
 --- !u!114 &8702267591874943568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8077,20 +8080,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8702267591874943571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8702267591874943566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46196ec1d482eb847a23e292608e1ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerState_A
-  maxHP: 3
-  defaultInvincibleTime: 0.3
 --- !u!114 &8702267591874943572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8100,13 +8089,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8702267591874943566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e498e69f0cf4c48aa601d46e5b963e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0317f9d1994a16e42a965a1120472352, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_RigidBody
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_RigidBody1
   spaceRadius: 5
   detectLayer:
     serializedVersion: 2
     m_Bits: 128
+  isShiftRunning: 0
   rangeIndicator: {fileID: 479350919}
 --- !u!1 &8706536634201208329
 GameObject:
