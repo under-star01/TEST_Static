@@ -9,6 +9,7 @@ public class ObstacleCtrl_A : MonoBehaviour
 
     private bool initialized = false; // 맨 처음 생성할 때인지 여부
     private Rigidbody rb;
+    private Coroutine destroyRoutine;
 
     private void Awake()
     {
@@ -99,7 +100,32 @@ public class ObstacleCtrl_A : MonoBehaviour
         // Floor와 충돌시 범위 표시 비활성화
         if (collision.gameObject.CompareTag("Floor"))
         {
+            if(destroyRoutine != null)
+            {
+                StopCoroutine(destroyRoutine);
+            }
+
+            // 20초 이후 자동 비활성화
+            destroyRoutine = StartCoroutine(DeActiveToDelay(20f));
+            // 범위 비활성화
             trace.SetActive(false);
+        }
+        else
+        {
+
+            // Floor와 충돌시 범위 표시 비활성화
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                if (destroyRoutine != null)
+                {
+                    StopCoroutine(destroyRoutine);
+                }
+
+                // 2초 이후 자동 비활성화
+                destroyRoutine = StartCoroutine(DeActiveToDelay(2f));
+                // 범위 비활성화
+                trace.SetActive(false);
+            }
         }
     }
 
@@ -116,6 +142,15 @@ public class ObstacleCtrl_A : MonoBehaviour
         yield return new WaitForSeconds(duration);
         
         // 비활성화
+        gameObject.SetActive(false);
+    }
+
+    // 지연 비활성화 메소드
+    private IEnumerator DeActiveToDelay(float duration)
+    {
+        // 일정 시간 대기
+        yield return new WaitForSeconds(duration);
+
         gameObject.SetActive(false);
     }
 }
