@@ -123,13 +123,13 @@ public class PlayerSkill_Transform : MonoBehaviour
         yield return StartCoroutine(ScaleTo(targetScale, scaleTransitionTime));
 
         // 이동속도 증가
-        playerMove.moveSpeed *= 2f;
+        //playerMove.moveSpeed *= 2f;
 
         // 작아진 상태로 유지
         yield return new WaitForSeconds(shrinkDuration);
 
         // 이동속도 원래대로
-        playerMove.moveSpeed /= 2f;
+        //playerMove.moveSpeed /= 2f;
 
         // 부드럽게 커지기
         yield return StartCoroutine(ScaleTo(originalScale, scaleTransitionTime));
