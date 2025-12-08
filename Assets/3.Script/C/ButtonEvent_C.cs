@@ -9,7 +9,7 @@ public class ButtonEvent : MonoBehaviour
     public GameObject toggleUI;
     public void SceneLoader(string sceneame)//다른 씬으로
     {
-        PlayerPrefs.SetInt("Scoer",0);
+        PlayerPrefs.SetInt("Score",0);
         SceneManager.LoadScene(sceneame);
     }
     public void GameQuit() //게임종료
