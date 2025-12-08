@@ -6,10 +6,11 @@ using UnityEngine.InputSystem;
 
 public class CoroutineSkill : MonoBehaviour
 {
-    [Header("시간 정지 스킬 설정")]
+    [Header("시간 정지")]
     public float timeStopDuration = 3f;          // 시간 정지 지속 시간
     public float timeStopCooldown = 15f;         // 쿨타임
     public float slowMotionScale = 0.05f;        // 느려지는 정도 (0에 가까울수록 느림)
+    public float speedBoostMultiplier = 1.5f;    // 시간 정지 중 추가 이동속도 배율
 
     private bool isTimeStopActive = false;       // 시간 정지 활성화 여부
     private float timeStopCooldownTimer = 0f;    // 쿨타임 타이머
@@ -18,14 +19,16 @@ public class CoroutineSkill : MonoBehaviour
 
     private PlayerMove_D playerMove;
     private Rigidbody playerRb;
-    private Animator playerAnimator;         // 플레이어 애니메이터
-    private float originalLookSensitivity;   // 원래 마우스 감도
+    private Animator playerAnimator;             // 플레이어 애니메이터
+    private float originalLookSensitivity;       // 원래 마우스 감도
 
-    [Header("스킬 2 설정")]
-    public float skill2Duration = 5f;            // 스킬 2 지속 시간
-    public float skill2Cooldown = 20f;           // 스킬 2 쿨타임
-    private bool isSkill2Active = false;
-    private float skill2CooldownTimer = 0f;
+    [Header("분신 소환/위치 교환")]
+    public float cloneCooldown = 30f;            // 쿨타임
+
+    private bool hasClone = false;               // 분신이 소환되어 있는지
+    private GameObject currentClone;             // 현재 분신 오브젝트
+    private Vector3 clonePosition;               // 분신 위치
+    private float cloneCooldownTimer = 0f;       // 쿨타임 타이머
 
     private void Awake()
     {
@@ -50,21 +53,19 @@ public class CoroutineSkill : MonoBehaviour
             }
         }
 
-        // 스킬 2 쿨타임 업데이트
-        if (skill2CooldownTimer > 0)
+        // 분신 쿨타임 업데이트
+        if (cloneCooldownTimer > 0)
         {
-            skill2CooldownTimer -= Time.deltaTime;
+            cloneCooldownTimer -= Time.deltaTime;
 
-            if (skill2CooldownTimer <= 0)
+            if (cloneCooldownTimer <= 0)
             {
-                Debug.Log("스킬 2 사용 가능!");
+                Debug.Log("분신 스킬 사용 가능!");
             }
         }
     }
 
-    // ----------------------------- //
-    //     스킬 1 : 시간 정지         //
-    // ----------------------------- //
+    // 스킬 1 : 시간 정지 
 
     public void OnTimeStopSkill()
     {
@@ -134,8 +135,8 @@ public class CoroutineSkill : MonoBehaviour
         {
             float compensation = 1f / slowMotionScale;
 
-            // 이동 속도 보정
-            playerMove.moveSpeed *= compensation;
+            // 이동 속도 보정 + 추가 속도 버프
+            playerMove.moveSpeed *= compensation * speedBoostMultiplier;
 
             // 마우스 감도 보정
             originalLookSensitivity = playerMove.lookSensitivity;
@@ -161,8 +162,8 @@ public class CoroutineSkill : MonoBehaviour
         {
             float compensation = 1f / slowMotionScale;
 
-            // 이동 속도 복구
-            playerMove.moveSpeed /= compensation;
+            // 이동 속도 복구 (보정 + 버프 모두 제거)
+            playerMove.moveSpeed /= (compensation * speedBoostMultiplier);
 
             // 마우스 감도 복구
             playerMove.lookSensitivity = originalLookSensitivity;
@@ -201,56 +202,118 @@ public class CoroutineSkill : MonoBehaviour
         return !isTimeStopActive && timeStopCooldownTimer <= 0;
     }
 
-    // ----------------------------- //
-    //       스킬 2 : 임시           //
-    // ----------------------------- //
+    //  스킬 2 : 분신 소환/위치 교환 
 
     public void OnSkill2()
     {
-        // 이미 스킬 2 사용 중이면 사용 불가
-        if (isSkill2Active)
-        {
-            Debug.Log("이미 스킬 2 사용 중입니다!");
-            return;
-        }
-
         // 쿨타임 중이면 사용 불가
-        if (skill2CooldownTimer > 0)
+        if (cloneCooldownTimer > 0)
         {
-            Debug.Log($"스킬 2 쿨타임 중! (남은 시간: {skill2CooldownTimer:F1}초)");
+            Debug.Log($"분신 스킬 쿨타임 중! (남은 시간: {cloneCooldownTimer:F1}초)");
             return;
         }
 
-        Debug.Log("스킬 2 사용!");
-        StartCoroutine(Skill2Routine());
+        // 분신이 없으면 소환
+        if (!hasClone)
+        {
+            SpawnClone();
+        }
+        // 분신이 있으면 위치 교환
+        else
+        {
+            TeleportToClone();
+        }
     }
 
-    private IEnumerator Skill2Routine()
+    // 분신 소환
+    private void SpawnClone()
     {
-        isSkill2Active = true;
+        // 현재 위치에 분신 생성
+        clonePosition = transform.position;
+        currentClone = CreateClone();
+ 
+        hasClone = true;
+        Debug.Log("분신 소환 완료! 다시 사용하면 분신 위치로 이동합니다.");
+    }
 
-        // 여기에 스킬 2 효과 추가
-        // 예: 이동속도 증가, 무적, 투명화 등
+    // 분신 위치로 텔레포트
+    private void TeleportToClone()
+    {
+        if (currentClone == null)
+        {
+            // 분신이 파괴되었으면 재생성
+            hasClone = false;
+            Debug.LogWarning("분신이 파괴되었습니다. 다시 소환해주세요.");
+            return;
+        }
 
-        yield return new WaitForSeconds(skill2Duration);
+        // 현재 위치 저장
+        Vector3 playerPos = transform.position;
 
-        isSkill2Active = false;
+        // 플레이어를 분신 위치로 이동
+        transform.position = clonePosition;
+
+        Debug.Log("분신 위치로 이동 완료!");
+
+        // 분신 제거
+        Destroy(currentClone);
+        currentClone = null;
+        hasClone = false;
 
         // 쿨타임 시작
-        skill2CooldownTimer = skill2Cooldown;
-        Debug.Log($"스킬 2 쿨타임 시작: {skill2Cooldown}초");
+        cloneCooldownTimer = cloneCooldown;
+        Debug.Log($"분신 스킬 쿨타임 시작: {cloneCooldown}초");
     }
 
-    // 스킬 2 쿨타임 반환 (UI 표시용)
-    public float GetSkill2Cooldown()
+    // 분신 생성
+    private GameObject CreateClone()
     {
-        return skill2CooldownTimer;
+        GameObject clone = new GameObject("Clone");
+        clone.transform.position = clonePosition;
+        clone.transform.rotation = transform.rotation;
+
+        // 플레이어의 렌더러 복사
+        Renderer[] playerRenderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in playerRenderers)
+        {
+            // SkinnedMeshRenderer 복사
+            SkinnedMeshRenderer originalSMR = (SkinnedMeshRenderer)rend;
+            GameObject meshObj = new GameObject(rend.gameObject.name);
+            meshObj.transform.SetParent(clone.transform);
+            meshObj.transform.localPosition = rend.transform.localPosition;
+            meshObj.transform.localRotation = rend.transform.localRotation;
+            meshObj.transform.localScale = rend.transform.localScale;
+
+            MeshRenderer cloneMR = meshObj.AddComponent<MeshRenderer>();
+            MeshFilter cloneMF = meshObj.AddComponent<MeshFilter>();
+
+            // 메시 복사
+            Mesh mesh = new Mesh();
+            originalSMR.BakeMesh(mesh);
+            cloneMF.mesh = mesh;
+
+            // 머테리얼 복사
+            cloneMR.materials = originalSMR.materials;
+        }
+        return clone;
     }
 
-    // 스킬 2 사용 가능 여부 (UI 표시용)
-    public bool IsSkill2Available()
+    // 분신 쿨타임 반환 (UI 표시용)
+    public float GetCloneCooldown()
     {
-        return !isSkill2Active && skill2CooldownTimer <= 0;
+        return cloneCooldownTimer;
+    }
+
+    // 분신 스킬 사용 가능 여부 (UI 표시용)
+    public bool IsCloneAvailable()
+    {
+        return cloneCooldownTimer <= 0;
+    }
+
+    // 분신이 소환되어 있는지 (UI 표시용)
+    public bool HasClone()
+    {
+        return hasClone;
     }
 
     private void OnDestroy()
@@ -271,29 +334,15 @@ public class CoroutineSkill : MonoBehaviour
             if (playerMove != null)
             {
                 float compensation = 1f / slowMotionScale;
-                playerMove.moveSpeed /= compensation;
+                playerMove.moveSpeed /= (compensation * speedBoostMultiplier);
                 playerMove.lookSensitivity = originalLookSensitivity;
             }
         }
+
+        // 분신 정리
+        if (currentClone != null)
+        {
+            Destroy(currentClone);
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
