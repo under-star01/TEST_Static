@@ -44,6 +44,11 @@ public class PlayerSkill_Transform : MonoBehaviour
 
     private IEnumerator Skill_Teleport()
     {
+        if (teleportEffectPrefab != null)
+        {
+            Instantiate(teleportEffectPrefab, transform.position, Quaternion.identity);
+        }
+
 
         // 현재 이동 방향 계산
         Vector3 moveDirection = GetCurrentMoveDirection();
@@ -52,14 +57,23 @@ public class PlayerSkill_Transform : MonoBehaviour
             moveDirection = transform.forward;
         }
 
+
         // 텔레포트 목표 위치 계산
         Vector3 targetPos = transform.position + moveDirection * teleportDistance;
         targetPos.y = transform.position.y; // 높이 유지
 
         // 텔레포트 실행
         yield return new WaitForSeconds(0.2f);
+
         transform.position = targetPos;
-        Instantiate(teleportEffectPrefab);
+
+        AudioManager.Instance.PlayTeleportSFX(); //소리 재생
+
+        if (teleportEffectPrefab != null)
+        {
+            Instantiate(teleportEffectPrefab, transform.position, Quaternion.identity);
+        }
+
         StartCoroutine(TeleportCool_co());
     }
 
@@ -91,7 +105,7 @@ public class PlayerSkill_Transform : MonoBehaviour
     public void UseSkill_Shift()
     {
         // 쿨타임 일때 돌아가
-        if (!canSpaceSkill)
+        if (!canShiftSkill)
         {
             return;
         }
@@ -108,9 +122,12 @@ public class PlayerSkill_Transform : MonoBehaviour
 
     private IEnumerator Skill_Scale()
     {
+        AudioManager.Instance.PlayScailDownSFX();//작아지기 사운드
+
         // 부드럽게 작아지기
         Vector3 targetScale = originalScale * shrinkScale;
         yield return StartCoroutine(ScaleTo(targetScale, scaleTransitionTime));
+
 
         // 이동속도 증가
         playerMove.moveSpeed *= 1.7f;
@@ -121,8 +138,11 @@ public class PlayerSkill_Transform : MonoBehaviour
         // 이동속도 원래대로
         playerMove.moveSpeed /= 1.7f;
 
+        AudioManager.Instance.PlayScailReturnSFX(); // 돌아오기 사운드
+
         // 부드럽게 커지기
         yield return StartCoroutine(ScaleTo(originalScale, scaleTransitionTime));
+
 
         StartCoroutine(ScaleCool_co());
     }

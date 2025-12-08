@@ -34,6 +34,7 @@ public class PlayerSkill_RigidBody : MonoBehaviour
 
         Debug.Log("Shift 스킬 사용!");
         canShiftSkill = false;
+        AudioManager.Instance.PlayIstriggerSFX(); //사운드
         StartCoroutine(Skill_IsTrigger(5f)); // 5초 동안 스킬 사용
     }
 
@@ -58,6 +59,8 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Invincibility");
         yield return new WaitForSeconds(duration);
 
+        AudioManager.Instance.PlayIstriggerEndSFX();//사운드
+
         // 레이어 복구
         gameObject.layer = LayerMask.NameToLayer("Default");
         
@@ -72,6 +75,9 @@ public class PlayerSkill_RigidBody : MonoBehaviour
 
         Debug.Log("Space 스킬 사용!");
         canSpaceSkill = false;
+
+        AudioManager.Instance.PlayAddForceSFX();
+
         StartCoroutine(UseSpaceRoutine());
     }
 

@@ -43,6 +43,7 @@ public class PlayerSkill_Coroutine : MonoBehaviour
 
         Debug.Log("Space 스킬 사용!");
         canSpaceSkill = false;
+
         // 시간 정지 메소드 실행
         StartCoroutine(Skill_WaitForSeconds_co());
     }
@@ -162,6 +163,8 @@ public class PlayerSkill_Coroutine : MonoBehaviour
 
     private void SpawnClone()
     {
+        AudioManager.Instance.PlayCloneSFX(); //사운드
+
         // 현재 위치에 분신 생성
         clonePosition = transform.position;
         currentClone = CreateDefaultClone();
@@ -173,6 +176,8 @@ public class PlayerSkill_Coroutine : MonoBehaviour
     // 분신 위치로 텔레포트
     private void TeleportToClone()
     {
+        AudioManager.Instance.PlayYieldReturnSFX();
+
         if (currentClone == null)
         {
             // 분신이 파괴되었으면 재생성
