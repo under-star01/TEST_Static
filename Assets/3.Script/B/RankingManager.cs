@@ -27,6 +27,8 @@ namespace Game.Ranking
         {
             FilePath = Path.Combine(Application.persistentDataPath, fileName); //저장경로 설정(임의지정상태)
             LoadRanking(); //어웨이크 단계에서 저장되어있는 JSON 호출
+
+            DontDestroyOnLoad(gameObject);
         }
 
         // 랭킹 데이터를 외부에서(UI등) 조회가능하도록 반환
