@@ -18,9 +18,12 @@ public class PlayerMove_A : MonoBehaviour
     [Header("이동 관련 설정")]
     [SerializeField] private float moveSpeed = 5f; // 이동 속도
 
+    [Header("상태 관련 설정")]
+    [SerializeField] public bool isMoveLocked; // 이동 제한 여부
+
     private PlayerState_A state;
     private Rigidbody rb;
-    private Animator animator;
+    public Animator animator;
     private Vector3 targetPos;
 
     private Vector2 moveInput;
@@ -86,8 +89,8 @@ public class PlayerMove_A : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 넉백 상태일 경우, 이동 제한
-        if (state != null && !state.CanMove)
+        // moveLock일 경우 이동 제한
+        if (isMoveLocked)
         {
             ClampPositionInsideMap();
             return;
@@ -105,18 +108,8 @@ public class PlayerMove_A : MonoBehaviour
         // 속도에 따른 애니메이션 적용
         float speed = rb.linearVelocity.magnitude;
         animator.SetFloat("Speed", speed);
-
-        // 이동 불가 상태시, 방향값 0으로 초기화
-        if (state != null && !state.CanMove)
-        {
-            animator.SetFloat("MoveX", 0f);
-            animator.SetFloat("MoveY", 0f);
-        }
-        else
-        {
-            animator.SetFloat("MoveX", moveInput.x);
-            animator.SetFloat("MoveY", moveInput.y);
-        }
+        animator.SetFloat("MoveX", moveInput.x);
+        animator.SetFloat("MoveY", moveInput.y);
 
         // 화면 회전 적용
         HandleLook();

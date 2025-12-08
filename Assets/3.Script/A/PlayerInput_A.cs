@@ -11,7 +11,7 @@ public class PlayerInput_A : MonoBehaviour
 
     private PlayerInputActions inputActions;
     private PlayerMove_A playerMove;
-    private PlayerSkillBase playerSkill;
+    private PlayerSkill_RigidBody1 playerSkill;
 
     private void Awake()
     {
