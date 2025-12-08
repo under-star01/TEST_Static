@@ -18,8 +18,7 @@ public class PlayerSkill_Transform : MonoBehaviour
     public float shrinkDuration = 5f;
     public float scaleTransitionTime = 0.5f;     // 크기 변화 시간
     public float shrinkCooldownTime = 10f;       // 작아지기 쿨타임
-    [SerializeField] private bool canShiftSkill = true;
-
+    private bool canShiftSkill = true;
 
     private Vector3 originalScale;
 
