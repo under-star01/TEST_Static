@@ -39,6 +39,7 @@ public class PlayerSkill_Transform : MonoBehaviour
         {
             return;
         }
+        canSpaceSkill = false;
         StartCoroutine(Skill_Teleport());
     }
 
@@ -82,7 +83,6 @@ public class PlayerSkill_Transform : MonoBehaviour
 
     private IEnumerator TeleportCool_co()
     {
-        canSpaceSkill = false;
         yield return new WaitForSeconds(TeleportcooldownTime);
 
         canSpaceSkill = true;
@@ -96,13 +96,12 @@ public class PlayerSkill_Transform : MonoBehaviour
         {
             return;
         }
-
+        canShiftSkill = false;
         StartCoroutine(Skill_Scale());
     }
 
     private IEnumerator ScaleCool_co()
     {
-        canShiftSkill = false;
         yield return new WaitForSeconds(shrinkCooldownTime);
 
         canShiftSkill = true;
