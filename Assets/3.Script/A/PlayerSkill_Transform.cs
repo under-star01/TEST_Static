@@ -11,9 +11,6 @@ public class PlayerSkill_Transform : MonoBehaviour
     public float teleportDistance = 6f;          // 텔레포트 거리
     public float TeleportcooldownTime = 6f;              // 쿨타임
     [SerializeField] private bool canSpaceSkill = true;
-    private int currentStacks = 2;               // 현재 스택
-    private List<float> cooldownTimers = new List<float>(); // 각 스택별 쿨타임 타이머
-    private bool isTeleporting = false;          // 텔레포트 중 여부
 
     [Header("작아지기 스킬 설정")]
     public float shrinkScale = 0.5f;
@@ -22,6 +19,8 @@ public class PlayerSkill_Transform : MonoBehaviour
     public float shrinkCooldownTime = 20f;       // 작아지기 쿨타임
     private bool isShrunken = false;
     private float shrinkCooldownTimer = 0f;      // 쿨타임 타이머
+    [SerializeField] private bool canShiftSkill = true;
+
 
     private Vector3 originalScale;
 
@@ -40,22 +39,11 @@ public class PlayerSkill_Transform : MonoBehaviour
         {
             return;
         }
-
-        // 이미 텔레포트 중이거나 스택이 없으면 사용 불가
-        if (isTeleporting)
-        {
-            return;
-        }
-        if (currentStacks <= 0)
-        {
-            return;
-        }
         StartCoroutine(Skill_Teleport());
     }
 
     private IEnumerator Skill_Teleport()
     {
-        isTeleporting = true;
 
         // 현재 이동 방향 계산
         Vector3 moveDirection = GetCurrentMoveDirection();
@@ -72,8 +60,7 @@ public class PlayerSkill_Transform : MonoBehaviour
 
         // 텔레포트 실행
         transform.position = targetPos;
-
-        isTeleporting = false;
+        StartCoroutine(TeleportCool_co());
     }
 
     // 현재 이동 방향 계산
@@ -104,14 +91,8 @@ public class PlayerSkill_Transform : MonoBehaviour
 
     public void UseSkill_Shift()
     {
-        // 이미 작아진 상태면 사용 불가
-        if (isShrunken)
-        {
-            return;
-        }
-
-        // 쿨타임 중이면 사용 불가
-        if (shrinkCooldownTimer > 0)
+        // 쿨타임 일때 돌아가
+        if (!canSpaceSkill)
         {
             return;
         }
@@ -119,10 +100,16 @@ public class PlayerSkill_Transform : MonoBehaviour
         StartCoroutine(Skill_Scale());
     }
 
+    private IEnumerator ScaleCool_co()
+    {
+        canShiftSkill = false;
+        yield return new WaitForSeconds(shrinkCooldownTime);
+
+        canShiftSkill = true;
+    }
+
     private IEnumerator Skill_Scale()
     {
-        isShrunken = true;
-
         // 부드럽게 작아지기
         Vector3 targetScale = originalScale * shrinkScale;
         yield return StartCoroutine(ScaleTo(targetScale, scaleTransitionTime));
@@ -139,11 +126,7 @@ public class PlayerSkill_Transform : MonoBehaviour
         // 부드럽게 커지기
         yield return StartCoroutine(ScaleTo(originalScale, scaleTransitionTime));
 
-        isShrunken = false;
-
-        // 쿨타임 시작
-        shrinkCooldownTimer = shrinkCooldownTime;
-        Debug.Log($"작아지기 스킬 쿨타임 시작: {shrinkCooldownTime}초");
+        StartCoroutine(ScaleCool_co());
     }
 
     // 부드럽게 크기 변경하는 코루틴
