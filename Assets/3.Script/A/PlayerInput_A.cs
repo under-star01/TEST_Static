@@ -19,6 +19,7 @@ public class PlayerInput_A : MonoBehaviour
     {
         // 컴포넌트 연결
         TryGetComponent(out playerMove);
+        TryGetComponent(out playerSkill_T);
         TryGetComponent(out playerSkill_R);
         TryGetComponent(out playerSkill_C);
 
@@ -79,7 +80,8 @@ public class PlayerInput_A : MonoBehaviour
     {
         if (playerSkill_T != null)
         {
-            //playerSkill_T.UseSkill_Shift();
+            Debug.Log("Shift가 눌렸어용");
+            playerSkill_T.UseSkill_Shift();
         }
         else if (playerSkill_R != null)
         {
@@ -87,7 +89,7 @@ public class PlayerInput_A : MonoBehaviour
         }
         else if(playerSkill_C != null)
         {
-            //playerSkill_C.UseSkill_Shift();
+            playerSkill_C.UseSkill_Shift();
         }
     }
 
@@ -96,7 +98,8 @@ public class PlayerInput_A : MonoBehaviour
     {
         if (playerSkill_T != null)
         {
-            //playerSkill_T.UseSkill_Space();
+            Debug.Log("Space가 눌렸어용");
+            playerSkill_T.UseSkill_Space();
         }
         else if (playerSkill_R != null)
         {

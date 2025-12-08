@@ -4728,6 +4728,7 @@ GameObject:
   - component: {fileID: 8073086773874156720}
   - component: {fileID: 8073086773874156717}
   - component: {fileID: 8073086773874156716}
+  - component: {fileID: 8073086773874156721}
   m_Layer: 0
   m_Name: Transform
   m_TagString: Player
@@ -7499,7 +7500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &7940719953724130084
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7562,13 +7563,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacd3cde8b9e2b44384547c8fe2d0695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_Coroutine
-  isShiftRunning: 0
-  isSpaceRunning: 0
   canShiftSkill: 1
+  canSpaceSkill: 1
+  timeStopCooldown: 10
   timeStopDuration: 3
-  timeStopCooldown: 1
   slowMotionScale: 0.05
   speedBoostMultiplier: 1.5
+  cloneCooldown: 5
 --- !u!114 &7940719953724130087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7836,6 +7837,29 @@ MonoBehaviour:
   moveSpeed: 5
   isMoveLocked: 0
   animator: {fileID: 0}
+--- !u!114 &8073086773874156721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4132312773491824357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7a9b311a81e6540a295f1a92effef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_Transform
+  mapCollider: {fileID: 833182734}
+  teleportDistance: 6
+  cooldownTime: 6
+  maxStacks: 2
+  fadeOutTime: 0.2
+  invisibleTime: 0.1
+  fadeInTime: 0.2
+  shrinkScale: 0.5
+  shrinkDuration: 5
+  scaleTransitionTime: 0.5
+  shrinkCooldownTime: 20
 --- !u!1 &8074667640183170296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8363,7 +8387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &8702267591874943567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8461,12 +8485,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0317f9d1994a16e42a965a1120472352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_RigidBody1
+  canShiftSkill: 1
+  canSpaceSkill: 1
+  addForceCool: 10
+  isTriggerCool: 15
   spaceRadius: 5
   detectLayer:
     serializedVersion: 2
     m_Bits: 128
-  isShiftRunning: 0
-  isSpaceRunning: 0
   rangeIndicator: {fileID: 479350919}
 --- !u!1 &8706536634201208329
 GameObject:
