@@ -11,14 +11,13 @@ public class PlayerSkill_Transform : MonoBehaviour
     public float teleportDistance = 6f;          // 텔레포트 거리
     public float TeleportcooldownTime = 6f;              // 쿨타임
     [SerializeField] private bool canSpaceSkill = true;
+    [SerializeField] private GameObject teleportEffectPrefab; //텔포이펙트
 
     [Header("작아지기 스킬 설정")]
-    public float shrinkScale = 0.5f;
+    public float shrinkScale = 0.2f;
     public float shrinkDuration = 5f;
     public float scaleTransitionTime = 0.5f;     // 크기 변화 시간
-    public float shrinkCooldownTime = 20f;       // 작아지기 쿨타임
-    private bool isShrunken = false;
-    private float shrinkCooldownTimer = 0f;      // 쿨타임 타이머
+    public float shrinkCooldownTime = 10f;       // 작아지기 쿨타임
     [SerializeField] private bool canShiftSkill = true;
 
 
@@ -29,6 +28,7 @@ public class PlayerSkill_Transform : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out playerMove);
+        originalScale = transform.localScale;
     }
 
     // Shift: 일정 시간 완전 무적 스킬
@@ -57,10 +57,10 @@ public class PlayerSkill_Transform : MonoBehaviour
         Vector3 targetPos = transform.position + moveDirection * teleportDistance;
         targetPos.y = transform.position.y; // 높이 유지
 
-        yield return new WaitForSeconds(0.5f);
-
         // 텔레포트 실행
+        yield return new WaitForSeconds(0.2f);
         transform.position = targetPos;
+        Instantiate(teleportEffectPrefab);
         StartCoroutine(TeleportCool_co());
     }
 
@@ -114,13 +114,13 @@ public class PlayerSkill_Transform : MonoBehaviour
         yield return StartCoroutine(ScaleTo(targetScale, scaleTransitionTime));
 
         // 이동속도 증가
-        playerMove.moveSpeed *= 2f;
+        playerMove.moveSpeed *= 1.7f;
 
         // 작아진 상태로 유지
         yield return new WaitForSeconds(shrinkDuration);
 
         // 이동속도 원래대로
-        playerMove.moveSpeed /= 2f;
+        playerMove.moveSpeed /= 1.7f;
 
         // 부드럽게 커지기
         yield return StartCoroutine(ScaleTo(originalScale, scaleTransitionTime));
