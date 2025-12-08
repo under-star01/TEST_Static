@@ -80,7 +80,6 @@ public class PlayerInput_A : MonoBehaviour
     {
         if (playerSkill_T != null)
         {
-            Debug.Log("Shift°¡ ´­·È¾î¿ë");
             playerSkill_T.UseSkill_Shift();
         }
         else if (playerSkill_R != null)
@@ -98,7 +97,6 @@ public class PlayerInput_A : MonoBehaviour
     {
         if (playerSkill_T != null)
         {
-            Debug.Log("Space°¡ ´­·È¾î¿ë");
             playerSkill_T.UseSkill_Space();
         }
         else if (playerSkill_R != null)

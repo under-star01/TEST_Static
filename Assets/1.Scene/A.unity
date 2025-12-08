@@ -7500,7 +7500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &7940719953724130084
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7586,7 +7586,7 @@ MonoBehaviour:
   cameraRoot: {fileID: 103537573}
   lookSensitivity: 15
   minPitch: -25
-  maxPitch: 0
+  maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
   animator: {fileID: 0}
@@ -7833,7 +7833,7 @@ MonoBehaviour:
   cameraRoot: {fileID: 867727236}
   lookSensitivity: 15
   minPitch: -25
-  maxPitch: 0
+  maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
   animator: {fileID: 0}
@@ -7851,15 +7851,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_Transform
   mapCollider: {fileID: 833182734}
   teleportDistance: 6
-  cooldownTime: 6
-  maxStacks: 2
-  fadeOutTime: 0.2
-  invisibleTime: 0.1
-  fadeInTime: 0.2
-  shrinkScale: 0.5
+  TeleportcooldownTime: 6
+  canSpaceSkill: 1
+  teleportEffectPrefab: {fileID: 1817168015807230722, guid: 07c57a5c03b9ad74fb6db0f72675c663, type: 3}
+  shrinkScale: 0.2
   shrinkDuration: 5
   scaleTransitionTime: 0.5
-  shrinkCooldownTime: 20
+  shrinkCooldownTime: 10
+  canShiftSkill: 1
 --- !u!1 &8074667640183170296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8387,7 +8386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8702267591874943567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8404,7 +8403,7 @@ MonoBehaviour:
   cameraRoot: {fileID: 1061061324}
   lookSensitivity: 15
   minPitch: -25
-  maxPitch: 0
+  maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
   animator: {fileID: 0}
