@@ -7,10 +7,13 @@ using UnityEngine.InputSystem;
 public class PlayerSkill_RigidBody : MonoBehaviour
 {
     [Header("Space 스킬 설정")]
+    [SerializeField] private bool canShiftSkill = true;
+    [SerializeField] private bool canSpaceSkill = true;
+
+    [SerializeField] private float addForceCool = 10f;
+    [SerializeField] private float isTriggerCool = 15f;
     [SerializeField] private float spaceRadius = 5f; // 스킬 범위
     [SerializeField] private LayerMask detectLayer; // 탐지 레이어
-    [SerializeField] private bool isShiftRunning = false;
-    [SerializeField] private bool isSpaceRunning = false;
 
     [Header("범위 표시 오브젝트")]
     [SerializeField] private GameObject rangeIndicator; // 붉은 원 Mesh/Quad (미리 프리팹 or 자식으로 세팅)
@@ -27,9 +30,10 @@ public class PlayerSkill_RigidBody : MonoBehaviour
     // Shift: 일정 시간 완전 무적 스킬
     public void UseSkill_Shift()
     {
-        if (isShiftRunning) return; // 연속 입력 방지
+        if (!canShiftSkill) return; // 연속 입력 방지
 
         Debug.Log("Shift 스킬 사용!");
+        canShiftSkill = false;
         StartCoroutine(Skill_IsTrigger(5f)); // 5초 동안 스킬 사용
     }
 
@@ -40,7 +44,6 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         // 상태 제한
         rb.linearVelocity = Vector3.zero;
         playerMove.isMoveLocked = true;
-        isShiftRunning = true;
 
         // 애니메이션 파라미터 초기화 및 실행
         playerMove.animator.SetFloat("MoveX", 0f);
@@ -50,7 +53,6 @@ public class PlayerSkill_RigidBody : MonoBehaviour
 
         // 입력 제한 및 스킬 제한 복구
         playerMove.isMoveLocked = false;
-        isShiftRunning = false;
 
         // 무적 레이어 적용
         gameObject.layer = LayerMask.NameToLayer("Invincibility");
@@ -58,14 +60,18 @@ public class PlayerSkill_RigidBody : MonoBehaviour
 
         // 레이어 복구
         gameObject.layer = LayerMask.NameToLayer("Default");
+        
+        // 쿨타임 시작
+        StartCoroutine(IsTriggerCool_co());
     }
 
     // Space: 주변 방해물 날려버리기
     public void UseSkill_Space()
     {
-        if (isSpaceRunning) return; // 연속 입력 방지
+        if (!canSpaceSkill) return; // 연속 입력 방지
 
         Debug.Log("Space 스킬 사용!");
+        canSpaceSkill = false;
         StartCoroutine(UseSpaceRoutine());
     }
 
@@ -75,7 +81,6 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         // 상태 제한
         rb.linearVelocity = Vector3.zero;
         playerMove.isMoveLocked = true;
-        isSpaceRunning = true;
 
         // 애니메이션 파라미터 초기화
         playerMove.animator.SetFloat("MoveX", 0f);
@@ -104,7 +109,9 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         // 범위 표시 끄기
         HideRangeIndicator();
         playerMove.isMoveLocked = false;
-        isSpaceRunning = false;
+
+        // 쿨타임 시작
+        StartCoroutine(AddForceCool_co());
     }
 
     // 스킬 범위 표시 메소드
@@ -126,5 +133,19 @@ public class PlayerSkill_RigidBody : MonoBehaviour
     {
         if (rangeIndicator == null) return;
         rangeIndicator.SetActive(false);
+    }
+
+    private IEnumerator AddForceCool_co()
+    {
+        yield return new WaitForSeconds(addForceCool);
+
+        canSpaceSkill = true;
+    }
+
+    private IEnumerator IsTriggerCool_co()
+    {
+        yield return new WaitForSeconds(isTriggerCool);
+
+        canShiftSkill = true;
     }
 }
