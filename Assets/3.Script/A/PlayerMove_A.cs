@@ -11,12 +11,12 @@ public class PlayerMove_A : MonoBehaviour
 
     [Header("화면 회전 관련 설정")]
     [SerializeField] private Transform cameraRoot;   // 카메라 부모 (pitch 회전용)
-    [SerializeField] private float lookSensitivity = 150f;
+    [SerializeField] public float lookSensitivity = 150f;
     [SerializeField] private float minPitch = -60f;
     [SerializeField] private float maxPitch = 80f;
 
     [Header("이동 관련 설정")]
-    [SerializeField] private float moveSpeed = 5f; // 이동 속도
+    [SerializeField] public float moveSpeed = 5f; // 이동 속도
 
     [Header("상태 관련 설정")]
     [SerializeField] public bool isMoveLocked; // 이동 제한 여부
