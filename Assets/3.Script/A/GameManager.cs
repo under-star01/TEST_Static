@@ -1,13 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using System;
 using Game.UI;
 using TMPro;
-using I18N.Common;
-using UnityEngine.Playables;
 using UnityEngine.UI;
 
 
@@ -39,12 +35,16 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false; // 게임 오버 상태
 
     [SerializeField] private List<GameObject> playerPrefabs_List; // 플레이어 프리팹 리스트
+    [SerializeField] private ObstacleSpawner_A obstacleSpawner; // 낙하물 생성 스크립트
     [SerializeField] private TextMeshProUGUI survivalTimeUI;
 
-    private PlayerInputActions inputActions;
     private GameOverUI gameOverUI; // 게임오버 UI 참조
     private RankingViewUI rankingViewUI;
+    
     public event Action OnDie;
+
+    public Coroutine UseURP;
+    public Coroutine UseCaching;
 
     private void Awake()
     {
@@ -151,5 +151,67 @@ public class GameManager : MonoBehaviour
         // 게임오버 상태 켜기
         isGameOver = true;
         //UIManager.Instance.ShowGameOverUI();
+    }
+
+    // 아이템 사용 : GC -> hpCnt 회복
+    public void UseItem_GC()
+    {
+        if (isGameOver) return;
+
+        if(hpCnt >= 3)
+        {
+            Debug.Log("현재 최대 HP이므로 더이상 증가할 수 없습니다!");
+        }
+        else
+        {
+            hpCnt++;
+        }
+    }
+
+    // 아이템 사용 : URP -> 떨어지는 시간 증가
+    public void UseItem_URP()
+    {
+        if (UseURP != null)
+        {
+            StopCoroutine(UseURP);
+        }
+
+        if (obstacleSpawner != null)
+        {
+            // 7초동안 지속
+            UseURP = StartCoroutine(UseItem_URP_co(7f));
+        }
+    }
+
+    private IEnumerator UseItem_URP_co(float delay)
+    {
+        Physics.gravity = new Vector3(0f, -3f, 0f);
+        yield return new WaitForSeconds(delay);
+
+        Physics.gravity = new Vector3(0f, -5f, 0f);
+    }
+
+
+    // 아이템 사용 : Caching -> 생성되는 오류 간격 증가
+    public void UseItem_Caching()
+    {
+        if(UseCaching != null)
+        {
+            StopCoroutine(UseCaching);
+        }
+
+        if (obstacleSpawner != null)
+        {
+            // 7초동안 지속
+            UseCaching = StartCoroutine(UseItem_Caching_co(7f));
+        }
+    }
+
+    private IEnumerator UseItem_Caching_co(float delay)
+    {
+        obstacleSpawner.delaySpawnTime = 1f;
+        yield return new WaitForSeconds(delay);
+
+        obstacleSpawner.delaySpawnTime = 0f;
     }
 }

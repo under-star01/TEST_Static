@@ -145,19 +145,25 @@ public class PlayerMove_A : MonoBehaviour
             ApplyKnockBack(dir.normalized, 5f, 0.4f);
             ActiveDamagedState(0.5f);
         }
+        // Caching 아이템 사용
         else if (other.gameObject.CompareTag("Caching"))
         {
             Debug.Log("[아이템] : Caching 사용!");
+            GameManager.Instance.UseItem_Caching();
             other.gameObject.SetActive(false);
         }
+        // URP 아이템 사용
         else if (other.gameObject.CompareTag("URP"))
         {
             Debug.Log("[아이템] : URP 사용!");
+            GameManager.Instance.UseItem_URP();
             other.gameObject.SetActive(false);
         }
+        // GC 아이템 사용
         else if (other.gameObject.CompareTag("GC"))
         {
             Debug.Log("[아이템] : GC 사용!");
+            GameManager.Instance.UseItem_GC();
             other.gameObject.SetActive(false);
         }
     }

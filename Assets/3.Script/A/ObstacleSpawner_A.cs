@@ -18,11 +18,12 @@ public class ObstacleSpawner_A : MonoBehaviour
     [SerializeField] private int spawnErrorCnt = 10;   // 에러 오브젝트 생성 개수
     [SerializeField] private int spawnWarningCnt = 10;   // 경고 오브젝트 생성 개수
     [SerializeField] private float spawnHeight = 10f; // 맵 위 얼마나 위에서 생성할지
-
+    
     [SerializeField] private float spawnErrorMin = 3f; // 에러 오브젝트 최소 생성 시간
     [SerializeField] private float spawnErrorMax = 5f; // 에러 오브젝트 최대 생성 시간
     [SerializeField] private float spawnWarningMin = 1f; // 경고 오브젝트 최소 생성 시간
     [SerializeField] private float spawnWarningMax = 5f; // 경고 오브젝트 최대 생성 시간
+    public float delaySpawnTime = 0f; // 생성 딜레이 조절
 
     // 타이머
     private float errorTimer;
@@ -101,14 +102,14 @@ public class ObstacleSpawner_A : MonoBehaviour
     private void ResetErrorTimer() // Error: 3~5초
     {
         errorTimer = 0f;
-        nextErrorSpawnTime = Random.Range(spawnErrorMin, spawnErrorMax);  
+        nextErrorSpawnTime = Random.Range(spawnErrorMin + delaySpawnTime, spawnErrorMax + delaySpawnTime);  
     }
 
     // Warning 타이머 설정 메소드
     private void ResetWarningTimer() // Warning: 1~5초
     {
         warningTimer = 0f;
-        nextWarningSpawnTime = Random.Range(spawnWarningMin, spawnWarningMax); 
+        nextWarningSpawnTime = Random.Range(spawnWarningMin + delaySpawnTime, spawnWarningMax + delaySpawnTime); 
     }
 
     // Error 낙하물 활성화 메소드
