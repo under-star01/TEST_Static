@@ -59,6 +59,9 @@ public class PlayerMove_A : MonoBehaviour
         {
             Debug.LogWarning("맵 범위 연결이 안됐어용");
         }
+
+        //선택한 캐릭터 불러오기
+        PlayerPrefs.GetInt("SelectedCharacterIndex");
     }
 
     private void Start()
