@@ -11,13 +11,16 @@ public class PlayerInput_A : MonoBehaviour
 
     private PlayerInputActions inputActions;
     private PlayerMove_A playerMove;
-    private PlayerSkill_RigidBody playerSkill;
+    private PlayerSkill_Transform playerSkill_T;
+    private PlayerSkill_RigidBody playerSkill_R;
+    private PlayerSkill_Coroutine playerSkill_C;
 
     private void Awake()
     {
         // 컴포넌트 연결
         TryGetComponent(out playerMove);
-        TryGetComponent(out playerSkill);
+        TryGetComponent(out playerSkill_R);
+        TryGetComponent(out playerSkill_C);
 
         // InputAction 생성
         inputActions = new PlayerInputActions();
@@ -74,12 +77,34 @@ public class PlayerInput_A : MonoBehaviour
     // Shift 스킬 사용 메소드
     private void OnShiftSkill(InputAction.CallbackContext context)
     {
-        playerSkill.UseSkill_Shift();
+        if (playerSkill_T != null)
+        {
+            //playerSkill_T.UseSkill_Shift();
+        }
+        else if (playerSkill_R != null)
+        {
+            playerSkill_R.UseSkill_Shift();
+        }
+        else if(playerSkill_C != null)
+        {
+            //playerSkill_C.UseSkill_Shift();
+        }
     }
 
     // Space 스킬 사용 메소드
     private void OnSpaceSkill(InputAction.CallbackContext context)
     {
-        playerSkill.UseSkill_Space();
+        if (playerSkill_T != null)
+        {
+            //playerSkill_T.UseSkill_Space();
+        }
+        else if (playerSkill_R != null)
+        {
+            playerSkill_R.UseSkill_Space();
+        }
+        else if (playerSkill_C != null)
+        {
+            //playerSkill_C.UseSkill_Space();
+        }
     }
 }

@@ -27,10 +27,10 @@ public class PlayerSkill_RigidBody : MonoBehaviour
     // Shift: 일정 시간 완전 무적 스킬
     public void UseSkill_Shift()
     {
-        if (isSpaceRunning) return; // 연속 입력 방지
+        if (isShiftRunning) return; // 연속 입력 방지
 
         Debug.Log("Shift 스킬 사용!");
-        StartCoroutine(Skill_IsTrigger(3f)); // 3초 동안 스킬 사용
+        StartCoroutine(Skill_IsTrigger(5f)); // 5초 동안 스킬 사용
     }
 
 
@@ -46,7 +46,7 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         playerMove.animator.SetFloat("MoveX", 0f);
         playerMove.animator.SetFloat("MoveY", 0f);
         playerMove.animator.SetTrigger("Skill_Shift");
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.7f);
 
         // 입력 제한 및 스킬 제한 복구
         playerMove.isMoveLocked = false;
