@@ -104,7 +104,7 @@ public class PlayerInput_A : MonoBehaviour
         }
         else if (playerSkill_C != null)
         {
-            //playerSkill_C.UseSkill_Space();
+            playerSkill_C.UseSkill_Space();
         }
     }
 }

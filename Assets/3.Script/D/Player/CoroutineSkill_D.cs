@@ -189,6 +189,27 @@ public class CoroutineSkill : MonoBehaviour
         return !isTimeStopActive && timeStopCooldownTimer <= 0;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //   스킬 2 : 분신 소환/위치 교환  
 
     public void OnSkill2()
