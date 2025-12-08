@@ -17,18 +17,18 @@ public class PlayerInput_A : MonoBehaviour
 
     private void Awake()
     {
-        // 컴포넌트 연결
-        TryGetComponent(out playerMove);
-        TryGetComponent(out playerSkill_T);
-        TryGetComponent(out playerSkill_R);
-        TryGetComponent(out playerSkill_C);
-
         // InputAction 생성
         inputActions = new PlayerInputActions();
     }
 
     private void OnEnable()
     {
+        // 컴포넌트 연결
+        TryGetComponent(out playerMove);
+        TryGetComponent(out playerSkill_T);
+        TryGetComponent(out playerSkill_R);
+        TryGetComponent(out playerSkill_C);
+
         // InputAction 연결 및 활성화
         inputActions.Player.Move.performed += OnMove;
         inputActions.Player.Move.canceled += OnMove;
@@ -90,6 +90,10 @@ public class PlayerInput_A : MonoBehaviour
         {
             playerSkill_C.UseSkill_Shift();
         }
+        else
+        {
+            Debug.Log("연결된 스크립트가 없습니다.");
+        }
     }
 
     // Space 스킬 사용 메소드
@@ -106,6 +110,10 @@ public class PlayerInput_A : MonoBehaviour
         else if (playerSkill_C != null)
         {
             playerSkill_C.UseSkill_Space();
+        }
+        else
+        {
+            Debug.Log("플레이어 스킬 스크립트가 연결되지 않았습니다.");
         }
     }
 }

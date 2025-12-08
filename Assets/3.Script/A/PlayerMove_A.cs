@@ -21,6 +21,12 @@ public class PlayerMove_A : MonoBehaviour
     [Header("상태 관련 설정")]
     [SerializeField] public bool isMoveLocked; // 이동 제한 여부
 
+    [Header("각 캐릭터 전용 Avatar 연결")]
+    [SerializeField] private int selectedcharacter = 0;//선택한 캐릭터
+    [SerializeField] private Avatar avatar_Transform;
+    [SerializeField] private Avatar avatar_Rigidbody;
+    [SerializeField] private Avatar avatar_Coroutine;
+
     private Rigidbody rb;
     public Animator animator;
     private Vector3 targetPos;
@@ -60,8 +66,7 @@ public class PlayerMove_A : MonoBehaviour
             Debug.LogWarning("맵 범위 연결이 안됐어용");
         }
 
-        //선택한 캐릭터 불러오기
-        PlayerPrefs.GetInt("SelectedCharacterIndex");
+        InitData(); // 초기 설정 호출
     }
 
     private void Start()
@@ -106,6 +111,40 @@ public class PlayerMove_A : MonoBehaviour
         // 화면 회전 적용
         HandleLook();
     }
+
+    //플레이어 캐릭터 연결
+    private void InitData()
+    {
+        selectedcharacter = PlayerPrefs.GetInt("SelectedCharacterIndex");
+
+        switch (selectedcharacter)
+        {
+            case 0:
+                gameObject.AddComponent<PlayerSkill_Transform>();
+                if (avatar_Transform != null)
+                    animator.avatar = avatar_Transform;
+                break;
+
+            case 1:
+                gameObject.AddComponent<PlayerSkill_RigidBody>();
+                if (avatar_Rigidbody != null)
+                    animator.avatar = avatar_Rigidbody;
+                break;
+
+            case 2:
+                gameObject.AddComponent<PlayerSkill_Coroutine>();
+                if (avatar_Coroutine != null)
+                    animator.avatar = avatar_Coroutine;
+                break;
+
+            default:
+                Debug.LogWarning("선택된 캐릭터 값이 범위를 벗어났습니다! 기본 Transform 적용");
+                gameObject.AddComponent<PlayerSkill_Transform>();
+                animator.avatar = avatar_Transform;
+                break;
+        }
+    }
+
 
     public void SetMoveInput(Vector2 move)
     {
