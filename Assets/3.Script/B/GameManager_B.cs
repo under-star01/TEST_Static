@@ -4,62 +4,72 @@ using UnityEngine.InputSystem;
 
 public class GameManager_B : MonoBehaviour
 {
-    // ���� ���� ���� ������
+    // 인풋 액션 에셋 연결
 
-    private float survivalTime = 0f; // �÷��̾� ���� �ð� (�� ����)
-    private bool isGameOver = false; // ���ӿ��� �������� Ȯ��
-    private GameOverUI gameOverUI; // ���ӿ��� UI ����
+    private float survivalTime = 0f; // 플레이어 생존시간 (�� ����)
+    private bool isGameOver = false; // 게임 오버 상태
+    private GameOverUI gameOverUI; // 게임오버 UI 참조
+    private RankingViewUI rankingViewUI;
 
     // ���� ���� �� �ʱ�ȭ 
 
     void Start()
     {
-        // ������ GameOverUI ������Ʈ ã��
+        // 씬에서 GameOverUI 컴포넌트 찾기
         gameOverUI = FindAnyObjectByType<GameOverUI>();
     }
 
-    // �� �����Ӹ��� ���� 
+    // 게임오버가 아닐 때만 시간 증가
 
     void Update()
     {
-        // ���ӿ����� �ƴ� ���� �ð� ����
+        // 게임오버가 아닐 때만 시간 증가
         if (!isGameOver)
         {
-            // Time.deltaTime: ���� �����Ӱ��� �ð� ���� (��)
-            // �� �����Ӹ��� deltaTime�� ���ؼ� �� ���� �ð� ���
+            // Time.deltaTime: 이전 프레임과의 시간 간격 (초)
+            // 매 프레임마다 deltaTime을 더해서 총 생존 시간 계산
             survivalTime += Time.deltaTime;
         }
 
-        //// �׽�Ʈ��: GŰ�� ������ ���ӿ���
+        //// 테스트용: G키 입력시 반응하게 - 뉴인풋이지만 올드처럼 스크립트에서 되도록
         //if (Input.GetKeyDown(KeyCode.G))
         //{
-        //    TriggerGameOver(); // ���ӿ��� �Լ� ȣ��
+        //    TriggerGameOver(); // 게임오버 메소드 호출
         //}
+
+        // ESC키: 랭킹 보기 (추가)
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (rankingViewUI != null)
+            {
+                rankingViewUI.OpenRankingView();
+            }
+        }
     }
 
-    // ���ӿ��� ó�� �Լ� 
+    // 게임오버 처리 함수
 
     private void TriggerGameOver()
     {
-        // �̹� ���ӿ��� ���¸� �ߺ� ���� ����
+        // 이미 게임오버 상태면 중복 실행 방지
         if (isGameOver)
         {
-            return; // �Լ� ����
+            return; // 메서드 종료
         }
 
-        // ���ӿ��� ���·� ����
+        // 게임오버 상태 켜기
         isGameOver = true;
 
-        // GameOverUI�� ���� �ð� �����ϸ� ���ӿ��� ȭ�� ǥ��
+        // GameOverUI에 생존 시간 전달하며 게임오버 화면 표시
         gameOverUI.ShowGameOver(survivalTime);
     }
 
     // �ܺο��� ȣ�� ������ ���ӿ��� �Լ� 
-    // �ٸ� ��ũ��Ʈ���� GameManager.GameOver()�� ȣ�� ����
+    // 다른 스크립트에서 GameManager.GameOver()로 호출 가능
 
     public void GameOver()
     {
-        TriggerGameOver(); // ���� ���ӿ��� �Լ� ȣ��
+        TriggerGameOver(); // 내부 게임오버 메소드 호출
     }
 }
 
