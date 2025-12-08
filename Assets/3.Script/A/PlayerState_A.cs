@@ -12,7 +12,7 @@ public class PlayerState_A : MonoBehaviour
     public bool IsDead => CurrentHP <= 0;
 
     public event Action<int, int> OnHPChanged;
-    public event Action OnDie;
+    public event Action OnDie; 
 
     [Header("상태 플래그")]
     public bool IsInvincible { get; private set; }
