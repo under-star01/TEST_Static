@@ -9,6 +9,7 @@ public class GameManager_B : MonoBehaviour
     private float survivalTime = 0f; // 플레이어 생존시간 (�� ����)
     private bool isGameOver = false; // 게임 오버 상태
     private GameOverUI gameOverUI; // 게임오버 UI 참조
+    private RankingViewUI rankingViewUI;
 
     // 플레이어 상태 관리 매니저 불러오기(죽음 상태 판단을 이쪽에서 하기 때문)
     [SerializeField] private PlayerState_A player;
@@ -52,6 +53,15 @@ public class GameManager_B : MonoBehaviour
         //{
         //    TriggerGameOver(); // 게임오버 메소드 호출
         //}
+
+        // ESC키: 랭킹 보기 (추가)
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (rankingViewUI != null)
+            {
+                rankingViewUI.OpenRankingView();
+            }
+        }
     }
 
     // 게임오버 처리 함수
