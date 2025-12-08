@@ -6,12 +6,12 @@ public class GameManager_B : MonoBehaviour
 {
     // 인풋 액션 에셋 연결
 
-    private float survivalTime = 0f; // 플레이어 생존시간 (�� ����)
+    private float survivalTime = 0f; // 플레이어 생존시간 (secends 단위)
     private bool isGameOver = false; // 게임 오버 상태
     private GameOverUI gameOverUI; // 게임오버 UI 참조
     private RankingViewUI rankingViewUI;
 
-    // ���� ���� �� �ʱ�ȭ 
+    // Reset at GameStart
 
     void Start()
     {
@@ -64,7 +64,6 @@ public class GameManager_B : MonoBehaviour
         gameOverUI.ShowGameOver(survivalTime);
     }
 
-    // �ܺο��� ȣ�� ������ ���ӿ��� �Լ� 
     // 다른 스크립트에서 GameManager.GameOver()로 호출 가능
 
     public void GameOver()
