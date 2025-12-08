@@ -91,7 +91,7 @@ public class PlayerSkill_Transform : MonoBehaviour
     public void UseSkill_Shift()
     {
         // 쿨타임 일때 돌아가
-        if (!canSpaceSkill)
+        if (!canShiftSkill)
         {
             return;
         }

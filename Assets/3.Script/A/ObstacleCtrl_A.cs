@@ -79,6 +79,9 @@ public class ObstacleCtrl_A : MonoBehaviour
         // 플레이어와 부딪혔을 경우
         else if (other.gameObject.CompareTag("Player"))
         {
+            // 피격 데미지 적용
+            GameManager.Instance.TakeDamage(1);
+
             // 밀어낼 방향 계산 (플레이어 기준 넉백 방향)
             Vector3 dir = other.transform.position - transform.position;
             PlayerMove_A playerMove = other.GetComponent<PlayerMove_A>();
@@ -110,22 +113,25 @@ public class ObstacleCtrl_A : MonoBehaviour
             // 범위 비활성화
             trace.SetActive(false);
         }
-        else
+        else if(collision.gameObject.CompareTag("Player"))
         {
+            // 피격 데미지 적용
+            GameManager.Instance.TakeDamage(1);
+            
+            // 밀어낼 방향 계산 (플레이어 기준 넉백 방향)
+            Vector3 dir = collision.transform.position - transform.position;
+            PlayerMove_A playerMove = collision.gameObject.GetComponent<PlayerMove_A>();
 
-            // Floor와 충돌시 범위 표시 비활성화
-            if (collision.gameObject.CompareTag("Player"))
+            if (playerMove != null)
             {
-                if (destroyRoutine != null)
-                {
-                    StopCoroutine(destroyRoutine);
-                }
-
-                // 2초 이후 자동 비활성화
-                destroyRoutine = StartCoroutine(DeActiveToDelay(2f));
-                // 범위 비활성화
-                trace.SetActive(false);
+                // 반대방향으로, 5f만큼 0.4초 동안 넉백!
+                dir.y = 0f;
+                playerMove.ApplyKnockBack(dir.normalized, 5f, 0.4f);
             }
+
+            // 비활성화 처리
+            trace.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
