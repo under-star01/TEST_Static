@@ -138,7 +138,6 @@ public class PlayerSkill_Coroutine : MonoBehaviour
         // 상태 제한
         rb.linearVelocity = Vector3.zero;
         playerMove.isMoveLocked = true;
-        canShiftSkill = false;
 
         // 애니메이션 파라미터 초기화 및 실행
         playerMove.animator.SetFloat("MoveX", 0f);
@@ -194,6 +193,7 @@ public class PlayerSkill_Coroutine : MonoBehaviour
         Destroy(currentClone);
         currentClone = null;
         hasClone = false;
+        canShiftSkill = false;
 
         // 쿨타임 시작
         StartCoroutine(ChangeCloneCool_co());

@@ -7500,7 +7500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &7940719953724130084
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7851,15 +7851,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill_Transform
   mapCollider: {fileID: 833182734}
   teleportDistance: 6
-  cooldownTime: 6
-  maxStacks: 2
-  fadeOutTime: 0.2
-  invisibleTime: 0.1
-  fadeInTime: 0.2
+  TeleportcooldownTime: 6
+  canSpaceSkill: 1
   shrinkScale: 0.5
   shrinkDuration: 5
   scaleTransitionTime: 0.5
   shrinkCooldownTime: 20
+  canShiftSkill: 1
 --- !u!1 &8074667640183170296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8387,7 +8385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8702267591874943567
 MonoBehaviour:
   m_ObjectHideFlags: 0
