@@ -11,6 +11,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private Button settingButton; // 설정 버튼
     [SerializeField] private Button closeButton; // 닫기 버튼
     [SerializeField] private Button StartButton; // 시작 버튼
+    [SerializeField] private Button exitButton; // 나가기 버튼
 
     [Header("Volume Controls")]
     [SerializeField] private Slider volumeSlider; // 볼륨조절 슬라이더
@@ -40,6 +41,12 @@ public class SettingManager : MonoBehaviour
         {
             // 시작 버튼을 클릭하면 - 선택씬 시작
             StartButton.onClick.AddListener(StartSelect);
+        }
+
+        if (exitButton != null)
+        {
+            // 나가기 버튼을 클릭하면 - 나가기 기능
+            exitButton.onClick.AddListener(Exit);
         }
 
         // 슬라이더 이벤트 등록
@@ -169,6 +176,15 @@ public class SettingManager : MonoBehaviour
         SceneManager.LoadScene("Select");
     }
 
+    private void Exit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
     private void OnDestroy()
     {
         // 아까 받은 이벤트 해제
@@ -185,6 +201,11 @@ public class SettingManager : MonoBehaviour
         if (StartButton != null)
         {
             StartButton.onClick.RemoveListener(StartSelect);
+        }
+
+        if (exitButton != null)
+        {
+            exitButton.onClick.RemoveListener(Exit);
         }
 
         if (volumeSlider != null)
