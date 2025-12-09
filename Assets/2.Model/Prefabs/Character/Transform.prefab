@@ -865,7 +865,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &1627707541512549850
 CapsuleCollider:
@@ -907,6 +907,7 @@ MonoBehaviour:
   TeleportcooldownTime: 6
   canSpaceSkill: 1
   teleportEffectPrefab: {fileID: 120410, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+  ScailEffectPrefab: {fileID: 180128, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
   shrinkScale: 0.2
   shrinkDuration: 5
   scaleTransitionTime: 0.5

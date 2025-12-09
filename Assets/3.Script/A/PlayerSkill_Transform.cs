@@ -12,6 +12,8 @@ public class PlayerSkill_Transform : MonoBehaviour
     public float TeleportcooldownTime = 6f;              // 쿨타임
     [SerializeField] private bool canSpaceSkill = true;
     [SerializeField] private GameObject teleportEffectPrefab; //텔포이펙트
+    [SerializeField] private GameObject ScailEffectPrefab; //스케일이펙트
+
 
     [Header("작아지기 스킬 설정")]
     public float shrinkScale = 0.2f;
@@ -124,6 +126,11 @@ public class PlayerSkill_Transform : MonoBehaviour
     {
         AudioManager.Instance.PlayScailDownSFX();//작아지기 사운드
 
+        if (ScailEffectPrefab != null)
+        {
+            Instantiate(ScailEffectPrefab, transform.position, Quaternion.identity);
+        }
+
         // 부드럽게 작아지기
         Vector3 targetScale = originalScale * shrinkScale;
         yield return StartCoroutine(ScaleTo(targetScale, scaleTransitionTime));
@@ -140,8 +147,13 @@ public class PlayerSkill_Transform : MonoBehaviour
 
         AudioManager.Instance.PlayScailReturnSFX(); // 돌아오기 사운드
 
+        if (ScailEffectPrefab != null)
+        {
+            Instantiate(ScailEffectPrefab, transform.position, Quaternion.identity);
+        }
         // 부드럽게 커지기
         yield return StartCoroutine(ScaleTo(originalScale, scaleTransitionTime));
+
 
 
         StartCoroutine(ScaleCool_co());
