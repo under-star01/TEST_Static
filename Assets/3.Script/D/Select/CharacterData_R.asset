@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CharacterData_R
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Rigidbody
-  characterDescription: "\uB2A5\uB825 1:\n\uB2A5\uB825 2: "
+  characterDescription: "\uB2A5\uB825\nSPACE  : AddForce\nSHIFT   : Istrigger"
   characterIcon: {fileID: 21300000, guid: 0b535c9663888b64c8cd11d0b0bad5dc, type: 3}
   characterID: 0

@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("BGM")]
     [SerializeField] private AudioClip titleBGM;
+    [SerializeField] private AudioClip SelectBGM;
     [SerializeField] private AudioClip stageBGM;
 
     [Header("胶懦 家府")]
@@ -26,12 +27,13 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip IstriggerEndSFX;
     [SerializeField] private AudioClip CloneSFX;
     [SerializeField] private AudioClip YieldReturnSFX;
+    [SerializeField] private AudioClip SlowSFX;
 
 
 
     [Header("UI 家府")]
     [SerializeField] private AudioClip menuSelectSFX;
-    [SerializeField] private AudioClip pauseSFX;
+    [SerializeField] private AudioClip ButtonSFX;
 
     [Header("杭俘")]
     [Range(0f, 1f)] public float bgmVolume = 1f;
@@ -134,6 +136,24 @@ public class AudioManager : MonoBehaviour
     public void PlayAddForceSFX() => PlaySFX(AddForceSFX);
     public void PlayCloneSFX() => PlaySFX(CloneSFX);
     public void PlayYieldReturnSFX() => PlaySFX(YieldReturnSFX);
+    public void PlaySlowSFX() => PlaySFX(SlowSFX);
+
+
+
+
+    //BGM
+    public void PlayTitleBGM() => PlayBGM(titleBGM);
+    public void PlaySelectBGM() => PlayBGM(SelectBGM);
+    public void PlayStageBGM() => PlayBGM(stageBGM);
+
+
+
+
+
+
+    //UI
+    public void PlayMenuSelectSFX() => PlaySFX(menuSelectSFX);
+    public void PlayButtonSFX() => PlaySFX(ButtonSFX);
 
     
 

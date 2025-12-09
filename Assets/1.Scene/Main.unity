@@ -4372,8 +4372,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9c1621bdf3fa04582ef4ca4dd9d542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  memoryGauge: 0
+  memorySlider: {fileID: 0}
   baseIncreaseRate: 1
+  debugCurrentIncreaseRate: 0
+  memorySpeed: 1
+  memoryGauge: 0
+  maxHpCnt: 3
   hpCnt: 3
   survivalTime: 0
   isGameOver: 0
@@ -4381,6 +4385,7 @@ MonoBehaviour:
   - {fileID: 2906654600586343106, guid: 5c5db87573c650143a021a2e96c0f306, type: 3}
   - {fileID: 7804884313770354083, guid: f3c28788f1111b349a537fa24214f5b8, type: 3}
   - {fileID: 6710359379306108842, guid: 9fd024f908ee3714780f6cf788b6725b, type: 3}
+  obstacleSpawner: {fileID: 0}
   survivalTimeUI: {fileID: 0}
 --- !u!1 &917359135
 GameObject:
@@ -5561,6 +5566,51 @@ Transform:
   - {fileID: 598467685}
   - {fileID: 2017365395}
   - {fileID: 494067959}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1241629223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1241629225}
+  - component: {fileID: 1241629224}
+  m_Layer: 0
+  m_Name: SceneBGMController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1241629224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241629223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd534e07a0063a41824602fd99875e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneBGMController
+  bgmType: 2
+--- !u!4 &1241629225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241629223}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1272.9512, y: 0, z: -1210.3806}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1241781334
@@ -10150,6 +10200,7 @@ MonoBehaviour:
   spawnErrorMax: 5
   spawnWarningMin: 0.5
   spawnWarningMax: 2
+  delaySpawnTime: 0
 --- !u!4 &1926004334
 Transform:
   m_ObjectHideFlags: 0
@@ -11493,3 +11544,4 @@ SceneRoots:
   - {fileID: 1240274888}
   - {fileID: 870527749}
   - {fileID: 1145408434}
+  - {fileID: 1241629225}
