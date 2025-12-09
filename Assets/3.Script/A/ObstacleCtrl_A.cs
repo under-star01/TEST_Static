@@ -105,6 +105,12 @@ public class ObstacleCtrl_A : MonoBehaviour
             trace.SetActive(false);
             gameObject.SetActive(false);
         }
+        // Error 낙하물이 겹쳤을 경우
+        else if (collision.gameObject.CompareTag("Error"))
+        {
+            // 비활성화 처리
+            trace.SetActive(false);
+        }
     }
 
     // 지연 비활성화 메소드
