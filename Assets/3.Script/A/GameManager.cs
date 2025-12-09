@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         }
     }
     [SerializeField] private float debugCurrentIncreaseRate;
-    [SerializeField] private float memorySpeed = 1f; // 메모리 차는 속도
+    [SerializeField] private float memorySpeed = 1.5f; // 메모리 차는 속도
 
     public float memoryGauge = 0f; // 0 ~ 100
 
