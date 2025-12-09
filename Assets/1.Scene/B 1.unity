@@ -919,6 +919,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9d1a550676c9e4981fd264c04f0e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager_B
+  gameOverPanel: {fileID: 184728523}
+  survivalTimeText: {fileID: 1502687621}
+  nameInputField: {fileID: 1523520612}
+  submitButton: {fileID: 330821019}
+  restartButton: {fileID: 495323824}
+  quitButton: {fileID: 768299717}
 --- !u!4 &301078175
 Transform:
   m_ObjectHideFlags: 0
@@ -5295,7 +5301,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1447014277}
   - {fileID: 1430948603}
-  - {fileID: 1150022502}
   - {fileID: 166663912}
-  - {fileID: 301078175}
   - {fileID: 2046042229}
+  - {fileID: 301078175}
+  - {fileID: 1150022502}

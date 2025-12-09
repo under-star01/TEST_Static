@@ -70,6 +70,9 @@ public class GameOver : MonoBehaviour
     {
         if (isGameOver) return;
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         Debug.Log("[GameOver] TriggerGameOver 호출!");
 
         isGameOver = true;
@@ -109,7 +112,10 @@ public class GameOver : MonoBehaviour
     {
         Debug.Log("[GameOver] Restart 버튼 클릭!");
         Time.timeScale = 1f;
-        SceneManager.LoadScene("A");
+        SceneManager.LoadScene("select");
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnQuitButtonClicked()
