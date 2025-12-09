@@ -7789,6 +7789,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563367467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1321313217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1321313219}
+  - component: {fileID: 1321313218}
+  m_Layer: 0
+  m_Name: SceneBGMController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1321313218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321313217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd534e07a0063a41824602fd99875e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneBGMController
+  bgmType: 2
+--- !u!4 &1321313219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321313217}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1272.9512, y: 0, z: -1210.3806}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1325193835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10032,6 +10077,7 @@ MonoBehaviour:
   sfxSource: {fileID: 1576058368}
   loopSfxSource: {fileID: 1576058367}
   titleBGM: {fileID: 0}
+  SelectBGM: {fileID: 0}
   stageBGM: {fileID: 0}
   TeleportSFX: {fileID: 8300000, guid: ee4ce853a532caf44bbff3c3c64e86a8, type: 3}
   ScailDownSFX: {fileID: 8300000, guid: ee862e657eec3af4fa0e3babad162c16, type: 3}
@@ -10041,8 +10087,9 @@ MonoBehaviour:
   IstriggerEndSFX: {fileID: 8300000, guid: b02e383571f2e5c408be2b874bf724f2, type: 3}
   CloneSFX: {fileID: 8300000, guid: fedfc26d918c1904eb2271f006c9002b, type: 3}
   YieldReturnSFX: {fileID: 8300000, guid: 969ee49bc39d25c4f84f5b4164c4ad72, type: 3}
+  SlowSFX: {fileID: 0}
   menuSelectSFX: {fileID: 0}
-  pauseSFX: {fileID: 0}
+  ButtonSFX: {fileID: 0}
   bgmVolume: 1
   sfxVolume: 1
 --- !u!82 &1576058367
@@ -20916,3 +20963,4 @@ SceneRoots:
   - {fileID: 1113905440}
   - {fileID: 1466154374}
   - {fileID: 1166195324}
+  - {fileID: 1321313219}
