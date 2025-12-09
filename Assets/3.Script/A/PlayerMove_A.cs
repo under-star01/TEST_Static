@@ -117,6 +117,7 @@ public class PlayerMove_A : MonoBehaviour
             // 피격 데미지 적용
             GameManager.Instance.TakeDamage(2);
 
+            AudioManager.Instance.PlayHitSFX();
             // 반대방향으로, 5f만큼 0.4초 동안 넉백!
             Vector3 dir = transform.position - collision.transform.position;
             dir.y = 0f;
@@ -137,6 +138,7 @@ public class PlayerMove_A : MonoBehaviour
             // 피격 데미지 적용
             GameManager.Instance.TakeDamage(1);
 
+            AudioManager.Instance.PlayHitSFX();
             // 반대방향으로, 5f만큼 0.4초 동안 넉백!
             Vector3 dir = transform.position - other.transform.position;
             dir.y = 0f;
@@ -149,6 +151,7 @@ public class PlayerMove_A : MonoBehaviour
         else if (other.gameObject.CompareTag("Caching"))
         {
             Debug.Log("[아이템] : Caching 사용!");
+            AudioManager.Instance.PlayGetItemSFX();
             GameManager.Instance.UseItem_Caching();
             other.gameObject.SetActive(false);
         }
@@ -156,6 +159,7 @@ public class PlayerMove_A : MonoBehaviour
         else if (other.gameObject.CompareTag("URP"))
         {
             Debug.Log("[아이템] : URP 사용!");
+            AudioManager.Instance.PlayGetItemSFX();
             GameManager.Instance.UseItem_URP();
             other.gameObject.SetActive(false);
         }
@@ -163,6 +167,7 @@ public class PlayerMove_A : MonoBehaviour
         else if (other.gameObject.CompareTag("GC"))
         {
             Debug.Log("[아이템] : GC 사용!");
+            AudioManager.Instance.PlayGetItemSFX();
             GameManager.Instance.UseItem_GC();
             other.gameObject.SetActive(false);
         }
