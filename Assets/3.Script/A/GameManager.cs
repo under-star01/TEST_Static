@@ -88,11 +88,6 @@ public class GameManager : MonoBehaviour
 
         // 생존 시간 갱신
         survivalTime += Time.deltaTime;
-        
-        if ((int)survivalTime % 5 == 0) // 5초마다
-        {
-            Debug.Log($"[GameManager] 생존시간: {survivalTime}, 메모리: {memoryGauge}");
-        }
 
         // UI 업데이트
         int minutes = (int)(survivalTime / 60);
@@ -110,9 +105,21 @@ public class GameManager : MonoBehaviour
         if (memoryGauge >= 100 && !isGameOver)
         {
             isGameOver = true;
-
             Debug.LogWarning("[GameOver] : 게임 오버 이벤트 실행!!");
-            OnDie?.Invoke();  // 사망 이벤트 호출
+
+            // 임시: 직접 GameOverUI 호출
+            GameOverUI gameOverUI = FindAnyObjectByType<GameOverUI>();
+            if (gameOverUI != null)
+            {
+                Debug.Log("[GameManager] GameOverUI 직접 호출!");
+                gameOverUI.ShowGameOver(survivalTime);
+            }
+            else
+            {
+                Debug.LogError("[GameManager] GameOverUI를 찾을 수 없습니다!");
+            }
+
+            OnDie?.Invoke();  // 이벤트도 호출 (나중을 위해)
         }
     }
 
