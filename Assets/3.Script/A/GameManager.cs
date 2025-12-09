@@ -107,18 +107,6 @@ public class GameManager : MonoBehaviour
             isGameOver = true;
             Debug.LogWarning("[GameOver] : 게임 오버 이벤트 실행!!");
 
-            // 임시: 직접 GameOverUI 호출
-            GameOverUI gameOverUI = FindAnyObjectByType<GameOverUI>();
-            if (gameOverUI != null)
-            {
-                Debug.Log("[GameManager] GameOverUI 직접 호출!");
-                gameOverUI.ShowGameOver(survivalTime);
-            }
-            else
-            {
-                Debug.LogError("[GameManager] GameOverUI를 찾을 수 없습니다!");
-            }
-
             OnDie?.Invoke();  // 이벤트도 호출 (나중을 위해)
         }
     }
