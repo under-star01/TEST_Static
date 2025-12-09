@@ -5366,10 +5366,10 @@ MonoBehaviour:
   loopSfxSource: {fileID: 1723331746}
   titleBGM: {fileID: 8300000, guid: 109ec3a70c0ec11489c18904b84e1df4, type: 3}
   SelectBGM: {fileID: 8300000, guid: 8a47e6fd7c199854e8b81b23a41deb81, type: 3}
-  stageBGM: {fileID: 8300000, guid: 8fb35ef6b89d83f44b4ecf7edd991d5e, type: 3}
+  stageBGM: {fileID: 8300000, guid: 912104b6d0db8464198c2ce728bfaa82, type: 3}
   TeleportSFX: {fileID: 8300000, guid: ee4ce853a532caf44bbff3c3c64e86a8, type: 3}
   ScailDownSFX: {fileID: 8300000, guid: ee862e657eec3af4fa0e3babad162c16, type: 3}
-  ScailReturnSFX: {fileID: 8300000, guid: 78f330f364c57f7448f363df9aae1fe0, type: 3}
+  ScailReturnSFX: {fileID: 8300000, guid: 8c83bb1a655fb04439ab72436a8263ef, type: 3}
   IstriggerSFX: {fileID: 8300000, guid: eedf265350fb3db439ceaf296c8284bd, type: 3}
   AddForceSFX: {fileID: 8300000, guid: 968710418bc32334bae2a75e674db644, type: 3}
   IstriggerEndSFX: {fileID: 8300000, guid: b02e383571f2e5c408be2b874bf724f2, type: 3}
