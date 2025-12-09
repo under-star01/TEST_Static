@@ -48,6 +48,7 @@ public class CharacterSelectCamera : MonoBehaviour
 
     public void SelectLeft()
     {
+        AudioManager.Instance.PlayButtonSFX();
         if (isRotating || camPoints.Length == 0) return;
 
         currentIndex = (currentIndex + 1) % camPoints.Length;
@@ -56,6 +57,7 @@ public class CharacterSelectCamera : MonoBehaviour
 
     public void SelectRight()
     {
+        AudioManager.Instance.PlayButtonSFX();
         if (isRotating || camPoints.Length == 0) return;
 
         currentIndex--;

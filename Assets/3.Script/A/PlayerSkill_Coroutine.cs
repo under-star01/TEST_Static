@@ -10,7 +10,7 @@ public class PlayerSkill_Coroutine : MonoBehaviour
     [SerializeField] private bool canSpaceSkill = true;
 
     public float timeStopCooldown = 10f;         // 쿨타임
-    public float timeStopDuration = 3f;          // 시간 정지 지속 시간
+    public float timeStopDuration = 4f;          // 시간 정지 지속 시간
     public float slowMotionScale = 0.05f;        // 느려지는 정도 (0에 가까울수록 느림)
     public float speedBoostMultiplier = 1.5f;    // 시간 정지 중 추가 이동속도 배율
     private float originalTimeScale = 1f;        // 기존 타임스케일
@@ -43,14 +43,14 @@ public class PlayerSkill_Coroutine : MonoBehaviour
 
         Debug.Log("Space 스킬 사용!");
         canSpaceSkill = false;
-
+        AudioManager.Instance.PlaySlowSFX();
         // 시간 정지 메소드 실행
         StartCoroutine(Skill_WaitForSeconds_co());
     }
 
     private IEnumerator Skill_WaitForSeconds_co()
     {
-        // 시간 정지 시작
+        // 시간 정지 시작        
         ActivateTimeStop();
         yield return new WaitForSecondsRealtime(timeStopDuration); // 실제 시간으로 계산
 
@@ -144,16 +144,19 @@ public class PlayerSkill_Coroutine : MonoBehaviour
         playerMove.animator.SetFloat("MoveX", 0f);
         playerMove.animator.SetFloat("MoveY", 0f);
         playerMove.animator.SetTrigger("Skill_Shift");
-        yield return new WaitForSeconds(0.4f);
 
         // 분신이 없으면 소환
         if (!hasClone)
         {
+            AudioManager.Instance.PlayCloneSFX(); //사운드
+            yield return new WaitForSeconds(0.4f);
             SpawnClone();
         }
         // 분신이 있으면 위치 교환
         else
         {
+            yield return new WaitForSeconds(0.4f);
+            AudioManager.Instance.PlayYieldReturnSFX();
             TeleportToClone();
         }
 
@@ -162,8 +165,7 @@ public class PlayerSkill_Coroutine : MonoBehaviour
     }
 
     private void SpawnClone()
-    {
-        AudioManager.Instance.PlayCloneSFX(); //사운드
+    {      
 
         // 현재 위치에 분신 생성
         clonePosition = transform.position;
@@ -175,8 +177,7 @@ public class PlayerSkill_Coroutine : MonoBehaviour
 
     // 분신 위치로 텔레포트
     private void TeleportToClone()
-    {
-        AudioManager.Instance.PlayYieldReturnSFX();
+    {       
 
         if (currentClone == null)
         {

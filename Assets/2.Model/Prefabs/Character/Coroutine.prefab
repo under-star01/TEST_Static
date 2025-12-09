@@ -1629,10 +1629,7 @@ MonoBehaviour:
   maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
-  selectedcharacter: 0
-  avatar_Transform: {fileID: 0}
-  avatar_Rigidbody: {fileID: 0}
-  avatar_Coroutine: {fileID: 0}
+  isDamaged: 0
   animator: {fileID: 0}
 --- !u!114 &5459070404101356606
 MonoBehaviour:
@@ -1649,7 +1646,7 @@ MonoBehaviour:
   canShiftSkill: 1
   canSpaceSkill: 1
   timeStopCooldown: 10
-  timeStopDuration: 3
+  timeStopDuration: 4
   slowMotionScale: 0.05
   speedBoostMultiplier: 1.5
   cloneCooldown: 5

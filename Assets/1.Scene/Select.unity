@@ -1046,67 +1046,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798626897}
   m_CullTransparentMesh: 1
---- !u!1 &818520530
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 818520532}
-  - component: {fileID: 818520531}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &818520531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 818520530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783c897530a196b418c4af30a8b0e492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  bgmSource: {fileID: 0}
-  sfxSource: {fileID: 0}
-  loopSfxSource: {fileID: 0}
-  titleBGM: {fileID: 0}
-  stageBGM: {fileID: 0}
-  TeleportSFX: {fileID: 8300000, guid: ee4ce853a532caf44bbff3c3c64e86a8, type: 3}
-  ScailDownSFX: {fileID: 8300000, guid: ee862e657eec3af4fa0e3babad162c16, type: 3}
-  ScailReturnSFX: {fileID: 8300000, guid: 78f330f364c57f7448f363df9aae1fe0, type: 3}
-  IstriggerSFX: {fileID: 8300000, guid: eedf265350fb3db439ceaf296c8284bd, type: 3}
-  AddForceSFX: {fileID: 8300000, guid: 968710418bc32334bae2a75e674db644, type: 3}
-  IstriggerEndSFX: {fileID: 8300000, guid: b02e383571f2e5c408be2b874bf724f2, type: 3}
-  CloneSFX: {fileID: 8300000, guid: fedfc26d918c1904eb2271f006c9002b, type: 3}
-  YieldReturnSFX: {fileID: 8300000, guid: 969ee49bc39d25c4f84f5b4164c4ad72, type: 3}
-  menuSelectSFX: {fileID: 0}
-  pauseSFX: {fileID: 0}
-  bgmVolume: 1
-  sfxVolume: 1
---- !u!4 &818520532
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 818520530}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.25692, y: -0.1, z: -41.5019}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &833182728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,6 +1406,51 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1053857405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1053857407}
+  - component: {fileID: 1053857406}
+  m_Layer: 0
+  m_Name: SceneBGMController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1053857406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053857405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd534e07a0063a41824602fd99875e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneBGMController
+  bgmType: 1
+--- !u!4 &1053857407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053857405}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1272.9512, y: 0, z: -1210.3806}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9317,4 +9301,4 @@ SceneRoots:
   - {fileID: 320800495}
   - {fileID: 544639853}
   - {fileID: 1579400963}
-  - {fileID: 818520532}
+  - {fileID: 1053857407}
