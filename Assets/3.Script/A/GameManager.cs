@@ -34,7 +34,10 @@ public class GameManager : MonoBehaviour
     public float survivalTime = 0f; // 플레이어 생존시간 (secends 단위)
     public bool isGameOver = false; // 게임 오버 상태
 
+    [Header("초기화 데이터")]
     [SerializeField] private List<GameObject> playerPrefabs_List; // 플레이어 프리팹 리스트
+    [SerializeField] private List<GameObject> skillUI_List; // 스킬UI 리스트
+
     [SerializeField] private ObstacleSpawner_A obstacleSpawner; // 낙하물 생성 스크립트
     [SerializeField] private TextMeshProUGUI survivalTimeUI;
 
@@ -43,8 +46,9 @@ public class GameManager : MonoBehaviour
     
     public event Action OnDie; // 게임오버 이벤트(구독 가능)
 
-    public Coroutine UseURP;
-    public Coroutine UseCaching;
+    private Coroutine UseURP;
+    private Coroutine UseCaching;
+
 
     private void Awake()
     {
@@ -80,6 +84,26 @@ public class GameManager : MonoBehaviour
 
         // 실제 플레이어 생성
         Instantiate(playerPrefabs_List[selectedIndex], spawnPos, Quaternion.identity);
+
+        // 스킬 UI 연결
+        if(selectedIndex == 0)
+        {
+            // Transform 스킬 연결
+            skillUI_List[0].SetActive(true);
+            skillUI_List[1].SetActive(true);
+        }
+        else if (selectedIndex == 1)
+        {
+            // RigidBody 스킬 연결
+            skillUI_List[2].SetActive(true);
+            skillUI_List[3].SetActive(true);
+        }
+        else if (selectedIndex == 2)
+        {
+            // Coroutine 스킬 연결
+            skillUI_List[4].SetActive(true);
+            skillUI_List[5].SetActive(true);
+        }
     }
 
     private void UpdateGauge()
@@ -185,5 +209,30 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         obstacleSpawner.delaySpawnTime = 0f;
+    }
+
+    public void SkillUIUpdate(int skillUIIndex, float delay)
+    {
+        StartCoroutine(SkillUIUpdate_co(skillUIIndex, delay));
+    }
+
+    private IEnumerator SkillUIUpdate_co(int skillUIIndex, float delay)
+    {
+        Slider skillUI = skillUI_List[skillUIIndex].GetComponent<Slider>();
+        
+        skillUI.value = 0f;
+        float elapsed = 0f;
+
+        while (elapsed < delay)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = Mathf.Clamp01(elapsed / delay);
+            skillUI.value = t * skillUI.maxValue; ;
+            yield return null;
+        }
+
+        // 정확히 끝 값으로 보정
+        skillUI.value = skillUI.maxValue;
     }
 }
