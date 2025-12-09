@@ -5552,6 +5552,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9d1a550676c9e4981fd264c04f0e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOver
+  gameOverPanel: {fileID: 0}
+  survivalTimeText: {fileID: 0}
+  nameInputField: {fileID: 0}
+  submitButton: {fileID: 0}
+  restartButton: {fileID: 0}
+  quitButton: {fileID: 0}
 --- !u!4 &773051331
 Transform:
   m_ObjectHideFlags: 0
@@ -6461,16 +6467,19 @@ MonoBehaviour:
   memorySlider: {fileID: 0}
   baseIncreaseRate: 1
   debugCurrentIncreaseRate: 0
-  memorySpeed: 1
+  memorySpeed: 2
   memoryGauge: 0
   maxHpCnt: 3
   hpCnt: 3
+  hpUI_List: []
   survivalTime: 0
   isGameOver: 0
   playerPrefabs_List:
   - {fileID: 2906654600586343106, guid: 5c5db87573c650143a021a2e96c0f306, type: 3}
   - {fileID: 7804884313770354083, guid: f3c28788f1111b349a537fa24214f5b8, type: 3}
   - {fileID: 6710359379306108842, guid: 9fd024f908ee3714780f6cf788b6725b, type: 3}
+  skillUI_List: []
+  skillUIImage: []
   obstacleSpawner: {fileID: 0}
   survivalTimeUI: {fileID: 0}
 --- !u!1 &901920041

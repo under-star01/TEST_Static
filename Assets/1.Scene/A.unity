@@ -18787,7 +18787,7 @@ MonoBehaviour:
   memorySlider: {fileID: 1899433222}
   baseIncreaseRate: 1
   debugCurrentIncreaseRate: 0
-  memorySpeed: 1
+  memorySpeed: 1.3
   memoryGauge: 0
   maxHpCnt: 3
   hpCnt: 3
