@@ -64,6 +64,8 @@ public class SelectUI : MonoBehaviour
 
     public void OnSelectCharacter()
     {
+        AudioManager.Instance.PlayMenuSelectSFX();
+
         CharacterData selectedCharacter = selector.CurrentCharacter;
         int selectedIndex = selector.CurrentIndex;
 

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -9,6 +10,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private GameObject sidebarPanel; // 슬라이드 패널(전체부모)
     [SerializeField] private Button settingButton; // 설정 버튼
     [SerializeField] private Button closeButton; // 닫기 버튼
+    [SerializeField] private Button StartButton; // 시작 버튼
 
     [Header("Volume Controls")]
     [SerializeField] private Slider volumeSlider; // 볼륨조절 슬라이더
@@ -32,6 +34,12 @@ public class SettingManager : MonoBehaviour
         {
             // 닫기 버튼을 클릭하면 - 설정닫기
             closeButton.onClick.AddListener(CloseSettings);
+        }
+
+        if (StartButton != null)
+        {
+            // 시작 버튼을 클릭하면 - 선택씬 시작
+            StartButton.onClick.AddListener(StartSelect);
         }
 
         // 슬라이더 이벤트 등록
@@ -156,6 +164,11 @@ public class SettingManager : MonoBehaviour
         }
     }
 
+    private void StartSelect()
+    {
+        Debug.Log("되나요오오오옹");
+    }
+
     private void OnDestroy()
     {
         // 아까 받은 이벤트 해제
@@ -167,6 +180,11 @@ public class SettingManager : MonoBehaviour
         if (closeButton != null)
         {
             closeButton.onClick.RemoveListener(CloseSettings);
+        }
+
+        if (StartButton != null)
+        {
+            StartButton.onClick.RemoveListener(StartSelect);
         }
 
         if (volumeSlider != null)

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CharacterData_C
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Coroutine
-  characterDescription: "\uB2A5\uB825 1:\n\uB2A5\uB825 2: "
+  characterDescription: "\uB2A5\uB825\nSPACE  : WaitforSeconds\nSHIFT   : Yield return"
   characterIcon: {fileID: 21300000, guid: 3c2b6ceef29b47d4a8cac5d0da04fca9, type: 3}
   characterID: 0
