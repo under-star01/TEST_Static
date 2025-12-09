@@ -28,6 +28,8 @@ public class PlayerSkill_Coroutine : MonoBehaviour
     private PlayerMove_A playerMove;
     private Rigidbody rb;
     private float mouseSensitivity_ori; // 원래 마우스 감도
+    private bool isShiftActive = false;
+    private bool isSpaceActive = false;
 
     private void Awake()
     {
@@ -42,10 +44,12 @@ public class PlayerSkill_Coroutine : MonoBehaviour
     // 스킬 1: 시간 정지
     public void UseSkill_Space()
     {
-        if (!canSpaceSkill) return; // 쿨타임시 or 연속 입력 방지
+        if (!canSpaceSkill || isShiftActive) return; // 쿨타임시 or 연속 입력 방지
 
         Debug.Log("Space 스킬 사용!");
         canSpaceSkill = false;
+        isSpaceActive = true;
+
         AudioManager.Instance.PlaySlowSFX();
         if (StopEffectPrefab != null)
         {
@@ -54,6 +58,7 @@ public class PlayerSkill_Coroutine : MonoBehaviour
 
         // 시간 정지 메소드 실행
         StartCoroutine(Skill_WaitForSeconds_co());
+        GameManager.Instance.ChangeSkillUIColor(4, true);
     }
 
     private IEnumerator Skill_WaitForSeconds_co()
@@ -67,6 +72,9 @@ public class PlayerSkill_Coroutine : MonoBehaviour
 
         // 쿨타임 시작
         StartCoroutine(TimeStopCool_co());
+        isSpaceActive = false;
+        GameManager.Instance.ChangeSkillUIColor(4, false);
+        GameManager.Instance.SkillUIUpdate(4, timeStopCooldown);
     }
 
     // 시간 정지 활성화
@@ -136,9 +144,10 @@ public class PlayerSkill_Coroutine : MonoBehaviour
     // 스킬 2: 잔상 생성
     public void UseSkill_Shift()
     {
-        if (!canShiftSkill) return; // 쿨타임시 or 연속 입력 방지
+        if (!canShiftSkill || isSpaceActive) return; // 쿨타임시 or 연속 입력 방지
         Debug.Log("Shift 스킬 사용!");
-
+        isShiftActive = true;
+        GameManager.Instance.ChangeSkillUIColor(5, true);
         StartCoroutine(Skill_YieldReturn_co());
     }
 
@@ -220,6 +229,9 @@ public class PlayerSkill_Coroutine : MonoBehaviour
 
         // 쿨타임 시작
         StartCoroutine(ChangeCloneCool_co());
+        isShiftActive = false;
+        GameManager.Instance.ChangeSkillUIColor(5, false);
+        GameManager.Instance.SkillUIUpdate(5, cloneCooldown);
     }
 
     // 기본 분신 생성

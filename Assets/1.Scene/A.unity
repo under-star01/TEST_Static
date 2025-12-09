@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8741453, b: 0, a: 0.64705884}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3200,8 +3200,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 974743110}
-  - {fileID: 2110727424}
   - {fileID: 1855884052}
+  - {fileID: 2110727424}
   m_Father: {fileID: 1925993704}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5389,8 +5389,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1151005851}
-  - {fileID: 1201110627}
   - {fileID: 252704314}
+  - {fileID: 1201110627}
   m_Father: {fileID: 207152841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6160,7 +6160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.54509807}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6997,7 +6997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8741453, b: 0, a: 0.64705884}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7292,8 +7292,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1064012642}
-  - {fileID: 1951288711}
   - {fileID: 1883307344}
+  - {fileID: 1951288711}
   m_Father: {fileID: 2022008569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8420,8 +8420,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 132943230}
-  - {fileID: 387418133}
   - {fileID: 2000962293}
+  - {fileID: 387418133}
   m_Father: {fileID: 207152841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8757,8 +8757,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 386637570}
-  - {fileID: 442760656}
   - {fileID: 1867885691}
+  - {fileID: 442760656}
   m_Father: {fileID: 1925993704}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9218,6 +9218,7 @@ MonoBehaviour:
   TeleportcooldownTime: 6
   canSpaceSkill: 1
   teleportEffectPrefab: {fileID: 120410, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+  ScailEffectPrefab: {fileID: 0}
   shrinkScale: 0.2
   shrinkDuration: 5
   scaleTransitionTime: 0.5
@@ -9422,8 +9423,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1547599534}
-  - {fileID: 560973142}
   - {fileID: 1142434185}
+  - {fileID: 560973142}
   m_Father: {fileID: 2022008569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9718,7 +9719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.54509807}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10088,6 +10089,8 @@ MonoBehaviour:
   CloneSFX: {fileID: 8300000, guid: fedfc26d918c1904eb2271f006c9002b, type: 3}
   YieldReturnSFX: {fileID: 8300000, guid: 969ee49bc39d25c4f84f5b4164c4ad72, type: 3}
   SlowSFX: {fileID: 0}
+  HitSFX: {fileID: 0}
+  GetItemSFX: {fileID: 0}
   menuSelectSFX: {fileID: 0}
   ButtonSFX: {fileID: 0}
   bgmVolume: 1
@@ -12912,7 +12915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8741453, b: 0, a: 0.64705884}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13020,7 +13023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8741453, b: 0, a: 0.64705884}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13246,7 +13249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8741453, b: 0, a: 0.64705884}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14371,6 +14374,10 @@ MonoBehaviour:
   memoryGauge: 0
   maxHpCnt: 3
   hpCnt: 3
+  hpUI_List:
+  - {fileID: 1827527750}
+  - {fileID: 1248854827}
+  - {fileID: 51208738}
   survivalTime: 0
   isGameOver: 0
   playerPrefabs_List:
@@ -14380,10 +14387,17 @@ MonoBehaviour:
   skillUI_List:
   - {fileID: 1508853963}
   - {fileID: 1211540294}
-  - {fileID: 886336526}
   - {fileID: 1382689942}
+  - {fileID: 886336526}
   - {fileID: 1434437606}
   - {fileID: 541438982}
+  skillUIImage:
+  - {fileID: 1111260914}
+  - {fileID: 1668151803}
+  - {fileID: 619944166}
+  - {fileID: 1014773900}
+  - {fileID: 1807320501}
+  - {fileID: 2080795433}
   obstacleSpawner: {fileID: 1926004333}
   survivalTimeUI: {fileID: 2125931745}
 --- !u!1001 &1967805697
@@ -14577,7 +14591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8741453, b: 0, a: 0.64705884}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19839,6 +19853,8 @@ MonoBehaviour:
   slowMotionScale: 0.05
   speedBoostMultiplier: 1.5
   cloneCooldown: 5
+  StopEffectPrefab: {fileID: 0}
+  CloneEffectPrefab: {fileID: 0}
 --- !u!114 &7940719953724130087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20494,6 +20510,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   rangeIndicator: {fileID: 479350919}
+  shinratenseiEffectPrefab: {fileID: 0}
+  invincibleEffectPrefab: {fileID: 0}
 --- !u!1 &8706536634201208329
 GameObject:
   m_ObjectHideFlags: 0

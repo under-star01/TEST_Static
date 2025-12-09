@@ -14,13 +14,14 @@ public class PlayerSkill_Transform : MonoBehaviour
     [SerializeField] private GameObject teleportEffectPrefab; //텔포이펙트
     [SerializeField] private GameObject ScailEffectPrefab; //스케일이펙트
 
-
     [Header("작아지기 스킬 설정")]
     public float shrinkScale = 0.2f;
     public float shrinkDuration = 5f;
     public float scaleTransitionTime = 0.5f;     // 크기 변화 시간
     public float shrinkCooldownTime = 10f;       // 작아지기 쿨타임
     private bool canShiftSkill = true;
+    private bool isShiftActive = false;
+    private bool isSpaceActive = false;
 
     private Vector3 originalScale;
 
@@ -32,15 +33,17 @@ public class PlayerSkill_Transform : MonoBehaviour
         originalScale = transform.localScale;
     }
 
-    // Shift: 일정 시간 완전 무적 스킬
+    // Space : 텔레포트
     public void UseSkill_Space()
     {
         // 쿨타임 일때 돌아가
-        if (!canSpaceSkill)
+        if (!canSpaceSkill || isShiftActive)
         {
             return;
         }
         canSpaceSkill = false;
+        isSpaceActive = true;
+        GameManager.Instance.SkillUIUpdate(1, TeleportcooldownTime);
         StartCoroutine(Skill_Teleport());
     }
 
@@ -76,6 +79,8 @@ public class PlayerSkill_Transform : MonoBehaviour
             Instantiate(teleportEffectPrefab, transform.position, Quaternion.identity);
         }
 
+        GameManager.Instance.ChangeSkillUIColor(0, false);
+        isSpaceActive = false;
         StartCoroutine(TeleportCool_co());
     }
 
@@ -107,11 +112,13 @@ public class PlayerSkill_Transform : MonoBehaviour
     public void UseSkill_Shift()
     {
         // 쿨타임 일때 돌아가
-        if (!canShiftSkill)
+        if (!canShiftSkill || isSpaceActive)
         {
             return;
         }
         canShiftSkill = false;
+        isShiftActive = true;
+        GameManager.Instance.ChangeSkillUIColor(0, true);
         StartCoroutine(Skill_Scale());
     }
 
@@ -154,8 +161,9 @@ public class PlayerSkill_Transform : MonoBehaviour
         // 부드럽게 커지기
         yield return StartCoroutine(ScaleTo(originalScale, scaleTransitionTime));
 
-
-
+        GameManager.Instance.SkillUIUpdate(0, shrinkCooldownTime);
+        GameManager.Instance.ChangeSkillUIColor(0, false);
+        isShiftActive = false;
         StartCoroutine(ScaleCool_co());
     }
 

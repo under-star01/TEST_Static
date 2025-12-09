@@ -23,7 +23,9 @@ public class PlayerSkill_RigidBody : MonoBehaviour
 
     private PlayerMove_A playerMove;
     private Rigidbody rb;
-    
+    private bool isShiftActive = false;
+    private bool isSpaceActive = false;
+
     private void Awake()
     {
         TryGetComponent(out rb);
@@ -33,16 +35,18 @@ public class PlayerSkill_RigidBody : MonoBehaviour
     // Shift: 일정 시간 완전 무적 스킬
     public void UseSkill_Shift()
     {
-        if (!canShiftSkill) return; // 연속 입력 방지
+        if (!canShiftSkill || isSpaceActive) return; // 연속 입력 방지
 
         Debug.Log("Shift 스킬 사용!");
         canShiftSkill = false;
+        isShiftActive = true;
         AudioManager.Instance.PlayIstriggerSFX(); //사운드
         if (invincibleEffectPrefab != null)
         {
             Instantiate(invincibleEffectPrefab, transform.position, Quaternion.identity);
         }
         StartCoroutine(Skill_IsTrigger(5f)); // 5초 동안 스킬 사용
+        GameManager.Instance.ChangeSkillUIColor(3, true);
     }
 
 
@@ -78,15 +82,19 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         
         // 쿨타임 시작
         StartCoroutine(IsTriggerCool_co());
+        isShiftActive = false;
+        GameManager.Instance.ChangeSkillUIColor(3, false);
+        GameManager.Instance.SkillUIUpdate(2, isTriggerCool);
     }
 
     // Space: 주변 방해물 날려버리기
     public void UseSkill_Space()
     {
-        if (!canSpaceSkill) return; // 연속 입력 방지
+        if (!canSpaceSkill || isShiftActive) return; // 연속 입력 방지
 
         Debug.Log("Space 스킬 사용!");
         canSpaceSkill = false;
+        isSpaceActive = true;
 
         AudioManager.Instance.PlayAddForceSFX();
 
@@ -137,6 +145,8 @@ public class PlayerSkill_RigidBody : MonoBehaviour
 
         // 쿨타임 시작
         StartCoroutine(AddForceCool_co());
+        isSpaceActive = false;
+        GameManager.Instance.SkillUIUpdate(3, addForceCool);
     }
 
     // 스킬 범위 표시 메소드
