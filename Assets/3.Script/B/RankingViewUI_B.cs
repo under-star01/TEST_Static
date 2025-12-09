@@ -23,6 +23,11 @@ namespace Game.UI
         private RankingManager rankingManager;
         private List<GameObject> rankingItems = new List<GameObject>();
 
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
         void Start()
         {
             rankingManager = FindAnyObjectByType<RankingManager>();

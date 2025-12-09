@@ -1,6 +1,7 @@
 using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
@@ -10,10 +11,27 @@ public class GameOver : MonoBehaviour
     private GameOverUI gameOverUI; // 게임오버 UI 참조
     private RankingViewUI rankingViewUI;
 
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TMPro.TextMeshProUGUI survivalTimeText;
+    [SerializeField] private TMPro.TMP_InputField nameInputField;
+    [SerializeField] private UnityEngine.UI.Button submitButton;
+    [SerializeField] private UnityEngine.UI.Button restartButton;
+    [SerializeField] private UnityEngine.UI.Button quitButton;
+
     // Reset at GameStart
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+
+        if (submitButton != null)
+            submitButton.onClick.AddListener(OnSubmitButtonClicked);
+        if (restartButton != null)
+            restartButton.onClick.AddListener(OnRestartButtonClicked);
+        if (quitButton != null)
+            quitButton.onClick.AddListener(OnQuitButtonClicked);
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
     void Start()
@@ -79,6 +97,31 @@ public class GameOver : MonoBehaviour
         Debug.Log("[GameOver] ChkGameOver 호출됨!");
         TriggerGameOver();
     }
+
+    private void OnSubmitButtonClicked()
+    {
+        Time.timeScale = 1f;
+        Debug.Log("[GameOver] Submit 버튼 클릭됨");
+
+    }
+
+    private void OnRestartButtonClicked()
+    {
+        Debug.Log("[GameOver] Restart 버튼 클릭!");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("A");
+    }
+
+    private void OnQuitButtonClicked()
+    {
+        Debug.Log("[GameOver] Quit 버튼 클릭!");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Title");
+    }
+
+
+
+
 
     private void OnDestroy()
     {
