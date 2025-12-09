@@ -144,15 +144,6 @@ public class GameManager : MonoBehaviour
         //gameOverUI.ShowGameOver(survivalTime);
     }
 
-    // 다른 스크립트에서 GameManager.GameOver()로 호출 가능
-
-    private void GameOver()
-    {
-        // 게임오버 상태 켜기
-        isGameOver = true;
-        //UIManager.Instance.ShowGameOverUI();
-    }
-
     // 아이템 사용 : GC -> hpCnt 회복
     public void UseItem_GC()
     {
