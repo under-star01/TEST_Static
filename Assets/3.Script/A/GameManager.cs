@@ -88,11 +88,6 @@ public class GameManager : MonoBehaviour
 
         // 생존 시간 갱신
         survivalTime += Time.deltaTime;
-        
-        if ((int)survivalTime % 5 == 0) // 5초마다
-        {
-            Debug.Log($"[GameManager] 생존시간: {survivalTime}, 메모리: {memoryGauge}");
-        }
 
         // UI 업데이트
         int minutes = (int)(survivalTime / 60);
