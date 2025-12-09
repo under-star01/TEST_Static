@@ -112,7 +112,7 @@ public class GameOver : MonoBehaviour
     {
         Debug.Log("[GameOver] Restart 버튼 클릭!");
         Time.timeScale = 1f;
-        SceneManager.LoadScene("select");
+        SceneManager.LoadScene("Title");
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
