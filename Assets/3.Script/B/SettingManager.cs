@@ -166,7 +166,7 @@ public class SettingManager : MonoBehaviour
 
     private void StartSelect()
     {
-        Debug.Log("되나요오오오옹");
+        SceneManager.LoadScene("Select");
     }
 
     private void OnDestroy()

@@ -41,31 +41,28 @@ public class GameManager : MonoBehaviour
     private GameOverUI gameOverUI; // 게임오버 UI 참조
     private RankingViewUI rankingViewUI;
     
-    public event Action OnDie;
+    public event Action OnDie; // 게임오버 이벤트(구독 가능)
 
     public Coroutine UseURP;
     public Coroutine UseCaching;
 
     private void Awake()
     {
+        Debug.Log("[GameManager] Awake 실행!");
         // 싱글톤 설정
         if (Instance != null && Instance != this)
         {
+            Debug.LogWarning("[GameManager] 중복 인스턴스 파괴!");
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
+        Debug.Log("[GameManager] Instance 설정 완료!");
         DontDestroyOnLoad(gameObject);
 
         // 메인 씬에서 바로 플레이어 생성
         SpawnPlayerFromSavedData();
-    }
-
-    void Start()
-    {
-        // 씬에서 GameOverUI 컴포넌트 찾기
-        gameOverUI = FindAnyObjectByType<GameOverUI>();
     }
 
     private void Update()
@@ -91,11 +88,18 @@ public class GameManager : MonoBehaviour
 
         // 생존 시간 갱신
         survivalTime += Time.deltaTime;
+        
+        if ((int)survivalTime % 5 == 0) // 5초마다
+        {
+            Debug.Log($"[GameManager] 생존시간: {survivalTime}, 메모리: {memoryGauge}");
+        }
+
+        // UI 업데이트
         int minutes = (int)(survivalTime / 60);
         int seconds = (int)(survivalTime % 60);
         int milli = (int)((survivalTime % 1) * 100);
-        
         survivalTimeUI.text = $"{minutes:00} : {seconds:00} : {milli:00}";
+        
 
         // HP에 비례한 메모리 증가 속도↑
         memoryGauge += currentIncreaseRate * memorySpeed * Time.deltaTime;
@@ -110,8 +114,6 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("[GameOver] : 게임 오버 이벤트 실행!!");
             OnDie?.Invoke();  // 사망 이벤트 호출
         }
-
-        //UIManager.Instance.UpdateMemoryUI(memoryGauge);
     }
 
     // 피격 반응 메소드
@@ -126,22 +128,6 @@ public class GameManager : MonoBehaviour
             hpCnt -= cnt;
             Debug.Log($"현재 체력 [{hpCnt}] : 플레이어의 HP가 감소합니다!");
         }
-    }
-
-    // 게임오버 처리 함수
-    private void TriggerGameOver()
-    {
-        // 이미 게임오버 상태면 중복 실행 방지
-        if (isGameOver)
-        {
-            return; // 메서드 종료
-        }
-
-        // 게임오버 상태 켜기
-        isGameOver = true;
-
-        // GameOverUI에 생존 시간 전달하며 게임오버 화면 표시
-        //gameOverUI.ShowGameOver(survivalTime);
     }
 
     // 아이템 사용 : GC -> hpCnt 회복
