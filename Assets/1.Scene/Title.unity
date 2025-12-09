@@ -5488,7 +5488,7 @@ MonoBehaviour:
   loopSfxSource: {fileID: 1723331746}
   titleBGM: {fileID: 8300000, guid: 109ec3a70c0ec11489c18904b84e1df4, type: 3}
   SelectBGM: {fileID: 8300000, guid: 8a47e6fd7c199854e8b81b23a41deb81, type: 3}
-  stageBGM: {fileID: 8300000, guid: 912104b6d0db8464198c2ce728bfaa82, type: 3}
+  stageBGM: {fileID: 8300000, guid: e544817deb9bbc94dab69377b1e05653, type: 3}
   TeleportSFX: {fileID: 8300000, guid: ee4ce853a532caf44bbff3c3c64e86a8, type: 3}
   ScailDownSFX: {fileID: 8300000, guid: ee862e657eec3af4fa0e3babad162c16, type: 3}
   ScailReturnSFX: {fileID: 8300000, guid: 8c83bb1a655fb04439ab72436a8263ef, type: 3}
@@ -5500,7 +5500,7 @@ MonoBehaviour:
   SlowSFX: {fileID: 8300000, guid: 456c03bd8ca118743a9e5e92ff69dac6, type: 3}
   menuSelectSFX: {fileID: 8300000, guid: c73dff483a87a0a4e81d76aa894d65b2, type: 3}
   ButtonSFX: {fileID: 8300000, guid: 71bd3e0525edd6d4d91dec6100ba9461, type: 3}
-  bgmVolume: 1
+  bgmVolume: 0.5
   sfxVolume: 1
 --- !u!4 &1723331750
 Transform:
