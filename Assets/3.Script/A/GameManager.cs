@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [Header("누적 발생한 오류의 수")]
     [SerializeField] private int maxHpCnt = 3; // 누적 발생한 오류의 수
     [SerializeField] private int hpCnt = 3; // 누적 발생한 오류의 수
+    [SerializeField] private List<GameObject> hpUI_List; // HP 체력 UI 리스트
 
     [Header("생존 시간 설정")]
     public float survivalTime = 0f; // 플레이어 생존시간 (secends 단위)
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     [Header("초기화 데이터")]
     [SerializeField] private List<GameObject> playerPrefabs_List; // 플레이어 프리팹 리스트
     [SerializeField] private List<GameObject> skillUI_List; // 스킬UI 리스트
+    [SerializeField] private List<Image> skillUIImage; // 스킬UI 이미지
 
     [SerializeField] private ObstacleSpawner_A obstacleSpawner; // 낙하물 생성 스크립트
     [SerializeField] private TextMeshProUGUI survivalTimeUI;
@@ -138,13 +140,27 @@ public class GameManager : MonoBehaviour
     // 피격 반응 메소드
     public void TakeDamage(int cnt)
     {
+        hpCnt -= cnt;
+        hpCnt = Mathf.Clamp(hpCnt, 0, 3);
+
         if (hpCnt <= 0)
         {
+            // HP UI갱신
+            for (int i = 0; i < hpUI_List.Count; i++)
+            {
+                hpUI_List[i].SetActive(false);
+            }
             Debug.Log("Hp가 소모되어 메모리 사용량 증가폭이 늘어나지 않습니다.");
         }
         else
         {
-            hpCnt -= cnt;
+            Debug.Log(hpCnt);
+
+            // HP UI갱신
+            for(int i=0; i< hpUI_List.Count - hpCnt; i++)
+            {
+                hpUI_List[i].SetActive(false);
+            }
             Debug.Log($"현재 체력 [{hpCnt}] : 플레이어의 HP가 감소합니다!");
         }
     }
@@ -157,10 +173,18 @@ public class GameManager : MonoBehaviour
         if(hpCnt >= 3)
         {
             Debug.Log("현재 최대 HP이므로 더이상 증가할 수 없습니다!");
+            memoryGauge -= 10f;
         }
         else
         {
             hpCnt++;
+            memoryGauge -= 10f;
+
+            // HP UI갱신
+            for (int i = 0; i < hpCnt; i++)
+            {
+                hpUI_List[i].SetActive(true);
+            }
         }
     }
 
@@ -174,6 +198,7 @@ public class GameManager : MonoBehaviour
 
         if (obstacleSpawner != null)
         {
+            memoryGauge -= 5f;
             // 7초동안 지속
             UseURP = StartCoroutine(UseItem_URP_co(7f));
         }
@@ -198,6 +223,7 @@ public class GameManager : MonoBehaviour
 
         if (obstacleSpawner != null)
         {
+            memoryGauge -= 5f;
             // 7초동안 지속
             UseCaching = StartCoroutine(UseItem_Caching_co(7f));
         }
@@ -235,4 +261,19 @@ public class GameManager : MonoBehaviour
         // 정확히 끝 값으로 보정
         skillUI.value = skillUI.maxValue;
     }
+
+    public void ChangeSkillUIColor(int skiilUIIndex, bool isYeloow)
+    {
+        if (isYeloow)
+        {
+            skillUIImage[skiilUIIndex].color = Color.yellow;
+        }
+        else
+        {
+            skillUIImage[skiilUIIndex].color = Color.white;
+        }
+    }
+
+    
+
 }
