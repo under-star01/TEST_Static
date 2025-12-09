@@ -5498,6 +5498,8 @@ MonoBehaviour:
   CloneSFX: {fileID: 8300000, guid: 969ee49bc39d25c4f84f5b4164c4ad72, type: 3}
   YieldReturnSFX: {fileID: 8300000, guid: 4ed72465cc590d948a7872a05e2923a4, type: 3}
   SlowSFX: {fileID: 8300000, guid: 456c03bd8ca118743a9e5e92ff69dac6, type: 3}
+  HitSFX: {fileID: 8300000, guid: 67806694997bbef439f541cac37774af, type: 3}
+  GetItemSFX: {fileID: 8300000, guid: c05ba14580b3b9f48affbcd244493cb3, type: 3}
   menuSelectSFX: {fileID: 8300000, guid: c73dff483a87a0a4e81d76aa894d65b2, type: 3}
   ButtonSFX: {fileID: 8300000, guid: 71bd3e0525edd6d4d91dec6100ba9461, type: 3}
   bgmVolume: 0.5

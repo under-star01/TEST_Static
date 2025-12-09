@@ -1650,6 +1650,8 @@ MonoBehaviour:
   slowMotionScale: 0.05
   speedBoostMultiplier: 1.5
   cloneCooldown: 5
+  StopEffectPrefab: {fileID: 0}
+  CloneEffectPrefab: {fileID: 100748, guid: cd4d7020429cde74db076ffa72495419, type: 3}
 --- !u!54 &423325921652321394
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -22,6 +22,9 @@ public class PlayerSkill_Coroutine : MonoBehaviour
     private GameObject currentClone;             // 현재 분신 오브젝트
     private Vector3 clonePosition;               // 분신 위치
 
+    [SerializeField] private GameObject StopEffectPrefab; //정지이펙트
+    [SerializeField] private GameObject CloneEffectPrefab; //분신이펙트
+
     private PlayerMove_A playerMove;
     private Rigidbody rb;
     private float mouseSensitivity_ori; // 원래 마우스 감도
@@ -44,6 +47,11 @@ public class PlayerSkill_Coroutine : MonoBehaviour
         Debug.Log("Space 스킬 사용!");
         canSpaceSkill = false;
         AudioManager.Instance.PlaySlowSFX();
+        if (StopEffectPrefab != null)
+        {
+            Instantiate(StopEffectPrefab, transform.position, Quaternion.identity);
+        }
+
         // 시간 정지 메소드 실행
         StartCoroutine(Skill_WaitForSeconds_co());
     }
@@ -149,12 +157,21 @@ public class PlayerSkill_Coroutine : MonoBehaviour
         if (!hasClone)
         {
             AudioManager.Instance.PlayCloneSFX(); //사운드
+            if (CloneEffectPrefab != null)
+            {
+                Instantiate(CloneEffectPrefab, transform.position, Quaternion.identity);
+            }
+
             yield return new WaitForSeconds(0.4f);
             SpawnClone();
         }
         // 분신이 있으면 위치 교환
         else
         {
+            if (CloneEffectPrefab != null)
+            {
+                Instantiate(CloneEffectPrefab, transform.position, Quaternion.identity);
+            }
             yield return new WaitForSeconds(0.4f);
             AudioManager.Instance.PlayYieldReturnSFX();
             TeleportToClone();

@@ -28,6 +28,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip CloneSFX;
     [SerializeField] private AudioClip YieldReturnSFX;
     [SerializeField] private AudioClip SlowSFX;
+    [SerializeField] private AudioClip HitSFX;
+    [SerializeField] private AudioClip GetItemSFX;
+
+
 
 
 
@@ -137,6 +141,8 @@ public class AudioManager : MonoBehaviour
     public void PlayCloneSFX() => PlaySFX(CloneSFX);
     public void PlayYieldReturnSFX() => PlaySFX(YieldReturnSFX);
     public void PlaySlowSFX() => PlaySFX(SlowSFX);
+    public void PlayHitSFX() => PlaySFX(HitSFX);
+    public void PlayGetItemSFX() => PlaySFX(GetItemSFX);
 
 
 

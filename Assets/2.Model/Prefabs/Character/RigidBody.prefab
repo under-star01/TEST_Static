@@ -2736,6 +2736,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   rangeIndicator: {fileID: 4791747992903867585}
+  shinratenseiEffectPrefab: {fileID: 110790, guid: 0f75f6db4a318f54382e0c98b2226db8, type: 3}
+  invincibleEffectPrefab: {fileID: 180128, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
 --- !u!1 &7807618650182926201
 GameObject:
   m_ObjectHideFlags: 0
