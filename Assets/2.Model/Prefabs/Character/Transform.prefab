@@ -834,7 +834,7 @@ MonoBehaviour:
   mapCollider: {fileID: 0}
   cameraRoot: {fileID: 7046866108458298817}
   lookSensitivity: 15
-  minPitch: -25
+  minPitch: -20
   maxPitch: 50
   moveSpeed: 5
   isMoveLocked: 0
