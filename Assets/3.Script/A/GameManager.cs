@@ -181,10 +181,16 @@ public class GameManager : MonoBehaviour
             memoryGauge -= 10f;
 
             // HP UI°»½Å
-            for (int i = 0; i < hpCnt; i++)
+            for (int i = hpUI_List.Count - 1; i >= hpCnt; i--)
+            {
+                hpUI_List[i].SetActive(false);
+            }
+
+            for (int i = hpUI_List.Count - 1; i >= hpUI_List.Count - hpCnt; i--)
             {
                 hpUI_List[i].SetActive(true);
             }
+
         }
     }
 
