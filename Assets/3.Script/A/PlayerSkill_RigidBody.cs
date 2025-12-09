@@ -18,6 +18,9 @@ public class PlayerSkill_RigidBody : MonoBehaviour
     [Header("범위 표시 오브젝트")]
     [SerializeField] private GameObject rangeIndicator; // 붉은 원 Mesh/Quad (미리 프리팹 or 자식으로 세팅)
 
+    [SerializeField] private GameObject shinratenseiEffectPrefab; //신라천정이펙트
+    [SerializeField] private GameObject invincibleEffectPrefab; //무적이펙트
+
     private PlayerMove_A playerMove;
     private Rigidbody rb;
     
@@ -35,6 +38,10 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         Debug.Log("Shift 스킬 사용!");
         canShiftSkill = false;
         AudioManager.Instance.PlayIstriggerSFX(); //사운드
+        if (invincibleEffectPrefab != null)
+        {
+            Instantiate(invincibleEffectPrefab, transform.position, Quaternion.identity);
+        }
         StartCoroutine(Skill_IsTrigger(5f)); // 5초 동안 스킬 사용
     }
 
@@ -60,6 +67,11 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         AudioManager.Instance.PlayIstriggerEndSFX();//사운드
+
+        if (invincibleEffectPrefab != null)
+        {
+            Instantiate(invincibleEffectPrefab, transform.position, Quaternion.identity);
+        }
 
         // 레이어 복구
         gameObject.layer = LayerMask.NameToLayer("Default");
@@ -97,6 +109,13 @@ public class PlayerSkill_RigidBody : MonoBehaviour
         ShowRangeIndicator();
 
         yield return new WaitForSeconds(0.4f);
+
+        if (shinratenseiEffectPrefab != null)
+        {
+            Instantiate(shinratenseiEffectPrefab, transform.position, Quaternion.identity);
+        }
+
+
         // 실제 판정: 원형 범위로 Obstacle 탐색
         Collider[] hits = Physics.OverlapSphere(transform.position, spaceRadius, detectLayer);
 

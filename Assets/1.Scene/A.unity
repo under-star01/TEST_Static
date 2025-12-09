@@ -2140,7 +2140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &207152841
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4607,7 +4607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &541438983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7432,7 +7432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &886336527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9898,7 +9898,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1211540295
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11147,7 +11147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1382689943
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11777,7 +11777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1434437607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12722,7 +12722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1508853964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16281,7 +16281,7 @@ RectTransform:
   m_Father: {fileID: 442760656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18794,6 +18794,13 @@ MonoBehaviour:
   - {fileID: 2906654600586343106, guid: 5c5db87573c650143a021a2e96c0f306, type: 3}
   - {fileID: 7804884313770354083, guid: f3c28788f1111b349a537fa24214f5b8, type: 3}
   - {fileID: 6710359379306108842, guid: 9fd024f908ee3714780f6cf788b6725b, type: 3}
+  skillUI_List:
+  - {fileID: 1508853963}
+  - {fileID: 1211540294}
+  - {fileID: 886336526}
+  - {fileID: 1382689942}
+  - {fileID: 1434437606}
+  - {fileID: 541438982}
   obstacleSpawner: {fileID: 1926004333}
   survivalTimeUI: {fileID: 2125931745}
 --- !u!1001 &1967805697
@@ -19409,7 +19416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2022008569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19786,7 +19793,7 @@ RectTransform:
   m_Father: {fileID: 2110727424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
