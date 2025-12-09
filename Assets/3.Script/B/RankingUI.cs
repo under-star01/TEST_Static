@@ -211,7 +211,7 @@ namespace Game.UI
         private void OnRestart()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Application.Quit();
         }
 
         private void OnQuit()
