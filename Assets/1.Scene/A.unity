@@ -12252,6 +12252,7 @@ MonoBehaviour:
   TeleportcooldownTime: 6
   canSpaceSkill: 1
   teleportEffectPrefab: {fileID: 120410, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+  ScailEffectPrefab: {fileID: 0}
   shrinkScale: 0.2
   shrinkDuration: 5
   scaleTransitionTime: 0.5
@@ -13674,6 +13675,8 @@ MonoBehaviour:
   CloneSFX: {fileID: 8300000, guid: fedfc26d918c1904eb2271f006c9002b, type: 3}
   YieldReturnSFX: {fileID: 8300000, guid: 969ee49bc39d25c4f84f5b4164c4ad72, type: 3}
   SlowSFX: {fileID: 0}
+  HitSFX: {fileID: 0}
+  GetItemSFX: {fileID: 0}
   menuSelectSFX: {fileID: 0}
   ButtonSFX: {fileID: 0}
   bgmVolume: 1
@@ -24606,6 +24609,8 @@ MonoBehaviour:
   slowMotionScale: 0.05
   speedBoostMultiplier: 1.5
   cloneCooldown: 5
+  StopEffectPrefab: {fileID: 0}
+  CloneEffectPrefab: {fileID: 0}
 --- !u!114 &7940719953724130087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25261,6 +25266,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   rangeIndicator: {fileID: 479350919}
+  shinratenseiEffectPrefab: {fileID: 0}
+  invincibleEffectPrefab: {fileID: 0}
 --- !u!1 &8706536634201208329
 GameObject:
   m_ObjectHideFlags: 0
@@ -25738,8 +25745,8 @@ SceneRoots:
   - {fileID: 1466154374}
   - {fileID: 1166195324}
   - {fileID: 1321313219}
-  - {fileID: 1470332725}
   - {fileID: 582260681}
   - {fileID: 779341611}
   - {fileID: 407889873}
+  - {fileID: 1470332725}
   - {fileID: 130920244}
