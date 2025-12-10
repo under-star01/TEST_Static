@@ -36,8 +36,10 @@ namespace Game.UI
             {
                 closeButton.onClick.AddListener(CloseRankingView);
             }
-
-            rankingViewPanel.SetActive(false);
+            if (rankingViewPanel != null)
+            {
+                rankingViewPanel.SetActive(false);
+            }
         }
 
         public void OpenRankingView()

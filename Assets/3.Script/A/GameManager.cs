@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         Debug.Log("[GameManager] Instance 설정 완료!");
-        DontDestroyOnLoad(gameObject);
+
 
         // 메인 씬에서 바로 플레이어 생성
         SpawnPlayerFromSavedData();

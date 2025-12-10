@@ -14,7 +14,9 @@ namespace Game.UI
 
         [Header("Main Panels")]
         [SerializeField] private GameObject gameOverPanel; // 게임오버 전체 패널
+        [SerializeField] private GameObject playerRecordPanel; // 기록 패널
         [SerializeField] private GameObject nameInputPanel; // 이름 인풋 패널
+        [SerializeField] private GameObject rankingViewPanel; //랭킹뷰패널
 
         [Header("Player Record")]
         [SerializeField] private TextMeshProUGUI recordTimeText; // 기록(생존 시간) 텍스트
@@ -25,10 +27,13 @@ namespace Game.UI
         [SerializeField] private Button submitButton; // 제출 버튼
 
         [Header("Ranking")]
+        [SerializeField] private ScrollRect rankingScrollView; // ScrollView
         [SerializeField] private Transform rankingContent; // 랭킹요소에 들어갈 부모오브젝트
         [SerializeField] private GameObject rankItemPrefab; // 랭킹을 만들 프리팹
+        
 
         [Header("Buttons")]
+        [SerializeField] private Button closeButton; // CloseButton
         [SerializeField] private Button restartButton; // 재시작버튼
         [SerializeField] private Button quitButton; //종료버튼
 
@@ -37,6 +42,7 @@ namespace Game.UI
         [SerializeField] private int normalRankFontSize = 24; // 나머지 7개 출력크기
         [SerializeField] private Color topRankColor = Color.yellow; // 3등 색상 - 노랑
         [SerializeField] private Color normalRankColor = Color.white; // 나머지 - 흰색
+        [SerializeField] private float rankItemHeight = 500f; // 랭킹 아이템 높이
 
         private RankingManager rankingManager; // 랭킹매니저
         private float playerScore; // 플레이어 기록
@@ -48,19 +54,25 @@ namespace Game.UI
             rankingManager = FindAnyObjectByType<RankingManager>();
 
             submitButton.onClick.AddListener(OnSubmitName); // 이름 제출 버튼 누르면 ()실행
+            closeButton.onClick.AddListener(OnCloseRanking); // 종료 버튼 누르면 ()실행
             restartButton.onClick.AddListener(OnRestart); // 재시작 버튼 누르면 ()실행
             quitButton.onClick.AddListener(OnQuit); // 종료 버튼 누르면 ()실행
 
             //시작할때 게임오버 패널 관련 종료시켜놓기
             gameOverPanel.SetActive(false); // 게임오버 패널 끄기
             nameInputPanel.SetActive(false); // 이름 입력 패널 끄기
+            playerRecordPanel.SetActive(false); // 기록 패널 끄기
+            if (rankingViewPanel != null)
+            {
+                rankingViewPanel.SetActive(false);
+            }
         }
 
         public void ShowGameOver(float score) // 게임오버시 호출할 메서드
         {
             playerScore = score; // 전달받은 점수 저장
             gameOverPanel.SetActive(true); // 게임오버 패널 켜기
-
+            playerRecordPanel.SetActive(true); // 플레이어기록 패널 켜기
             recordTimeText.text = FormatTime(score); // 생존 시간 저장( 분 : 초 : 밀리초 저장 - 변경 및 추가 가능)
 
             isNewRecord = CheckIfNewRecord(score); // 신기록(10위안)인지 체크
@@ -70,19 +82,22 @@ namespace Game.UI
                 // 신기록일 경우 아래 띄움
                 recordMessageText.text = "NEW RECORD!";
                 recordMessageText.color = Color.green;
-                DisplayRanking(); // 랭킹 먼저 표시
+
+                // 신기록일 때 랭킹 패널 끄고 이름 입력창 띄우기
+                if (rankingViewPanel != null)
+                    rankingViewPanel.SetActive(false);
+
                 ShowNameInput(); // 그리고 이름 입력창 띄우기
             }
             else
-            { 
-                // 순위에 못들었으면
+            {
                 recordMessageText.text = "Try Again!";
                 recordMessageText.color = Color.gray;
-                DisplayRanking(); // 랭킹띄움
+                DisplayRanking(); // 신기록 아닐 때 바로 랭킹 표시
             }
-
-            Time.timeScale = 0f; // 게임 일시정지(게임오버 창 떠있는 동안)
+            Time.timeScale = 0f; // // 게임 일시정지(게임오버 창 떠있는 동안)
         }
+            
 
         private string FormatTime(float timeInSeconds) // 시간 저장받을 메서드
         {
@@ -115,6 +130,8 @@ namespace Game.UI
         {
             nameInputPanel.SetActive(true); // 이름 입력 패널 초기화
             nameInputField.text = ""; // 입력 필드 비우기 (이전 텍스트 제거)
+            nameInputField.Select(); // 입력 필드에 포커스
+            nameInputField.ActivateInputField();
         }
 
         private void OnSubmitName() // 제출 버튼 클릭시 메서드
@@ -133,14 +150,35 @@ namespace Game.UI
                 // 5글자까지만 입력받기
                 playerName = playerName.Substring(0, 5);
             }
-           
-            rankingManager.SubmitScore(playerName, playerScore); // 랭킹 매니저에 이름, 점수 보내서 저장
-            nameInputPanel.SetActive(false); // 입력 패널 끄기
-            DisplayRanking(); // 랭킹창 띄움
+            try
+            {
+                // 랭킹 매니저에 이름, 점수 보내서 저장
+                rankingManager.SubmitScore(playerName, playerScore);
+                Debug.Log("SubmitScore 호출 완료: " + playerName + " - " + FormatTime(playerScore));
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("SubmitScore 실패: " + ex);
+            }
+            // ⭐ 이름 입력 패널 끄고 랭킹 패널 켜기
+            nameInputPanel.SetActive(false);
+            DisplayRanking();
         }
 
         private void DisplayRanking() // 랭킹창 띄우기
         {
+            Debug.Log("DisplayRanking 시작");
+
+            // ⭐ 랭킹 패널 활성화
+            if (rankingViewPanel != null)
+            {
+                rankingViewPanel.SetActive(true);
+                Debug.Log("랭킹 패널 활성화됨");
+            }
+            else
+            {
+                Debug.LogWarning("rankingViewPanel이 null입니다. Inspector에서 연결해주세요.");
+            }
             // 이전에 띄웠던 남아있는 랭킹 관련 삭제(초기화)
             foreach (Transform child in rankingContent)
             {
@@ -173,7 +211,7 @@ namespace Game.UI
                     rankText.fontSize = topRankFontSize; // 랭킹 사이즈
                     nameText.fontSize = topRankFontSize; // 이름 사이즈
                     scoreText.fontSize = topRankFontSize; // 점수 사이즈
-                    dateText.fontSize = topRankFontSize - 8; // 날짜 사이즈
+                    dateText.fontSize = topRankFontSize - 6; // 날짜 사이즈
 
                     Color rankColor = topRankColor; // 등수별로 색상 다르게
                     if (i == 0) // 1등
@@ -207,11 +245,22 @@ namespace Game.UI
                 }
             }
         }
+        private void OnCloseRanking()
+        {
+            if (rankingViewPanel != null)
+            {
+                rankingViewPanel.SetActive(false);
+                Debug.Log("랭킹 패널 닫힘");
+            }
+        }
 
         private void OnRestart()
         {
             Time.timeScale = 1f;
-            Application.Quit();
+            // 마우스 고정풀기 + 등장
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene("Title");
         }
 
         private void OnQuit()
