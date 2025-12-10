@@ -114,46 +114,72 @@ public class ObstacleSpawner_A : MonoBehaviour
     // Error 낙하물 활성화 메소드
     private void SpawnError()
     {
-        // 생성 위치의 XZ는 랜덤
-        float x = Random.Range(minX, maxX);
-        float z = Random.Range(minZ, maxZ);
+        int count = errorObject_List.Count;
+        if (count == 0) return;
 
-        // Y는 spawnHeight만큼 위로 설정
-        float y = spawnHeight;
+        int startIndex = Random.Range(0, count);
+        GameObject selected = null;
 
-        foreach (GameObject o in errorObject_List)
+        // 랜덤 인덱스 한 바퀴 검사
+        for (int i = 0; i < count; i++)
         {
-            // 비활성화된 오브젝트가 있을 경우, 활성화
-            if (!o.activeSelf)
+            int index = (startIndex + i) % count;
+            GameObject obj = errorObject_List[index];
+
+            if (!obj.activeSelf)
             {
-                Vector3 pos = new Vector3(x, y, z);
-                o.transform.position = pos;
-                o.SetActive(true);
+                selected = obj;
                 break;
             }
         }
+
+        // 모든 오브젝트가 활성화 상태라면 → 스폰 스킵
+        if (selected == null)
+        {
+            return;
+        }
+
+        float x = Random.Range(minX, maxX);
+        float z = Random.Range(minZ, maxZ);
+        float y = spawnHeight;
+
+        selected.transform.position = new Vector3(x, y, z);
+        selected.SetActive(true);
     }
 
     // Warning 낙하물 활성화 메소드
     private void SpawnWarning()
     {
-        // 생성 위치의 XZ는 랜덤
-        float x = Random.Range(minX, maxX);
-        float z = Random.Range(minZ, maxZ);
+        int count = warningObject_List.Count;
+        if (count == 0) return;
 
-        // Y는 spawnHeight만큼 위로 설정
-        float y = spawnHeight;
+        int startIndex = Random.Range(0, count);
+        GameObject selected = null;
 
-        foreach (GameObject o in warningObject_List)
+        // 랜덤 인덱스 한 바퀴 검사
+        for (int i = 0; i < count; i++)
         {
-            // 비활성화된 오브젝트가 있을 경우, 활성화
-            if (!o.activeSelf)
+            int index = (startIndex + i) % count;
+            GameObject obj = warningObject_List[index];
+
+            if (!obj.activeSelf)
             {
-                Vector3 pos = new Vector3(x, y, z);
-                o.transform.position = pos;
-                o.SetActive(true);
+                selected = obj;
                 break;
             }
         }
+
+        // 모든 오브젝트가 활성화 상태라면 → 스폰 스킵
+        if (selected == null)
+        {
+            return;
+        }
+
+        float x = Random.Range(minX, maxX);
+        float z = Random.Range(minZ, maxZ);
+        float y = spawnHeight;
+
+        selected.transform.position = new Vector3(x, y, z);
+        selected.SetActive(true);
     }
 }
