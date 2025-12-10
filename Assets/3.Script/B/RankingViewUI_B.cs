@@ -42,14 +42,16 @@ namespace Game.UI
 
         public void OpenRankingView()
         {
+            AudioManager.Instance.PlayButtonSFX();
             rankingViewPanel.SetActive(true);
             DisplayRanking();
-
+            
             Time.timeScale = 0f;
         }
 
         public void CloseRankingView()
         {
+            AudioManager.Instance.PlayButtonSFX();
             rankingViewPanel.SetActive(false);
 
             Time.timeScale = 1f;

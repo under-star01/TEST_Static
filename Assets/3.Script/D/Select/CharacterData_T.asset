@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CharacterData_T
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Transform
-  characterDescription: "\uB2A5\uB825\nSPACE  : Position\nSHIFT   : Scail"
+  characterDescription: "\uB2A5\uB825\nSPACE  : Position\nSHIFT   : Scale"
   characterIcon: {fileID: 21300000, guid: 0981bae8d17e4b1479f06abf30d39973, type: 3}
   characterID: 0

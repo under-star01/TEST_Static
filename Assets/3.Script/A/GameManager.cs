@@ -173,12 +173,12 @@ public class GameManager : MonoBehaviour
         if(hpCnt >= 3)
         {
             Debug.Log("현재 최대 HP이므로 더이상 증가할 수 없습니다!");
-            memoryGauge -= 10f;
+            memoryGauge -= 5f;
         }
         else
         {
             hpCnt++;
-            memoryGauge -= 10f;
+            memoryGauge -= 5f;
 
             // HP UI갱신
             for (int i = hpUI_List.Count - 1; i >= hpCnt; i--)
@@ -190,7 +190,6 @@ public class GameManager : MonoBehaviour
             {
                 hpUI_List[i].SetActive(true);
             }
-
         }
     }
 
@@ -204,7 +203,7 @@ public class GameManager : MonoBehaviour
 
         if (obstacleSpawner != null)
         {
-            memoryGauge -= 5f;
+            memoryGauge -= 2f;
             // 7초동안 지속
             UseURP = StartCoroutine(UseItem_URP_co(7f));
         }
@@ -229,7 +228,7 @@ public class GameManager : MonoBehaviour
 
         if (obstacleSpawner != null)
         {
-            memoryGauge -= 5f;
+            memoryGauge -= 2f;
             // 7초동안 지속
             UseCaching = StartCoroutine(UseItem_Caching_co(7f));
         }

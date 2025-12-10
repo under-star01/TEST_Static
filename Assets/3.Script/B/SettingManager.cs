@@ -103,6 +103,7 @@ public class SettingManager : MonoBehaviour
             sidebarPanel.SetActive(true);
         }
         // ³ª ÄÑÁ³½´!
+        AudioManager.Instance.PlayButtonSFX();
         Debug.Log("Settings opened");
     }
 
@@ -114,6 +115,7 @@ public class SettingManager : MonoBehaviour
             sidebarPanel.SetActive(false);
         }
         // ³ª ²¨Á³½´!
+        AudioManager.Instance.PlayButtonSFX();
         Debug.Log("Settings closed");
     }
 
@@ -173,6 +175,7 @@ public class SettingManager : MonoBehaviour
 
     private void StartSelect()
     {
+        AudioManager.Instance.PlayMenuSelectSFX();
         SceneManager.LoadScene("Select");
     }
 
